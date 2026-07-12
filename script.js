@@ -4,8 +4,8 @@ const raw_text_output = document.getElementById("raw_text_output")
 const error_output = document.getElementById("error_output")
 const names_dict = new Map()
 //testing purposes:
-names_dict.set("bar", "Bar")
-names_dict.set("jim", "Jim")
+//names_dict.set("bar", "Bar")
+//names_dict.set("jim", "Jim")
 
 function save_name_user() {
     names_output.replaceChildren()
