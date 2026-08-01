@@ -4,8 +4,8 @@ const raw_text_output = document.getElementById("raw_text_output")
 const error_output = document.getElementById("error_output")
 const names_dict = new Map()
 //testing purposes:
-//names_dict.set("bar", "Bar")
-//names_dict.set("jim", "Jim")
+// names_dict.set("bar", "Bar")
+// names_dict.set("jim", "Jim")
 
 function save_name_user() {
     names_output.replaceChildren()
@@ -171,10 +171,44 @@ function show_messages(message_log){
 }
 
 function copy_raw_text_output(id){
-    var r = document.createRange();
-    r.selectNode(document.getElementById(id));
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(r);
-    document.execCommand('copy');
-    window.getSelection().removeAllRanges();
+    var r = document.createRange()
+    r.selectNode(document.getElementById(id))
+    window.getSelection().removeAllRanges()
+    window.getSelection().addRange(r)
+    document.execCommand('copy')
+    window.getSelection().removeAllRanges()
+}
+
+// function copy_raw_text_output(){
+//     // Get the text field
+//   var copyText = document.getElementById("raw_text_output");
+
+//   // Select the text field
+//   copyText.select();
+//   copyText.setSelectionRange(0, 99999); // For mobile devices
+
+//    // Copy the text inside the text field
+//   navigator.clipboard.writeText(copyText.textContent);
+
+//   // Alert the copied text
+//   alert("Copied the text: " + copyText.textContent);
+// }
+
+
+function toggle_explain(){
+    var x = document.getElementById("explain")
+    if (x.style.display === "none") {
+        x.style.display = "block"
+    } else {
+        x.style.display = "none"
+    }
+}
+
+function toggle_ex(){
+    var x = document.getElementById("ex")
+    if (x.style.display === "block") {
+        x.style.display = "none"
+    } else {
+        x.style.display = "block"
+    }
 }
