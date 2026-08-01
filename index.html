@@ -8,104 +8,133 @@
 </head>
 <body>
 
+<header>
+    <h3 class="subtitle">Welcome to Chat Message Creator </h3>
+</header>
+
+
     <div>
-        <h4>Input the names and coresponding usernames into the form below</h4>
+        
         <p>
             Names are what you will call the characters as when writing your chat conversation. Usernames are what gets displayed.<br>
             So a name of "Tony" and username of "TheRealTonyStark" will let you write Tony's messages without having to type "TheRealTonyStark" over and over and over again. Because this site will replace the name with the username for you! 
         </p>
     </div>
-    <form id = "name_and_user_form">
-        <div>
-            <label for = "add_name">Type name in here:</label>
-            <input id = "add_name" type = "text" name = "add_name" placeholder = "Steve">
-        </div>
 
-        <div>
-            <label for="add_user">Type username in here:</label>
-            <input id = "add_user" type = "text" name = "add_user", placeholder = "CaptainAmerica">
-        </div>
-        
-        <div>
-            <button type = "button" onclick = "save_name_user()">Submit</button>
-        </div>
-    </form>
-
+    <p><b>Input the names and coresponding usernames into the form below</b></p>
     <div>
-        <h3>
-            Curent (user)names: <br>
-        </h3>
+        <div>
+            <form id = "name_and_user_form">
+                <div>
+                    <div>
+                        <label for = "add_name">Type name in here:</label>
+                        <input id = "add_name" type = "text" name = "add_name" placeholder = "Steve">
+                    </div>
+                    <div>
+                        <label for="add_user">Type username in here:</label>
+                        <input id = "add_user" type = "text" name = "add_user", placeholder = "CaptainAmerica">
+                    </div>
+                    <button type = "button" onclick = "save_name_user()">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <br>
+        <div>
+                <label for = "del_name">Delete a name:</label>
+                <input id = "del_name" type = "text" name = "del_name", placeholder = "Steve">
+                <button type = "button" onclick = "del_one_name()">Delete</button>
+        </div>
+        <div>
+            <button type = "button" onclick = "del_all_names()">Delete all names</button>
+        </div>
+    </div>
+    <br>
+    
+    
+    <div>
+        <p id="curent_usernames">
+            <b>Curent (user)names:</b> <br>
+        </p>
         <p id="names_output">   
         </p>
     </div>
-    <div>
-         <label for = "del_name">Delete a name:</label>
-        <input id = "del_name" type = "text" name = "del_name", placeholder = "StEvE">
-        <button type = "button" onclick = "del_one_name()">Delete</button>
-    </div>
-    <div>
-        <button type = "button" onclick = "del_all_names()">Delete all names</button>
-    </div>
-    <br><br>
-    <hr>
 
-    <!--<button type = "button" onclick = "is_name_in_dict('aaa')">Funky test button</button>
-    <br><br>
-    -->
+    <br>
 
     <!--Let me explain-->
-    <div>
-        <h4>What now?</h4>
-        <p>
-            A single message is writen in the format "name: message".<br>
-            A reply is writen in the format "sender,reciever:message".<br>
-            Please separate individual messages by presing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
-            Please note that because the code uses ":" to separate the names from the message, putting any other ":" characters into your message will very much break the entire format. So please don't do that. :)
-        </p>
-        <h4>Example:</h4>
-        <p>
-            Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
-            Steve: hey there, I'm captain america <br>
-            Tony: Yeah, we know Steve, you set it as your username.<br>
-            Steve,Tony: Oh I see!
-            <br><br>
-            
-            will result in a preview:<br> 
-            <b>CaptainAmerica</b>: hey there, I'm captain america <br>
-            <b>TheRealTonyStark</b>: Yeah, we know Steve, you set it as your username.<br>
-            <b>CaptainAmerica</b> replied to <b>TheRealTonyStark</b>: Oh I see!
-            <br><br>
-            And a raw html:<br>
-            &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt;: hey there, I'm captain america&lt;/p&gt;<br>
-            &lt;p&gt;&lt;b&gt;TheRealTonyStark&lt;/b&gt;: Yeah, we know Steve, you set it as your username.&lt;/p&gt;<br>
-            &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt; replied to &lt;b>TheRealTonyStark&lt;/b&gt;: Oh I see!&lt;/p&gt;
-            <br>
-            <br>
-            You can then copy the html and paste it directly into your AO3 story (into the raw html tab)
-        </p>
-        <p><b>Is there an issue somewhre? Did something stop working?</b> <br>Shoot me a message on my tumblr: Tumblr TBA once irl people I know won't be looking at this lol!</p>
-        <p>Now go forth and create! :D</p>
+    <button onclick="toggle_explain()">Show/Hide Explanation</button>
+    <div id="explain">
+        <hr>
+        <h4 class="subtitle">What now?</h4>
+            <p>
+                A single message is writen in the format "name: message".<br>
+                A reply is writen in the format "sender,reciever:message".<br>
+                Please separate individual messages by presing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
+                Please note that because the code uses ":" to separate the names from the message, putting any other ":" characters into your message will very much break the entire format. So please don't do that. :)
+            </p>
+
+        <button onclick="toggle_ex()">Show/Hide Example</button>
+        <div id="ex">
+            <h4>Example:</h4>
+            <p>
+                Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
+                Steve: hey there, I'm captain america <br>
+                Tony: Yeah, we know Steve, you set it as your username.<br>
+                Steve,Tony: Oh I see!
+                <br><br>
+                
+                will result in a preview:<br> 
+                <b>CaptainAmerica</b>: hey there, I'm captain america <br>
+                <b>TheRealTonyStark</b>: Yeah, we know Steve, you set it as your username.<br>
+                <b>CaptainAmerica</b> replied to <b>TheRealTonyStark</b>: Oh I see!
+                <br><br>
+                And a raw html:<br>
+                &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt;: hey there, I'm captain america&lt;/p&gt;<br>
+                &lt;p&gt;&lt;b&gt;TheRealTonyStark&lt;/b&gt;: Yeah, we know Steve, you set it as your username.&lt;/p&gt;<br>
+                &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt; replied to &lt;b>TheRealTonyStark&lt;/b&gt;: Oh I see!&lt;/p&gt;
+                <br>
+                <br>
+                You can then copy the html and paste it directly into your AO3 story (into the raw html tab)
+            </p>
+        </div>
     </div>
     <hr>
-    <!--Message testing-->
-    <label for="text_area" id="text_area_label">Type your messages here:</label>
-    <br>
-    <textarea id="text_area" name="text_area" rows="4", cols="50", placeholder='messages in the form of "name: text", separated by enter'></textarea>
-    <br>
-    <button type = "button" onclick = "submit_text()">Submit text</button>
-    <button type = "button" onclick = "clear_text()">Clear Text</button>
-
-    <br>
-    <h3>Preview of your chat conversation:</h3>
-    <p id="error_output"></p>
-    <p id="text_output">   
-    </p>
-    <h3>This is what you copy over to AO3:</h3>
-    <button id="copy_raw_text_output", onclick="copy_raw_text_output('raw_text_output')">Copy your HTML text</button>
-    <p id="raw_text_output">   
-    </p>
 
 
+    <h4  class="subtitle">Message Creator</h4>
+    <div id="css_text_area"><!--Message-->
+            <label for="text_area" id="text_area_label"><b>Type your messages here:</b></label>
+            <br>
+            <textarea id="text_area" name="text_area" rows="4", cols="50", placeholder='messages in the form of "name: text", separated by enter'></textarea>
+            <br>
+            <button type = "button" onclick = "submit_text()">Submit text</button>
+            <button type = "button" onclick = "clear_text()">Clear Text</button>
+        </div>
+        <br>
+    
+    <div class="text_containor">
+        <!-- Outputs-->
+        <div class="text_item">
+            <h4>Preview of your chat conversation:</h4>
+            <p id="error_output"></p>
+            <p id="text_output" class="raw_text">   
+            </p>
+        </div>
+        <div class="text_item">
+            <h4>This is what you copy over to AO3:</h4>
+            <button id="copy_raw_text_output", onclick="copy_raw_text_output('raw_text_output')">Copy your HTML text</button>
+            <p id="raw_text_output" class="raw_text">   
+            </p>
+        </div>
+    </div>
+
+    <br>
+    <footer>
+        <hr>
+        <p><b>Is there an issue somewhere? Did something stop working?</b> <br>Shoot me a message on my tumblr: Tumblr TBA once irl people I know won't be looking at this lol!</p>
+        <p>Now go forth and create! :D</p>
+    </footer>
 
 
 
