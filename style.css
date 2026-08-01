@@ -9,7 +9,7 @@
     margin: 0%;
 }
 
-#ex{
+.examples{
     display: none;
 }
 
@@ -45,6 +45,7 @@
     align-content: flex-start;
     padding: 0 1% 0 1%;
     border-radius: 25px;
+    min-width: 200px;
 
 }
 
