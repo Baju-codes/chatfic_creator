@@ -212,3 +212,12 @@ function toggle_ex(){
         x.style.display = "block"
     }
 }
+
+function toggle_name_ex(){
+    var x = document.getElementById("name_ex")
+    if (x.style.display === "block") {
+        x.style.display = "none"
+    } else {
+        x.style.display = "block"
+    }
+}
