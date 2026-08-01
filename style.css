@@ -1,0 +1,96 @@
+
+.subtitle{
+    text-align: center;
+    color: black;
+    margin: 1% 0% 0% 5%;
+}
+
+#curent_usernames{
+    margin: 0%;
+}
+
+#ex{
+    display: none;
+}
+
+.name_containor{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+}
+
+.name_item{
+    padding: 1%;
+    gap: 20%;
+}
+
+
+.text_containor{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    gap: 1%;
+}
+
+.text_item{
+    width: 40%;
+    padding: 2%;
+    flex-grow: 1;
+    /* background-color: antiquewhite; */
+    border: 0.5px solid black;
+    align-content: flex-start;
+    padding: 0 1% 0 1%;
+    border-radius: 25px;
+
+}
+
+.raw_text{
+    overflow-wrap: break-word;
+}
+
+#css_text_area{
+    align-content: center;
+}
+
+#names_output {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+#names_output p{
+    margin: 1%;
+}
+
+footer{
+    /* background-color: aquamarine; */
+    margin: 0px;
+    padding: 0px;
+    align-self: self-end;
+}
+
+
+
+
+/* 
+#test{
+    border: 8pxl solid red;
+    display: flex;
+    padding: 2%;
+    justify-content: space-evenly;
+    flex-direction: row;
+    gap: 2%;
+    flex-wrap: wrap;
+} */
+
+/* .box{
+    border: 8pxl solid black;
+    height: 50px;
+    width: 50px;
+    background-color: blue;
+    font-size: 10pt;
+} */
