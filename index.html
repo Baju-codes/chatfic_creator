@@ -8,17 +8,19 @@
 </head>
 <body>
 
+
 <header>
-    <h3 class="subtitle">Welcome to Chat Message Creator </h3>
+    <h3 class="subtitle">Welcome to the Chat Message Creator </h3>
 </header>
 
 
     <div>
         
         <p>
-            Names are what you will call the characters as when writing your chat conversation. Usernames are what gets displayed.<br>
-            So a name of "Tony" and username of "TheRealTonyStark" will let you write Tony's messages without having to type "TheRealTonyStark" over and over and over again. Because this site will replace the name with the username for you! 
+            Names are replaced by Usernames in the final text!<br>
         </p>
+        <button onclick="toggle_name_ex()">More Thorough Explanation </button>
+        <p id="name_ex" class="examples">A name of "Tony" and username of "TheRealTonyStark" will let you write Tony's messages as "Tony: message" instead of having to type "TheRealTonyStark: message" over and over and over again. The final text will still display all messages by Tony as being written by "TheRealTonyStark".</p>
     </div>
 
     <p><b>Input the names and coresponding usernames into the form below</b></p>
@@ -66,16 +68,16 @@
     <button onclick="toggle_explain()">Show/Hide Explanation</button>
     <div id="explain">
         <hr>
-        <h4 class="subtitle">What now?</h4>
+        <h4 class="subtitle">How to format messages</h4>
             <p>
                 A single message is writen in the format "name: message".<br>
-                A reply is writen in the format "sender,reciever:message".<br>
+                A reply is writen in the format "sender,reciever: message".<br>
                 Please separate individual messages by presing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
                 Please note that because the code uses ":" to separate the names from the message, putting any other ":" characters into your message will very much break the entire format. So please don't do that. :)
             </p>
 
         <button onclick="toggle_ex()">Show/Hide Example</button>
-        <div id="ex">
+        <div id="ex" class="examples">
             <h4>Example:</h4>
             <p>
                 Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
