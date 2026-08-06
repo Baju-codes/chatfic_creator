@@ -1,10 +1,4 @@
 
-.subtitle{
-    text-align: center;
-    color: black;
-    margin: 1% 0% 0% 5%;
-}
-
 #curent_usernames{
     margin: 0%;
 }
@@ -38,7 +32,7 @@
 
 .text_item{
     width: 40%;
-    padding: 2%;
+    margin: 2%;
     flex-grow: 1;
     /* background-color: antiquewhite; */
     border: 0.5px solid black;
@@ -49,8 +43,15 @@
 
 }
 
-.raw_text{
+
+.text_outputs{
     overflow-wrap: break-word;
+    height: 150px;
+    overflow: auto
+}
+
+#text_output{
+    height: 200px;
 }
 
 #css_text_area{
