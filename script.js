@@ -64,9 +64,9 @@ function submit_text(){
             let name_and_text = message.split(":")
             // if no name is provided, break
             if (name_and_text.length < 2){
-                console.log("proved valid message in the form of 'name:text'")
+                console.log("Proved valid message in the form of 'name:text'")
                 let type = "error"
-                let message = "proved valid message in the form of 'name:text'"
+                let message = "Proved valid message in the form of 'name:text'"
                 text_back.push([type, message])
                 show_messages()
                 break
@@ -121,9 +121,9 @@ function submit_text(){
                         text_back.push([type, author, reciever, message])
                     }
                 } else{
-                    console.log("text has too many specified names")
+                    console.log("Text has too many specified names")
                     let type = "error"
-                    let message = "text has too many specified names"
+                    let message = "Text has too many specified names"
                     text_back.push([type, message])
                 }
             }
@@ -148,14 +148,14 @@ function show_messages(message_log){
     let raw = ""
     for(let message of text_back){
         if(message[0] == "error"){
-            error_output.insertAdjacentHTML("afterBegin", `<b>warning, text is incomplete due to an error! ${message[1]}</b>`)
-            preview += `<b>${message[1]}</b>`
-            preview += "<br>"
+            error_output.insertAdjacentHTML("afterBegin", `<b>Warning, text is incomplete due to an error! ${message[1]}</b>`)
+            // preview += `<b>${message[1]}</b>`
+            // preview += "<br>"
         }
         else if(message[0] === "message"){
             preview += `<b>${message[1]}</b>: ${message[2]}`
             preview += "<br>"
-            raw = `<p><b>${message[1]}</b>: ${message[2]}<p>`
+            raw = `<p><b>${message[1]}</b>: ${message[2]}</p>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
@@ -178,21 +178,6 @@ function copy_raw_text_output(id){
     document.execCommand('copy')
     window.getSelection().removeAllRanges()
 }
-
-// function copy_raw_text_output(){
-//     // Get the text field
-//   var copyText = document.getElementById("raw_text_output");
-
-//   // Select the text field
-//   copyText.select();
-//   copyText.setSelectionRange(0, 99999); // For mobile devices
-
-//    // Copy the text inside the text field
-//   navigator.clipboard.writeText(copyText.textContent);
-
-//   // Alert the copied text
-//   alert("Copied the text: " + copyText.textContent);
-// }
 
 
 function toggle_explain(){
