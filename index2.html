@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index2-styles.css">
+    <link rel="stylesheet" href="overall.css">
+
+    <title>Document</title>
+</head>
+<body>
+
+
+<div class="phone">
+    <p class="messagebody">
+        <!-- <span class="header">contact</span><br><br> -->
+        <span class="breply">iOS text</span><br><br>
+        <span class="text">Other person's reply</span><br><br>
+        <span class="greply">SMS text</span><br><br>
+        <span class="time"><b>Today</b> 9:05 AM</span><br />
+        <span class="typing-indicator"><span></span><span></span><span></span></span>
+        
+    </p>
+
+    
+</div>
+
+<div class="phone">
+<p class="messagebody">
+<br>
+<span class="names">normal</span><br>
+<span class="text">So what's the plan for this weekend you guys?</span><br>
+<span class="greply">I've got work</span><br>
+<span class="names">Tim</span><br>
+<span class="text">Same here. And I think Ben does too.</span><br>
+<span class="names">Sarah</span><br>
+<span class="text">Ugh, really?</span><br>
+</p></div>
+
+
+
+
+<!-- 
+a: hi
+b, a: hello there
+me: hey3
+a,me: you're being replied to
+me,b: and now b is being replied to by me
+b: typing 
+-->
+
+
+
+
+
+    <!--Old stuff-->
+    <header class="header">
+        <a href="intro.html" class="header-child" class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+            </svg>
+        </a>
+        <div class="spacer"></div>
+        <h3 class="header-child">Welcome to the Chat Message Creator </h3>
+        <div class="spacer"></div>
+    </header>
+
+
+    <div>
+        <p>
+            Names are replaced by Usernames in the final text!<br>
+        </p>
+        <button class="custom-btn btn-1" onclick="toggle_name_ex()">More Thorough Explanation </button>
+        <p id="name_ex" class="examples">A name of "Tony" and username of "TheRealTonyStark" will let you write Tony's messages as "Tony: message" instead of having to type "TheRealTonyStark: message" over and over and over again. The final text will still display all messages by Tony as being written by "TheRealTonyStark".</p>
+    </div>
+
+    <p><b>Input the names and coresponding usernames into the form below</b></p>
+    <div>
+        <div>
+            <form id = "name_and_user_form">
+                <div>
+                    <div>
+                        <p><label for = "add_name">Type name in here:</label>
+                        <input id = "add_name" class="custom-input" type = "text" name = "add_name" placeholder = "Steve"></p>
+                    </div>
+                    <div>
+                        <label for="add_user">Type username in here:</label>
+                        <input id = "add_user" class="custom-input" type = "text" name = "add_user", placeholder = "CaptainAmerica">
+                    </div>
+                    <button class="custom-btn btn-1" type = "button" onclick = "save_name_user()">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <br>
+        <div>
+                <label for = "del_name">Delete a name:</label>
+                <input id = "del_name" class="custom-input" type = "text" name = "del_name", placeholder = "Steve">
+                <button class="custom-btn btn-1" type = "button" onclick = "del_one_name()">Delete</button>
+        </div>
+        <div>
+            <button class="custom-btn btn-1" type = "button" onclick = "del_all_names()">Delete all names</button>
+        </div>
+    </div>
+    <br>
+    
+    
+    <div>
+        <p id="curent_usernames">
+            <b>Curent (user)names:</b> <br>
+        </p>
+        <p id="names_output">   
+        </p>
+    </div>
+
+    <br>
+
+    <!--Let me explain-->
+    <button class="custom-btn btn-1" onclick="toggle_explain()">Show/Hide Explanation</button>
+    <div id="explain">
+        <hr>
+        <h4 class="subtitle">How to format messages</h4>
+            <p>
+                A single message is writen in the format "name: message".<br>
+                A reply is writen in the format "sender,reciever: message".<br>
+                Please separate individual messages by presing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
+                Please note that because the code uses ":" to separate the names from the message, putting any other ":" characters into your message will very much break the entire format. So please don't do that. :)
+            </p>
+
+        <button class="custom-btn btn-1" onclick="toggle_ex()">Show/Hide Example</button>
+        <div id="ex" class="examples">
+            <h4>Example:</h4>
+            <p>
+                Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
+                Steve: hey there, I'm captain america <br>
+                Tony: Yeah, we know Steve, you set it as your username.<br>
+                Steve,Tony: Oh I see!
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>will result in a preview:</b><br><br>
+                        <b>CaptainAmerica</b>: hey there, I'm captain america <br>
+                        <b>TheRealTonyStark</b>: Yeah, we know Steve, you set it as your username.<br>
+                        <b>CaptainAmerica</b> replied to <b>TheRealTonyStark</b>: Oh I see!
+                        <br>
+                    <div class="display_side_by_side_child">
+                        <b>And a raw html:</b><br><br>
+                        &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt;: hey there, I'm captain america&lt;/p&gt;<br>
+                        &lt;p&gt;&lt;b&gt;TheRealTonyStark&lt;/b&gt;: Yeah, we know Steve, you set it as your username.&lt;/p&gt;<br>
+                        &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt; replied to &lt;b>TheRealTonyStark&lt;/b&gt;: Oh I see!&lt;/p&gt;
+                    </div>
+                </div>  
+                You can then copy the html and paste it directly into your AO3 story (into the raw html tab)
+            </p>
+        </div>
+    </div>
+    <hr>
+
+
+    <h4  class="subtitle">Message Creator</h4>
+    <div id="css_text_area"> Message
+            <label for="text_area" id="text_area_label"><b>Type your messages here:</b></label>
+            <br>
+            <textarea id="text_area" name="text_area" rows="4", cols="50", placeholder='messages in the form of "name: text", separated by enter'></textarea>
+            <br>
+            <button class="custom-btn btn-1" type = "button" onclick = "submit_text()">Submit text</button>
+            <button class="custom-btn btn-1" type = "button" onclick = "clear_text()">Clear Text</button>
+        </div>
+        <br>
+    <p id="error_output"></p>
+    <div class="text_containor">
+        <!-- Outputs-->
+        <div class="text_item">
+            <h4>Preview of your chat conversation:</h4>
+            <p id="text_output" class="text_outputs">   
+            </p>
+        </div>
+        <div class="text_item">
+            <h4>This is what you copy over to AO3:</h4>
+            <button class="custom-btn btn-1" id="copy_raw_text_output", onclick="copy_raw_text_output('raw_text_output')">Copy your HTML text</button>
+            <p id="raw_text_output" class="text_outputs">   
+            </p>
+        </div>
+    </div>
+
+    <br>
+    <footer>
+        <hr>
+        <p>Now go forth and create! :D</p>
+    </footer>
+
+
+
+    <script src="script2.js"></script>
+
+
+</body>
+</html>

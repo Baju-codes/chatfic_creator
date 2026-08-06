@@ -1,0 +1,134 @@
+.custom-btn {
+    width: auto;
+    height: auto;
+    color: #000000;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: small;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+    text-align: center;
+}
+
+    .btn-1 {
+        background: rgb(183, 144, 246);
+        background: linear-gradient(0deg, rgb(183, 144, 246) 0%, rgb(200, 137, 255) 100%);
+        border: none;
+    }
+
+    .btn-1:before {
+        height: 0%;
+        width: 2px;
+    }
+
+    .btn-1:hover {
+        box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5),
+                    -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+        inset -4px -4px 6px 0 rgba(255,255,255,.2),
+        inset 4px 4px 6px 0 rgba(35, 35, 35, 0.4);
+    }
+
+
+/* From Uiverse.io by Jaareet */ 
+.custom-input {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: small;
+  color: #000000;
+  background-color:white;
+  border-radius: 5px;
+  /* border-color: rgb(0, 0, 0);
+  border-width: 2px; */
+  box-shadow: 0 0 .4vw rgb(0,0,0,0.5);
+  border: none;
+  outline: none;
+  padding: 0.4vw;
+  max-width: 190px;
+  transition: .4s;
+  
+}
+
+    .custom-input:hover {
+    box-shadow: 0 0 0 .15vw rgb(200, 137, 255);
+    }
+
+    .custom-input:focus {
+    box-shadow: 0 0 0 .15vw rgb(200, 137, 255);
+    }
+
+
+.subtitle{
+    text-align: center;
+    color: black;
+    margin: 1% 0% 0% 5%;
+}
+
+
+.header{
+    display: inline-flex;
+    flex-direction: row;
+    gap: 0%;
+    width: 100%;
+    justify-content: center;
+
+}
+
+
+.header .icon{
+    justify-self: flex-start;
+}
+
+.header .spacer {
+  flex: 1 1 auto;
+}
+
+
+.display_side_by_side{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    gap: 1%;
+}
+
+.display_side_by_side_child{
+     width: 40%;
+    margin: 2%;
+    flex-grow: 1;
+    align-content: flex-start;
+    padding: 0 1% 0 1%;
+    border-radius: 25px;
+    min-width: 200px;
+}
+
+
+.display_side_by_side_border{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    gap: 1%;
+}
+
+.display_side_by_side_border_child{
+     width: 40%;
+    margin: 2%;
+    flex-grow: 1;
+    /* background-color: antiquewhite; */
+    border: 0.5px solid black;
+    align-content: flex-start;
+    padding: 0 1% 0 1%;
+    border-radius: 25px;
+    min-width: 200px;
+}
