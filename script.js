@@ -72,7 +72,7 @@ function submit_text(){
                 break
             } else{
                 let n = name_and_text[0]
-                let message = name_and_text[1].trim()
+                let message = name_and_text.slice(1).join(":").trim()
                 // find out if message is a normal message or a reply
                 let rep_names = n.split(",")
                 //if normal message:
@@ -189,6 +189,7 @@ function toggle_explain(){
     }
 }
 
+
 function toggle_ex(){
     var x = document.getElementById("ex")
     if (x.style.display === "block") {
@@ -206,3 +207,4 @@ function toggle_name_ex(){
         x.style.display = "block"
     }
 }
+
