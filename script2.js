@@ -3,10 +3,12 @@ const text_output = document.getElementById("text_output")
 const raw_text_output = document.getElementById("raw_text_output")
 const error_output = document.getElementById("error_output")
 const names_dict = new Map()
-names_dict.set("me", "me")
+
 //testing purposes:
-names_dict.set("a", "Bar")
-names_dict.set("b", "Jim")
+// names_dict.set("me", "me")
+// names_dict.set("a", "Bar")
+// names_dict.set("b", "Jim")
+
 
 function save_name_user() {
     names_output.replaceChildren()
@@ -73,7 +75,9 @@ function submit_text(){
                 break
             } else{
                 let n = name_and_text[0]
-                let message = name_and_text[1].trim()
+                // console.log(n)
+                let message = name_and_text.slice(1).join(":").trim()
+                // console.log(message)
                 // find out if message is a normal message or a reply
                 let rep_names = n.split(",")
                 //if normal message:
@@ -82,12 +86,14 @@ function submit_text(){
                     let temp = is_name_in_dict(rep_names[0].trim())
 
                     //handling of read
-                    if(rep_names === "read"){
-                        let type = "read"
+                    if(rep_names == "time" | rep_names == "Time"){
+                        let type = "time"
                         text_back.push([type, message])
                     }
                     // if name not in dictionary break
-                    else if (temp === false){
+                    else 
+                    
+                        if (temp === false){
                     console.log(`Name "${rep_names[0].trim()}" does not exist in your curent list of names`)
                     let type = "error"
                     let message = `Name "${rep_names[0].trim()}" does not exist in your curent list of names`
@@ -101,6 +107,12 @@ function submit_text(){
                         let type = "typing"
                         let user = names_dict.get(rep_names[0])
                         text_back.push([type, user])
+                    }
+                    else if(rep_names[0] === "me"){
+                        console.log("me_message")
+                        let type = "me_message"
+                        let user = names_dict.get(rep_names[0])
+                        text_back.push([type, user, message])
                     }
                     else{
                         let type = "message"
@@ -127,8 +139,22 @@ function submit_text(){
                         text_back.push([type, message])
                         show_messages()
                         break
-                    // if they are, log the message as a reply and save it
-                    } else{
+                    
+                    } else if(rep_names[0] === "me"){
+                        let type = "me_reply"
+                        let author = names_dict.get(rep_names[0].trim())
+                        let reciever = names_dict.get(rep_names[1].trim())
+                        text_back.push([type, author, reciever, message])
+                    }
+                    else if(rep_names[1] === "me"){
+                        let type = "reply_to_me"
+                        let author = names_dict.get(rep_names[0].trim())
+                        let reciever = names_dict.get(rep_names[1].trim())
+                        text_back.push([type, author, reciever, message])
+                    }
+
+                    // if message is a reply, log the message as a reply and save it
+                    else {
                         let type = "reply"
                         let author = names_dict.get(rep_names[0].trim())
                         let reciever = names_dict.get(rep_names[1].trim())
@@ -165,66 +191,64 @@ function show_messages(message_log){
     preview += `${start_stuff}`
     raw_text_output.insertAdjacentText("beforeEnd", `${start_stuff}`)
     for(let message of text_back){
+        //error handling
         if(message[0] == "error"){
             error_output.insertAdjacentHTML("afterBegin", `<b>Warning, text is incomplete due to an error! ${message[1]}</b>`)
         }
+        //typing handling
         else if(message[0] == "typing"){
             preview += `<span class="typing-indicator"><span></span><span></span><span></span></span>`
-            raw = `<span class="hide"><b>${message[1]}</b> is typing</span><span class="typing-indicator"><span></span><span></span><span></span></span>`
+            raw = `<span class="hide">${message[1]} is typing</span><span class="typing-indicator"><span></span><span></span><span></span></span>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
-        else if(message[0] == "read"){
-            preview += `<span class="time">Read at: ${message[1]}</span><br>`
-            raw = `<span class="time">Read at: ${message[1]}</span><br>`
+        //time handling
+        else if(message[0] == "time"){
+            preview += `<span class="time">${message[1]}</span><br>`
+            raw = `<span class="time">${message[1]}</span><br></br>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
+        //regular message
         else if(message[0] === "message"){
-            // if message is coming from "me", display it on the right and in blue
-            if(message[1] === "me"){
-                preview += `<span class="breply">${message[2]}</span><br></br>`
-                raw = `<span class="hide"><b>${message[1]}:</b></span><span class="breply">${message[2]}</span><br></br>`
-                raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
-                raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
-            }
-            // else message is coming from someone else and will be displayed on the left and in gray
-            else{ 
-                preview += `<span class="names">${message[1]}</span><br>
-                <span class="text">${message[2]}</span>
-                <br></br>`
-                // preview += `<b>${message[1]}</b>: ${message[2]}`
-                // preview += "<br>"
-                raw = `<span class="names"><span class="hide"><b></span>${message[1]}<span class="hide"></b>:</span></span><br><span class="text">${message[2]}</span><br></br>`
-                raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
-                raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
-            }
-        }
-        else if((message[0] === "reply")){
-            // if reply is coming from "me", display it on the right and in blue
-            if(message[1] === "me"){
-                preview += `<span class="breply">${message[3]}</span><br></br>`
-                raw = `<span class="hide"><b>You</b> replied to <b>${message[2]}:</b></span><span class="breply">${message[3]}</span><br></br>`
-                raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
-                raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
-            }
-           //else if someone is replying to me, adjust the name scheme
-            else if (message[2] === "me"){
-                preview += `<span class="names">${message[1]} replied to you</span><br> <span class="text">${message[3]}</span><br></br>`
-                raw = `<span class="names"><span class="hide"><b></span>${message[1]}<span class="hide">:</b></span>replied to you</span><br><span class="text">${message[3]}</span><br></br>`
-                raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
-                raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
-            }
-             // else message is coming from someone else and will be displayed on the left and in gray
-            else{
-            preview += `<span class="names">${message[1]} replied to ${message[2]}</span><br> <span class="text">${message[3]}</span><br></br>`
-            raw = `<span class="names"><span class="hide"><b></span>${message[1]}<span class="hide"></b></span>replied to <span class="hide"><b></span>${message[2]}<span class="hide">:</b></span></span><br> <span class="text">${message[3]}</span><br></br>`
-            // preview += `<b>${message[1]}</b> replied to <b>${message[2]}</b>: ${message[3]}`
-            // preview += "<br>"
-            // raw = `<p><b>${message[1]}</b> replied to <b>${message[2]}</b>: ${message[3]}</p>`
+            //  message is coming from someone else and will be displayed on the left and in gray
+            preview += `<span class="names">${message[1]}</span><br>
+            <span class="text">${message[2]}</span>
+            <br></br>`
+            raw = `<span class="names"><span class="hide"></span>${message[1]}<span class="hide">: </span></span><br><span class="text">${message[2]}</span><br></br>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
-            }
+        }
+        // message is coming from "me"
+        else if(message[0] === "me_message"){
+                preview += `<span class="breply">${message[2]}</span><br></br>`
+                //raw = `<span class="hide"><b></span>${message[1]}<span class="hide">: </b></span><span class="breply">${message[2]}</span><br></br>`
+                raw = `<span class="hide">${message[1]}:<br></span><span class="breply">${message[2]}</span><br></br>`
+
+
+                raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+                raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        // regular reply 
+        else if((message[0] === "reply")){
+            preview += `<span class="names">${message[1]} replied to ${message[2]}</span><br> <span class="text">${message[3]}</span><br></br>`
+            raw = `<span class="names"><span class="hide"></span>${message[1]}<span class="hide"></span> replied to <span class="hide"></span>${message[2]}<span class="hide">: </span></span><br> <span class="text">${message[3]}</span><br></br>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        // reply is coming from "me"
+        else if(message[0] === "me_reply"){
+                preview += `<span class="breply">${message[3]}</span><br></br>`
+                raw = `<span class="hide">You replied to ${message[2]}: <br></span><span class="breply">${message[3]}</span><br></br>`
+                raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+                raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //  someone is replying to me
+        else if (message[0] === "reply_to_me"){
+            preview += `<span class="names">${message[1]} replied to you</span><br> <span class="text">${message[3]}</span><br></br>`
+            raw = `<span class="names"><span class="hide"></span>${message[1]}<span class="hide"></span> replied to you:</span><br><span class="text">${message[3]}</span><br></br>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
     }
     preview += `${end_stuff}`
@@ -278,6 +302,33 @@ function toggle_ex(){
 
 function toggle_name_ex(){
     var x = document.getElementById("name_ex")
+    if (x.style.display === "block") {
+        x.style.display = "none"
+    } else {
+        x.style.display = "block"
+    }
+}
+
+function toggle_gen_ex(){
+    var x = document.getElementById("general_ex")
+    if (x.style.display === "block") {
+        x.style.display = "none"
+    } else {
+        x.style.display = "block"
+    }
+}
+
+function toggle_blue_message_ex(){
+    var x = document.getElementById("blue_message_ex")
+    if (x.style.display === "block") {
+        x.style.display = "none"
+    } else {
+        x.style.display = "block"
+    }
+}
+
+function toggle_hide_span_ex(){
+        var x = document.getElementById("hide_span_ex")
     if (x.style.display === "block") {
         x.style.display = "none"
     } else {
