@@ -11,9 +11,7 @@
 </head>
 <body>
 
-
-
-<!-- 
+<!--
 a: hi
 b, a: hello there
 me: hey3
@@ -24,6 +22,9 @@ b: typing
 
 
 
+
+
+    <!--Old stuff-->
     <header class="header">
         <a href="intro.html" class="header-child" class="icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -92,37 +93,72 @@ b: typing
         <hr>
         <h4 class="subtitle">How to format messages</h4>
             <p>
-                A single message is writen in the format "name: message".<br>
-                A reply is writen in the format "sender,reciever: message".<br>
+                A single message is writen in the format "name: message" (ie: "Steve: Hi").<br>
+                A reply is writen in the format "sender,reciever: message" (ie: "Steve, Tony: Hello!").<br>
+                If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Please note that blue messages don't have a functioning typing indicator.<br>
+                If you want to add a time indicator, write "time" where you would usually wite a person's name (ie: "time: Today 2:30 PM").<br>
                 Please separate individual messages by presing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
-                Please note that because the code uses ":" to separate the names from the message, putting any other ":" characters into your message will very much break the entire format. So please don't do that. :)
             </p>
 
-        <button class="custom-btn btn-1" onclick="toggle_ex()">Show/Hide Example</button>
-        <div id="ex" class="examples">
-            <h4>Example:</h4>
-            <p>
-                Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
-                Steve: hey there, I'm captain america <br>
-                Tony: Yeah, we know Steve, you set it as your username.<br>
-                Steve,Tony: Oh I see!
-                <div class="display_side_by_side">
-                    <div class="display_side_by_side_child">
-                        <b>will result in a preview:</b><br><br>
-                        <b>CaptainAmerica</b>: hey there, I'm captain america <br>
-                        <b>TheRealTonyStark</b>: Yeah, we know Steve, you set it as your username.<br>
-                        <b>CaptainAmerica</b> replied to <b>TheRealTonyStark</b>: Oh I see!
-                        <br>
-                    <div class="display_side_by_side_child">
-                        <b>And a raw html:</b><br><br>
-                        &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt;: hey there, I'm captain america&lt;/p&gt;<br>
-                        &lt;p&gt;&lt;b&gt;TheRealTonyStark&lt;/b&gt;: Yeah, we know Steve, you set it as your username.&lt;/p&gt;<br>
-                        &lt;p&gt;&lt;b&gt;CaptainAmerica&lt;/b&gt; replied to &lt;b>TheRealTonyStark&lt;/b&gt;: Oh I see!&lt;/p&gt;
-                    </div>
-                </div>  
-                You can then copy the html and paste it directly into your AO3 story (into the raw html tab)
-            </p>
-        </div>
+        <!-- <button class="custom-btn btn-1" onclick="toggle_ex()">Show/Hide Example</button> -->
+            <div>
+                <h4>More Explanations/Examples:</h4>
+                <button class="custom-btn btn-1" onclick="toggle_gen_ex()">Generally, what do I do?</button>
+                <button class="custom-btn btn-1"  onclick="toggle_blue_message_ex()">I want one chatacter to be typing the messages (blue messages)</button>
+                <button class="custom-btn btn-1"  onclick="toggle_hide_span_ex()">Why is there a "hide" span in the raw html?</button>
+            </div>
+            <div id="general_ex" class="examples">
+                <p>
+                    Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
+                    time: Today 14:30
+                    Steve: hey there, I'm captain america <br>
+                    Tony: Yeah, we know Steve, you set it as your username.<br>
+                    Steve,Tony: Oh I see!
+                    Tony: typing
+                    <div class="display_side_by_side">
+                        <div class="display_side_by_side_child">
+                            <b>will result in a preview:</b><br><br>
+                            
+                            <div class="phone"> <p class="messagebody"> <br><span class="time">Today 14:30</span><br>
+                            <span class="names">CaptainAmerica</span><br><span class="text">hey there, I'm captain america</span><br></br>
+                            <span class="names">TheRealTonyStark</span><br><span class="text">Yeah, we know Steve, you set it as your username.</span><br></br>
+                            <span class="names">CaptainAmerica replied to TheRealTonyStark</span><br> <span class="text">Oh I see!</span><br></br>
+                            <span class="typing-indicator"><span></span><span></span><span></span></span>
+                            </p></div>
+
+                        </div>
+                        <div class="display_side_by_side_child">
+                            <b>With Workskins turned off on AO3, the text will look likw this:</b><br>
+                            <!-- <b>And a raw html:</b><br><br>
+                            
+                                &lt;div class="phone"&gt; &lt;p class="messagebody"&gt; &lt;br&gt;&lt;span class="time"&gt;Today 14:30&lt;/span&gt;&lt;br&gt;<br>
+                                &lt;span class="names"&gt; &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;CaptainAmerica&lt;span class="hide"&gt;&lt;/b&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class="text"&gt;hey there, I'm captain america&lt;/span&gt;&lt;br&gt;&lt;/br&gt;<br>
+                                &lt;span class="names"&gt; &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;TheRealTonyStark&lt;span class="hide"&gt;&lt;/b&gt;:&lt;/span>&lt;/span&gt;&lt;br&gt;&lt;span class="text"&gt;Yeah, we know Steve, you set it as your username.&lt;/span&gt;&lt;br&gt;&lt;/br&gt;<br>
+                                &lt;span class="names"&gt; &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;CaptainAmerica&lt;span class="hide"&gt;&lt;/b&gt;&lt;/span&gt;replied to &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;TheRealTonyStark&lt;span class="hide">:&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt; &lt;span class="text"&gt;Oh I see! Tony: typing&lt;/span&gt;&lt;br&gt;&lt;/br&gt;<br>
+                                &lt;/p&gt;&lt;/div&gt; -->
+                        </div>
+                    </div>  
+                    You can then copy the html and paste it directly into your AO3 story (into the raw html tab)
+                </p>
+            </div>
+
+            <div id="blue_message_ex" class="examples">
+                <p>
+                    If you want blue messages, you will have to create a name-username pair, where the name is "me" and the username is whatever you want that character's username to be. <br>
+                    Even though the username of the pov charcater is not displayed, you should still give them a representative username. The username is visible when AO3 workskins are hidden for a reader. (see: "Why is there a "hide" span in the raw html?")<br>
+                    For example, if we wanted to write messages from the point of view of Peter Parker, we would make a character with the name "me" and the username "Peter". Then we would write all of Peter's messages as "me:message" <br>
+                </p>
+                So "me:Hey guys, I'm here too", will result in a preview: <br>
+                <div class="phone"> <p class="messagebody"> <br><span class="breply">Hey guys, I'm here too</span><br></br></p></div>
+            </div>
+            <div id="hide_span_ex" class="examples">
+                <p>
+                    Hide spans are a way to make chat-messages acessible for people with e-readers, for people downloading your work to read offline and for anyone who had workskins disabled on their AO3 profile.<br>
+                    The workskin privided below automatically hides anything in the "hide" span when the worksin is working as intended. But if the worskin is not working, all text (even the one in hide spans) will be visible.<br>
+                    It's incredibly neat, if I do say so myself, and all credit for this, and the entire workskin I am using must go to "CodenameCarrot" and "La_Temperanza" on AO3 who made it!
+                </p>
+            </div>
+    
     </div>
     <hr>
 
@@ -153,16 +189,224 @@ b: typing
         </div>
     </div>
 
+    <hr>
+        <h4 class="subtitle">Worksin Information:</h4>
+        <h4>What's a workskin?</h4>
+        <p>A workskin is AO3's way of implementing styles. It can be used to show text in different fonts, to change how your fic looks, and, in our case, it is used to make the messages we created earlier look like messages instead of raw code.<br>
+            Bellow, you will find the code you have to paste into your AO3 workskin. To create a worksin, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add thic code to an existing workskin by edditing it!<br>
+            When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the html text message text from above into the "HTML" text edditor.
+        </p>
+        <br>
+        <h4>Contents of your chat worksin</h4>
+        <button class="custom-btn btn-1" onclick="copy_raw_text_output('workskin_copy')"> Coppy Worksin </button>
+        <div class="workskin_border">
+            <p id="workskin_copy" class="workskin_scrollable">
+                #workskin .hide {<br>
+                    display: none;<br>
+                }<br>
+                <br><br>
+                #workskin .phone {<br>
+                    max-width: 300px;<br>
+                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;<br>
+                    display: table;<br>
+                }<br>
+                <br><br>
+                #workskin .messagebody {<br>
+                    width: 300px;<br>
+                    background-color: #FFFFFF;<br>
+                    display: table;<br>
+                    padding-left: .5em;<br>
+                    padding-right: .5em;<br>
+                }<br>
+                <br><br>
+                
+                #workskin .text {<br>
+                    float: left;<br>
+                    color: #000000;<br>
+                    margin: 0 0 0.5em;<br>
+                    border-radius: 1em;<br>
+                    padding: 0.5em 1em;<br>
+                    background: #e5e5ea;<br>
+                    max-width: 75%;<br>
+                    clear: both;<br>
+                    position: relative;<br>
+                }<br>
+                <br><br>
+                #workskin .text::after {<br>
+                    content: "";<br>
+                    position: absolute;<br>
+                    left: -.5em;<br>
+                    bottom: 0;<br>
+                    width: 0.5em;<br>
+                    height: 1em;<br>
+                    border-right: 0.5em solid #e5e5ea;<br>
+                    border-bottom-right-radius: 1em 0.5em;<br>
+                }<br>
+                <br><br>
+
+                #workskin .breply {<br>
+                    float: right;<br>
+                    color: #FFFFFF;<br>
+                    margin: 0 0 0.5em;<br>
+                    border-radius: 1em;<br>
+                    padding: 0.5em 1em;<br>
+                    background: #1289fe;<br>
+                    max-width: 75%;<br>
+                    clear: both;<br>
+                    position: relative;<br>
+                }<br>
+                <br><br>
+                #workskin .breply::after {<br>
+                    content: "";<br>
+                    position: absolute;<br>
+                    right: -0.5em;<br>
+                    bottom: 0;<br>
+                    width: 0.5em;<br>
+                    height: 1em;<br>
+                    border-left: 0.5em solid #1289fe;<br>
+                    border-bottom-left-radius: 1em 0.5em;<br>
+                }<br>
+                <br><br>
+                #workskin .greply {<br>
+                    float: right;<br>
+                    color: #FFFFFF;<br>
+                    margin: 0 0 0.5em;<br>
+                    border-radius: 1em;<br>
+                    padding: 0.5em 1em;<br>
+                    background: #35cb24;<br>
+                    max-width: 75%;<br>
+                    clear: both;<br>
+                    position: relative;<br>
+                }<br>
+                <br><br>
+                #workskin .greply::after {<br>
+                    content: "";<br>
+                    position: absolute;<br>
+                    right: -0.5em;<br>
+                    bottom: 0;<br>
+                    width: 0.5em;<br>
+                    height: 1em;<br>
+                    border-left: 0.5em solid #35cb24;<br>
+                    border-bottom-left-radius: 1em 0.5em;<br>
+                }<br>
+                <br><br>
+                #workskin .time {<br>
+                    min-width: 295px;<br>
+                    color: #7B7C80;<br>
+                    font-size: .75em;<br>
+                    padding-bottom: .5em;<br>
+                    padding-top: .5em;<br>
+                    margin-left: -.5em;<br>
+                    margin-right: -.5em;<br>
+                    margin-bottom: -.5em;<br>
+                    text-align: center;<br>
+                    display: table;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator {<br>
+                    background-color: #e6e7ed;<br>
+                    width: auto;<br>
+                    border-radius: 1em;<br>
+                    padding: .5em 1em;<br>
+                    display: table;<br>
+                    margin: 0 0 .5em;<br>
+                    position: relative;<br>
+                    overflow: hidden;<br>
+                    text-align: left;<br>
+                    clear: both;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator::before,<br>
+                #workskin .typing-indicator::after {<br>
+                    content: '';<br>
+                    position: absolute;<br>
+                    bottom: -2px;<br>
+                    left: -2px;<br>
+                    height: 12px;<br>
+                    width: 12px;<br>
+                    border-radius: 50%;<br>
+                    background-color: #e6e7ed;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator::after {<br>
+                    height: 6px;<br>
+                    width: 6px;<br>
+                    left: -6px;<br>
+                    bottom: -6px;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span {<br>
+                    height: 15px;<br>
+                    width: 15px;<br>
+                    float: left;<br>
+                    margin: 0 1px;<br>
+                    background-color: #9E9EA1;<br>
+                    display: block;<br>
+                    border-radius: 50%;<br>
+                    opacity: 0.4;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span {<br>
+                    height: .65em;<br>
+                    width: .65em;<br>
+                    float: left;<br>
+                    margin: .425em 0 .425em .25em;<br>
+                    margin-left: 0.25em;<br>
+                    background-color: #9e9ea1;<br>
+                    display: inline-block;<br>
+                    border-radius: 50%;<br>
+                    opacity: .5;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span:first-child {<br>
+                    margin-left: 0;<br>
+                }<br>
+
+                #workskin .typing-indicator span:nth-child(1) {<br>
+                    opacity: .85;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span:nth-child(2) {<br>
+                    opacity: .65;<br>
+                }<br>
+                <br><br>
+                #workskin.names {<br>
+                    color: #7B7C80;<br>
+                    font-size: .75em;<br>
+                    padding-bottom: .5em;<br>
+                    padding-top: 0;<br>
+                    margin-left: .5em;<br>
+                    margin-bottom: -2em;<br>
+                    text-align: left;<br>
+                    display: table;<br>
+                    clear: both;<br>
+                }<br>
+                <br><br>
+
+
+
+
+            </p>
+        </div>
+    <div>
+
+    </div>
+
     <br>
     <footer>
         <hr>
+        <p>
+            <b>Credits:</b><br>
+            The Workskin (and by extension my css code) used in the fancy message generation was created by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a><br>
+            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">github<a>, he makes some really really cool things!<br> 
+        </p>
         <p>Now go forth and create! :D</p>
     </footer>
 
 
 
-    <script src="script2.js"></script>
 
+<script src="script2.js"></script>
 
 </body>
 </html>
