@@ -1,5 +1,5 @@
 
-#curent_usernames{
+#current_usernames{
     margin: 0%;
 }
 
@@ -39,7 +39,8 @@
     align-content: flex-start;
     padding: 0 1% 0 1%;
     border-radius: 25px;
-    min-width: 200px;
+    min-width: 320px;
+    max-width: 500px
 
 }
 
@@ -119,3 +120,4 @@ footer{
     background-color: blue;
     font-size: 10pt;
 } */
+
