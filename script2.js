@@ -3,9 +3,13 @@ const text_output = document.getElementById("text_output")
 const raw_text_output = document.getElementById("raw_text_output")
 const error_output = document.getElementById("error_output")
 const names_dict = new Map()
+const me_color = document.getElementById("me_color")
+const me_tail_color = document.getElementById("me_tail_color")
+const you_color = document.getElementById("you_color")
+const you_tail_color = document.getElementById("you_tail_color")
 
 //testing purposes:
-// names_dict.set("me", "me")
+// names_dict.set("me", "Peter")
 // names_dict.set("a", "Bar")
 // names_dict.set("b", "Jim")
 
@@ -85,22 +89,20 @@ function submit_text(){
                     //see if name exists in dictionary
                     let temp = is_name_in_dict(rep_names[0].trim())
 
-                    //handling of read
+                    //handling of time
                     if(rep_names == "time" | rep_names == "Time"){
                         let type = "time"
                         text_back.push([type, message])
                     }
                     // if name not in dictionary break
-                    else 
-                    
-                        if (temp === false){
-                    console.log(`Name "${rep_names[0].trim()}" does not exist in your curent list of names`)
+                    else if (temp === false){
+                    console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
                     let type = "error"
-                    let message = `Name "${rep_names[0].trim()}" does not exist in your curent list of names`
+                    let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
                     text_back.push([type, message])
                     show_messages()
                     break
-                    // if name is in dictionary: log the thing as a message and save it
+                    // if name is in dictionary:
                     }
                     //handling of messaging bubble
                     else if(message === "typing"){
@@ -109,8 +111,14 @@ function submit_text(){
                         text_back.push([type, user])
                     }
                     else if(rep_names[0] === "me"){
-                        console.log("me_message")
+                        //console.log("me_message")
                         let type = "me_message"
+                        let user = names_dict.get(rep_names[0])
+                        text_back.push([type, user, message])
+                    }
+                    else if(rep_names[0] === "you"){
+                        //console.log("you_message")
+                        let type = "you_message"
                         let user = names_dict.get(rep_names[0])
                         text_back.push([type, user, message])
                     }
@@ -126,16 +134,16 @@ function submit_text(){
                     let temp2 = is_name_in_dict(rep_names[1].trim())
                     //if they aren't break
                     if (temp1 === false){
-                        console.log(`Name "${rep_names[0].trim()}" does not exist in your curent list of names`)
+                        console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[0].trim()}" does not exist in your curent list of names`
+                        let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
                     } else if(temp2 === false){
-                        console.log(`Name "${rep_names[1].trim()}" does not exist in your curent list of names`)
+                        console.log(`Name "${rep_names[1].trim()}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[1].trim()}" does not exist in your curent list of names`
+                        let message = `Name "${rep_names[1].trim()}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
@@ -143,22 +151,29 @@ function submit_text(){
                     } else if(rep_names[0] === "me"){
                         let type = "me_reply"
                         let author = names_dict.get(rep_names[0].trim())
-                        let reciever = names_dict.get(rep_names[1].trim())
-                        text_back.push([type, author, reciever, message])
+                        let receiver = names_dict.get(rep_names[1].trim())
+                        text_back.push([type, author, receiver, message])
                     }
                     else if(rep_names[1] === "me"){
                         let type = "reply_to_me"
                         let author = names_dict.get(rep_names[0].trim())
-                        let reciever = names_dict.get(rep_names[1].trim())
-                        text_back.push([type, author, reciever, message])
+                        let receiver = names_dict.get(rep_names[1].trim())
+                        text_back.push([type, author, receiver, message])
+                    }
+                    //in a one on one conversation, you reply to me
+                    else if(rep_names[0] === "you" & rep_names[1] === "me"){
+                        let type = "you_to_me"
+                        let author = names_dict.get(rep_names[0].trim())
+                        let receiver = names_dict.get(rep_names[1].trim())
+                        text_back.push([type, author, receiver, message])
                     }
 
                     // if message is a reply, log the message as a reply and save it
                     else {
                         let type = "reply"
                         let author = names_dict.get(rep_names[0].trim())
-                        let reciever = names_dict.get(rep_names[1].trim())
-                        text_back.push([type, author, reciever, message])
+                        let receiver = names_dict.get(rep_names[1].trim())
+                        text_back.push([type, author, receiver, message])
                     }
                 } else{
                     console.log("Text has too many specified names")
@@ -212,10 +227,8 @@ function show_messages(message_log){
         //regular message
         else if(message[0] === "message"){
             //  message is coming from someone else and will be displayed on the left and in gray
-            preview += `<span class="names">${message[1]}</span><br>
-            <span class="text">${message[2]}</span>
-            <br></br>`
-            raw = `<span class="names"><span class="hide"></span>${message[1]}<span class="hide">: </span></span><br><span class="text">${message[2]}</span><br></br>`
+            preview += `<span class="names">${message[1]}</span><br><span class="text">${message[2]}</span> <br></br>`
+            raw = `<span class="names">${message[1]}<span class="hide">: </span></span><br><span class="text">${message[2]}</span><br></br>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
@@ -223,16 +236,21 @@ function show_messages(message_log){
         else if(message[0] === "me_message"){
                 preview += `<span class="breply">${message[2]}</span><br></br>`
                 //raw = `<span class="hide"><b></span>${message[1]}<span class="hide">: </b></span><span class="breply">${message[2]}</span><br></br>`
-                raw = `<span class="hide">${message[1]}:<br></span><span class="breply">${message[2]}</span><br></br>`
-
-
+                raw = `<span class="hide">${message[1]} (You): <br></span><span class="breply">${message[2]}</span><br></br>`
                 raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
                 raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //in a one on one convo, you send a messgae
+        else if(message[0] === "you_message"){
+            preview += `<span class="text">${message[2]}</span><br></br>`
+            raw = `<span class="hide">${message[1]}: </span><br><span class="text">${message[2]}</span><br></br>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
         // regular reply 
         else if((message[0] === "reply")){
             preview += `<span class="names">${message[1]} replied to ${message[2]}</span><br> <span class="text">${message[3]}</span><br></br>`
-            raw = `<span class="names"><span class="hide"></span>${message[1]}<span class="hide"></span> replied to <span class="hide"></span>${message[2]}<span class="hide">: </span></span><br> <span class="text">${message[3]}</span><br></br>`
+            raw = `<span class="names">${message[1]} replied to ${message[2]}<span class="hide">: </span></span><br> <span class="text">${message[3]}</span><br></br>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
@@ -246,7 +264,14 @@ function show_messages(message_log){
         //  someone is replying to me
         else if (message[0] === "reply_to_me"){
             preview += `<span class="names">${message[1]} replied to you</span><br> <span class="text">${message[3]}</span><br></br>`
-            raw = `<span class="names"><span class="hide"></span>${message[1]}<span class="hide"></span> replied to you:</span><br><span class="text">${message[3]}</span><br></br>`
+            raw = `<span class="names">${message[1]} replied to you:</span><br><span class="text">${message[3]}</span><br></br>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        // in a one on one conversation, you reply to me
+        else if (message[0] === "you_to_me"){
+            preview += `<span class="names">${message[1]} replied to you</span><br> <span class="text">${message[3]}</span><br></br>`
+            raw = `<span class="names">${message[1]} replied to you:</span><br><span class="text">${message[3]}</span><br></br>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
@@ -311,6 +336,12 @@ function toggle_name_ex(){
 
 function toggle_gen_ex(){
     var x = document.getElementById("general_ex")
+    var y = document.getElementById("blue_message_ex")
+    var z = document.getElementById("hide_span_ex")
+    var a = document.getElementById("one_on_one_ex")
+    y.style.display = "none"
+    z.style.display = "none"
+    a.style.display = "none"
     if (x.style.display === "block") {
         x.style.display = "none"
     } else {
@@ -319,19 +350,79 @@ function toggle_gen_ex(){
 }
 
 function toggle_blue_message_ex(){
-    var x = document.getElementById("blue_message_ex")
-    if (x.style.display === "block") {
-        x.style.display = "none"
+    var x = document.getElementById("general_ex")
+    var y = document.getElementById("blue_message_ex")
+    var z = document.getElementById("hide_span_ex")
+    var a = document.getElementById("one_on_one_ex")
+    x.style.display = "none"
+    z.style.display = "none"
+    a.style.display = "none"
+    if (y.style.display === "block") {
+        y.style.display = "none"
     } else {
-        x.style.display = "block"
+        y.style.display = "block"
     }
 }
 
 function toggle_hide_span_ex(){
-        var x = document.getElementById("hide_span_ex")
-    if (x.style.display === "block") {
-        x.style.display = "none"
+    var x = document.getElementById("general_ex")
+    var y = document.getElementById("blue_message_ex")
+    var z = document.getElementById("hide_span_ex")
+    var a = document.getElementById("one_on_one_ex")
+    y.style.display = "none"
+    x.style.display = "none"
+    a.style.display = "none"
+    if (z.style.display === "block") {
+        z.style.display = "none"
     } else {
-        x.style.display = "block"
+        z.style.display = "block"
     }
+}
+
+function toggle_one_on_one_ex(){
+    var x = document.getElementById("general_ex")
+    var y = document.getElementById("blue_message_ex")
+    var z = document.getElementById("hide_span_ex")
+    var a = document.getElementById("one_on_one_ex")
+    y.style.display = "none"
+    z.style.display = "none"
+    x.style.display = "none"
+    if (a.style.display === "block") {
+        a.style.display = "none"
+    } else {
+        a.style.display = "block"
+    }
+}
+
+
+function change_me_message_color(){
+    me_color.replaceChildren()
+    me_tail_color.replaceChildren()
+    var col = document.getElementById("me_message_color").value
+    console.log(col)
+    // var el = document.getElementsByClassName("breply")
+    // var el_aft = window.getComputedStyle(el, '::after');
+    // console.log(content)
+    // for(let e of el){
+    // e.style.background = col
+    // }
+    // el.style.background = col
+    me_color.insertAdjacentText("beforeEnd", `${col}`)
+    me_tail_color.insertAdjacentText("beforeEnd", `${col}`)
+}
+
+function change_you_message_color(){
+    you_color.replaceChildren()
+    you_tail_color.replaceChildren()
+    var col = document.getElementById("you_message_color").value
+    console.log(col)
+    // var el = document.getElementsByClassName("text")
+    // var el_aft = window.getComputedStyle(el, '::after');
+    // console.log(content)
+    // for(let e of el){
+    // e.style.background = col
+    // }
+    // el.style.background = col
+    you_color.insertAdjacentText("beforeEnd", `${col}`)
+    you_tail_color.insertAdjacentText("beforeEnd", `${col}`)
 }
