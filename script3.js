@@ -169,9 +169,9 @@ function show_messages(message_log){
         }
         //typing handling
         else if(message[0] == "typing"){
-            preview += `<b>${message[1]}</b>: is typing...`
+            preview += `<b>${message[1]}</b> is typing...`
             preview += "<br>"
-            raw = `<p><b>${message[1]}</b>: is typing</p>`
+            raw = `<p><b>${message[1]}</b> is typing</p>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
