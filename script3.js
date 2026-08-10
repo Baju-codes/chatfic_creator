@@ -77,18 +77,33 @@ function submit_text(){
                 let rep_names = n.split(",")
                 //if normal message:
                 if(rep_names.length === 1){
+                    
                     //see if name exists in dictionary
                     let temp = is_name_in_dict(rep_names[0].trim())
+
+                    //handling of time
+                    if(rep_names == "time" | rep_names == "Time"){
+                        let type = "time"
+                        text_back.push([type, message])
+                    }
+                    
                     // if name not in dictionary break
-                    if (temp === false){
-                    console.log(`Name "${rep_names[0].trim()}" does not exist in your curent list of names`)
+                    else if (temp === false){
+                    console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
                     let type = "error"
-                    let message = `Name "${rep_names[0].trim()}" does not exist in your curent list of names`
+                    let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
                     text_back.push([type, message])
                     show_messages()
                     break
-                    // if name is in dictionary: log the thing as a message and save it
-                    } else{
+                    } 
+                    //typing handling
+                    else if(message === "typing"){
+                        let type = "typing"
+                        let user = names_dict.get(rep_names[0])
+                        text_back.push([type, user])
+                    }
+                    else{
+                        // if name is in dictionary: log the thing as a message and save it
                         let type = "message"
                         let user = names_dict.get(rep_names[0])
                         text_back.push([type, user, message])
@@ -100,16 +115,16 @@ function submit_text(){
                     let temp2 = is_name_in_dict(rep_names[1].trim())
                     //if they aren't break
                     if (temp1 === false){
-                        console.log(`Name "${rep_names[0].trim()}" does not exist in your curent list of names`)
+                        console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[0].trim()}" does not exist in your curent list of names`
+                        let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
                     } else if(temp2 === false){
-                        console.log(`Name "${rep_names[1].trim()}" does not exist in your curent list of names`)
+                        console.log(`Name "${rep_names[1].trim()}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[1].trim()}" does not exist in your curent list of names`
+                        let message = `Name "${rep_names[1].trim()}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
@@ -117,8 +132,8 @@ function submit_text(){
                     } else{
                         let type = "reply"
                         let author = names_dict.get(rep_names[0].trim())
-                        let reciever = names_dict.get(rep_names[1].trim())
-                        text_back.push([type, author, reciever, message])
+                        let receiver = names_dict.get(rep_names[1].trim())
+                        text_back.push([type, author, receiver, message])
                     }
                 } else{
                     console.log("Text has too many specified names")
@@ -152,6 +167,23 @@ function show_messages(message_log){
             // preview += `<b>${message[1]}</b>`
             // preview += "<br>"
         }
+        //typing handling
+        else if(message[0] == "typing"){
+            preview += `<b>${message[1]}</b>: is typing...`
+            preview += "<br>"
+            raw = `<p><b>${message[1]}</b>: is typing</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //time handling
+        else if(message[0] == "time"){
+            preview += `${message[1]}`
+            preview += "<br>"
+            raw = `<p>${message[1]}</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //regular message handling
         else if(message[0] === "message"){
             preview += `<b>${message[1]}</b>: ${message[2]}`
             preview += "<br>"
@@ -159,6 +191,7 @@ function show_messages(message_log){
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
+        //reply handling
         else if((message[0] === "reply")){
             preview += `<b>${message[1]}</b> replied to <b>${message[2]}</b>: ${message[3]}`
             preview += "<br>"
@@ -192,10 +225,23 @@ function toggle_explain(){
 
 function toggle_ex(){
     var x = document.getElementById("ex")
+    var y = document.getElementById("more_ex")
+    y.style.display = "none"
     if (x.style.display === "block") {
         x.style.display = "none"
     } else {
         x.style.display = "block"
+    }
+}
+
+function toggle_more_ex(){
+    var x = document.getElementById("ex")
+    var y = document.getElementById("more_ex")
+    x.style.display = "none"
+    if (y.style.display === "block") {
+        y.style.display = "none"
+    } else {
+        y.style.display = "block"
     }
 }
 
