@@ -28,7 +28,7 @@
 /* the way the of the screen background looks */
 .messagebody {
   width: 300px;
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   display: table;
   padding-left: .5em;
   padding-right: .5em;
@@ -65,6 +65,7 @@
   margin: 0 0 0.5em;
   border-radius: 1em;
   padding: 0.5em 1em;
+  /* background: #000000; */
   background: #1289fe;
   max-width: 75%;
   clear: both;
@@ -78,7 +79,9 @@
   bottom: 0;
   width: 0.5em;
   height: 1em;
-  border-left: 0.5em solid #1289fe;
+  border-left-width: 0.5em;
+  border-left-style:  solid;
+  border-left-color: #1289fe;
   border-bottom-left-radius: 1em 0.5em;
 }
 
