@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Make nice looking chat conversations from plain text to be interted into your AO3 fanfiction or other creative works. Website provides both HTML and associated workskin necesary.">
+    <title>Chat Message Creator for Fanfiction</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <link rel="stylesheet" href="index2-styles.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style3.css">
     <link rel="stylesheet" href="overall.css">
 
     <title>Document</title>
@@ -26,7 +30,7 @@ b: typing
 
     <!--Old stuff-->
     <header class="header">
-        <a href="intro.html" class="header-child" class="icon">
+        <a href="index.html" class="header-child icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -35,31 +39,31 @@ b: typing
         <div class="spacer"></div>
         <h3 class="header-child">Welcome to the Chat Message Creator </h3>
         <div class="spacer"></div>
+        <hr>
     </header>
 
 
-    <div>
-        <p>
-            Names are replaced by Usernames in the final text!<br>
-        </p>
-        <button class="custom-btn btn-1" onclick="toggle_name_ex()">More Thorough Explanation </button>
-        <p id="name_ex" class="examples">A name of "Tony" and username of "TheRealTonyStark" will let you write Tony's messages as "Tony: message" instead of having to type "TheRealTonyStark: message" over and over and over again. The final text will still display all messages by Tony as being written by "TheRealTonyStark".</p>
-    </div>
 
-    <p><b>Input the names and coresponding usernames into the form below</b></p>
+    <p><b>Input the names and corresponding usernames into the form below</b></p>
+    <p>
+         Names are replaced by usernames in the final text!<br>
+    </p>
+    <button class="custom-btn btn-ex" onclick="toggle_name_ex()">More Thorough Explanation </button>
+    <p id="name_ex" class="examples">A name of "Tony" and username of "TheRealTonyStark" will let you write Tony's messages as "Tony: message" instead of having to type "TheRealTonyStark: message" over and over and over again. The final text will still display all messages by Tony as being written by "TheRealTonyStark".</p>
+
     <div>
         <div>
             <form id = "name_and_user_form">
                 <div>
                     <div>
-                        <p><label for = "add_name">Type name in here:</label>
+                        <p><label for = "add_name">Name (or abbreviation):</label>
                         <input id = "add_name" class="custom-input" type = "text" name = "add_name" placeholder = "Steve"></p>
                     </div>
                     <div>
-                        <label for="add_user">Type username in here:</label>
+                        <label for="add_user">Username:</label>
                         <input id = "add_user" class="custom-input" type = "text" name = "add_user", placeholder = "CaptainAmerica">
                     </div>
-                    <button class="custom-btn btn-1" type = "button" onclick = "save_name_user()">Submit</button>
+                    <button class="custom-btn btn-save" type = "button" onclick = "save_name_user()">Submit</button>
                 </div>
             </form>
         </div>
@@ -68,49 +72,54 @@ b: typing
         <div>
                 <label for = "del_name">Delete a name:</label>
                 <input id = "del_name" class="custom-input" type = "text" name = "del_name", placeholder = "Steve">
-                <button class="custom-btn btn-1" type = "button" onclick = "del_one_name()">Delete</button>
+                <button class="custom-btn btn-del" type = "button" onclick = "del_one_name()">Delete</button>
         </div>
         <div>
-            <button class="custom-btn btn-1" type = "button" onclick = "del_all_names()">Delete all names</button>
+            <button class="custom-btn btn-del" type = "button" onclick = "del_all_names()">Delete all names</button>
         </div>
     </div>
     <br>
     
     
     <div>
-        <p id="curent_usernames">
-            <b>Curent (user)names:</b> <br>
+        <p id="current_usernames">
+            <b>Current (user)names:</b> <br>
         </p>
         <p id="names_output">   
         </p>
     </div>
-
+ 
     <br>
 
+
     <!--Let me explain-->
-    <button class="custom-btn btn-1" onclick="toggle_explain()">Show/Hide Explanation</button>
-    <div id="explain">
-        <hr>
-        <h4 class="subtitle">How to format messages</h4>
+    <hr>
+     <div class="center_container">
+        <h4>How to format messages</h4>
+         <button class="custom-btn btn-ex" onclick="toggle_explain()">Show/Hide Explanation</button>
+
+    </div>
+    <div id="explain"> 
             <p>
-                A single message is writen in the format "name: message" (ie: "Steve: Hi").<br>
-                A reply is writen in the format "sender,reciever: message" (ie: "Steve, Tony: Hello!").<br>
+                A single message is written in the format "name: message" (ie: "Steve: Hi").<br>
+                A reply is written in the format "sender,receiver: message" (ie: "Steve, Tony: Hello!").<br>
                 If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Please note that blue messages don't have a functioning typing indicator.<br>
                 If you want to add a time indicator, write "time" where you would usually wite a person's name (ie: "time: Today 2:30 PM").<br>
-                Please separate individual messages by presing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
+                Please separate individual messages by pressing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
             </p>
 
-        <!-- <button class="custom-btn btn-1" onclick="toggle_ex()">Show/Hide Example</button> -->
+        
             <div>
                 <h4>More Explanations/Examples:</h4>
-                <button class="custom-btn btn-1" onclick="toggle_gen_ex()">Generally, what do I do?</button>
-                <button class="custom-btn btn-1"  onclick="toggle_blue_message_ex()">I want one chatacter to be typing the messages (blue messages)</button>
-                <button class="custom-btn btn-1"  onclick="toggle_hide_span_ex()">Why is there a "hide" span in the raw html?</button>
+                <button class="custom-btn btn-ex" onclick="toggle_gen_ex()">Generally, what do I do?</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_blue_message_ex()">I want one character to be typing the messages (blue messages)</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_one_on_one_ex()">One on one chats</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_hide_span_ex()">Why is there a "hide" span in the raw HTML?</button>
             </div>
             <div id="general_ex" class="examples">
                 <p>
                     Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
-                    time: Today 14:30
+                    time: Today 14:30<br>
                     Steve: hey there, I'm captain america <br>
                     Tony: Yeah, we know Steve, you set it as your username.<br>
                     Steve,Tony: Oh I see!
@@ -128,33 +137,74 @@ b: typing
 
                         </div>
                         <div class="display_side_by_side_child">
-                            <b>With Workskins turned off on AO3, the text will look likw this:</b><br>
-                            <!-- <b>And a raw html:</b><br><br>
+                            <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
                             
-                                &lt;div class="phone"&gt; &lt;p class="messagebody"&gt; &lt;br&gt;&lt;span class="time"&gt;Today 14:30&lt;/span&gt;&lt;br&gt;<br>
-                                &lt;span class="names"&gt; &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;CaptainAmerica&lt;span class="hide"&gt;&lt;/b&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class="text"&gt;hey there, I'm captain america&lt;/span&gt;&lt;br&gt;&lt;/br&gt;<br>
-                                &lt;span class="names"&gt; &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;TheRealTonyStark&lt;span class="hide"&gt;&lt;/b&gt;:&lt;/span>&lt;/span&gt;&lt;br&gt;&lt;span class="text"&gt;Yeah, we know Steve, you set it as your username.&lt;/span&gt;&lt;br&gt;&lt;/br&gt;<br>
-                                &lt;span class="names"&gt; &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;CaptainAmerica&lt;span class="hide"&gt;&lt;/b&gt;&lt;/span&gt;replied to &lt;span class="hide"&gt;&lt;b&gt;&lt;/span&gt;TheRealTonyStark&lt;span class="hide">:&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt; &lt;span class="text"&gt;Oh I see! Tony: typing&lt;/span&gt;&lt;br&gt;&lt;/br&gt;<br>
-                                &lt;/p&gt;&lt;/div&gt; -->
+                                Today 14:30<br></br>
+                                CaptainAmerica: <br>hey there, I'm captain america<br></br>
+                                TheRealTonyStark: <br>Yeah, we know Steve, you set it as your username.<br></br>
+                                CaptainAmerica replied to TheRealTonyStark: <br> Oh I see! <br><br/>
+                                Tony: typing<br></br>
+
+
                         </div>
                     </div>  
-                    You can then copy the html and paste it directly into your AO3 story (into the raw html tab)
+                    You can then copy the HTML and paste it directly into your AO3 story (into the raw HTML tab)
                 </p>
             </div>
 
             <div id="blue_message_ex" class="examples">
                 <p>
                     If you want blue messages, you will have to create a name-username pair, where the name is "me" and the username is whatever you want that character's username to be. <br>
-                    Even though the username of the pov charcater is not displayed, you should still give them a representative username. The username is visible when AO3 workskins are hidden for a reader. (see: "Why is there a "hide" span in the raw html?")<br>
+                    Even though the username of the pov charcater is not displayed, you should still give them a representative username. The username is visible when AO3 workskins are hidden for a reader. (see: "Why is there a "hide" span in the raw HTML?")<br>
                     For example, if we wanted to write messages from the point of view of Peter Parker, we would make a character with the name "me" and the username "Peter". Then we would write all of Peter's messages as "me:message" <br>
                 </p>
-                So "me:Hey guys, I'm here too", will result in a preview: <br>
-                <div class="phone"> <p class="messagebody"> <br><span class="breply">Hey guys, I'm here too</span><br></br></p></div>
+                So "me:Hey guys, I'm here too"<br>
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>
+                        <div class="phone"> <p class="messagebody"> <br><span class="breply">Hey guys, I'm here too</span><br></br></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br>
+                            
+                           <br> Peter (You):<br>Hey guys, I'm here too<br></br>
+                    </div>
+                </div>
             </div>
+
+            <div id="one_on_one_ex" class="examples">
+                <br>
+                If you want to have one on one conversations, you don't want to see the other person's name after ecert message they type, of course. Similarly to the "me" message, you can therefore set up a character with the name "you" and the username of whatever you want the character to be named. This way, the name of any "you" message will not be visible with the workskins enabled, but will still be visible for anyone not using the worskins, so they know which character is typing!<br>
+                While chesages in the format "me,you:message" will look like regular messages with the workskin, without it, the text will still say that the "me" character replied to the "you" character! <br>
+                So if I have a character with the name "me" and username "Peter" and another character with the name "you" and username "MJ", a one-on-one conversation between them<br>
+
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>will result in a preview:</b><br><br>
+                        <div class="phone"> <p class="messagebody"> <br>
+                        <span class="breply">so when should I pick you up?</span><br></br>
+                        <span class="text">around 10?</span><br></br>
+                        <span class="breply">Great, I'll swing by</span><br></br>
+                        <span class="names">MJ replied to you:</span><br><span class="text">I thought we were going by car?</span><br></br>
+                        </p></div>
+
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br>
+                            <br>
+                            Peter (You): <br>so when should I pick you up?<br></br>
+                            MJ: <br>around 10?<br></br>
+                            You replied to MJ: <br>Great, I'll swing by<br></br>
+                            MJ replied to you:<br>I thought we were going by car?<br></br>
+
+                    </div>
+                </div>
+            </div>
+
             <div id="hide_span_ex" class="examples">
                 <p>
-                    Hide spans are a way to make chat-messages acessible for people with e-readers, for people downloading your work to read offline and for anyone who had workskins disabled on their AO3 profile.<br>
-                    The workskin privided below automatically hides anything in the "hide" span when the worksin is working as intended. But if the worskin is not working, all text (even the one in hide spans) will be visible.<br>
+                    Hide spans are a way to make chat-messages acessible for people with e-readers, for people downloading your work to read offline and for anyone who has workskins disabled on their AO3 profile.<br>
+                    The workskin provided below automatically hides anything in the "hide" span when the workskin is working as intended. But if the worskin is not working, all text (even the one in hide spans) will be visible.<br>
                     It's incredibly neat, if I do say so myself, and all credit for this, and the entire workskin I am using must go to "CodenameCarrot" and "La_Temperanza" on AO3 who made it!
                 </p>
             </div>
@@ -164,13 +214,13 @@ b: typing
 
 
     <h4  class="subtitle">Message Creator</h4>
-    <div id="css_text_area"> Message
+    <div id="css_text_area">
             <label for="text_area" id="text_area_label"><b>Type your messages here:</b></label>
             <br>
-            <textarea id="text_area" name="text_area" rows="4", cols="50", placeholder='messages in the form of "name: text", separated by enter'></textarea>
+            <textarea id="text_area" name="text_area" rows="4", cols="50", placeholder='Messages in the form of "name: text", separated by enter'></textarea>
             <br>
-            <button class="custom-btn btn-1" type = "button" onclick = "submit_text()">Submit text</button>
-            <button class="custom-btn btn-1" type = "button" onclick = "clear_text()">Clear Text</button>
+            <button class="custom-btn btn-save" type = "button" onclick = "submit_text()">Submit text</button>
+            <button class="custom-btn btn-del" type = "button" onclick = "clear_text()">Clear Text</button>
         </div>
         <br>
     <p id="error_output"></p>
@@ -183,22 +233,37 @@ b: typing
         </div>
         <div class="text_item">
             <h4>This is what you copy over to AO3:</h4>
-            <button class="custom-btn btn-1" id="copy_raw_text_output", onclick="copy_raw_text_output('raw_text_output')">Copy your HTML text</button>
+            <button class="custom-btn btn-save" id="copy_raw_text_output", onclick="copy_raw_text_output('raw_text_output')">Copy your HTML text</button>
             <p id="raw_text_output" class="text_outputs">   
             </p>
         </div>
     </div>
 
     <hr>
-        <h4 class="subtitle">Worksin Information:</h4>
+        <h4 class="subtitle">Workskin Information:</h4>
         <h4>What's a workskin?</h4>
         <p>A workskin is AO3's way of implementing styles. It can be used to show text in different fonts, to change how your fic looks, and, in our case, it is used to make the messages we created earlier look like messages instead of raw code.<br>
-            Bellow, you will find the code you have to paste into your AO3 workskin. To create a worksin, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add thic code to an existing workskin by edditing it!<br>
-            When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the html text message text from above into the "HTML" text edditor.
+            Below, you will find the code you have to paste into your AO3 workskin. To create a k, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!<br>
+            When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the HTML text message text from above into the "HTML" text editor.
         </p>
         <br>
-        <h4>Contents of your chat worksin</h4>
-        <button class="custom-btn btn-1" onclick="copy_raw_text_output('workskin_copy')"> Coppy Worksin </button>
+        
+        
+        <div>
+            <h4>I want my messages to be a different color!</h4>
+            <p> While the buttons bellow only change the contents of the worksin (but not the website (curese you pseudo-classes in css)), with the color pickers, you can change the colors of your incoming (grey) and outgoing (blue) messages.<br>
+            Please not that any time you change these settings, the text of the workskin below changes and needs to be updated on your AO3!</p>
+            <input type="color" id="me_message_color" value="#1289fe">
+            <button onclick="change_me_message_color()" class="custom-btn btn-save">Change color of outgoing (blue) messages</button>
+            <br>
+            <input type="color" id="you_message_color" value="#e5e5ea">
+            <button onclick="change_you_message_color()" class="custom-btn btn-save">Change color of incoming (grey) messages</button>
+        </div>
+        
+
+        <br>
+        <h4>Contents of your chat workskin</h4>
+        <button class="custom-btn btn-save" onclick="copy_raw_text_output('workskin_copy')"> Copy Workskin </button>
         <div class="workskin_border">
             <p id="workskin_copy" class="workskin_scrollable">
                 #workskin .hide {<br>
@@ -226,7 +291,8 @@ b: typing
                     margin: 0 0 0.5em;<br>
                     border-radius: 1em;<br>
                     padding: 0.5em 1em;<br>
-                    background: #e5e5ea;<br>
+                    background: <span id="you_color"></span>;<br>
+                    <!-- background: #e5e5ea;<br> -->
                     max-width: 75%;<br>
                     clear: both;<br>
                     position: relative;<br>
@@ -239,7 +305,8 @@ b: typing
                     bottom: 0;<br>
                     width: 0.5em;<br>
                     height: 1em;<br>
-                    border-right: 0.5em solid #e5e5ea;<br>
+                    border-right: 0.5em solid <span id="you_tail_color"><br>
+                    <!-- border-right: 0.5em solid #e5e5ea;<br> -->
                     border-bottom-right-radius: 1em 0.5em;<br>
                 }<br>
                 <br><br>
@@ -250,7 +317,8 @@ b: typing
                     margin: 0 0 0.5em;<br>
                     border-radius: 1em;<br>
                     padding: 0.5em 1em;<br>
-                    background: #1289fe;<br>
+                    background: <span id="me_color"></span>;<br>
+                    <!-- background: #1289fe;<br> -->
                     max-width: 75%;<br>
                     clear: both;<br>
                     position: relative;<br>
@@ -263,7 +331,8 @@ b: typing
                     bottom: 0;<br>
                     width: 0.5em;<br>
                     height: 1em;<br>
-                    border-left: 0.5em solid #1289fe;<br>
+                    border-left: 0.5em solid <span id="me_tail_color"></span>;<br>
+                    <!-- border-left: 0.5em solid #1289fe;<br> -->
                     border-bottom-left-radius: 1em 0.5em;<br>
                 }<br>
                 <br><br>
@@ -376,7 +445,7 @@ b: typing
                     padding-bottom: .5em;<br>
                     padding-top: 0;<br>
                     margin-left: .5em;<br>
-                    margin-bottom: -2em;<br>
+                    margin-bottom: -2.5em;<br>
                     text-align: left;<br>
                     display: table;<br>
                     clear: both;<br>
@@ -397,8 +466,8 @@ b: typing
         <hr>
         <p>
             <b>Credits:</b><br>
-            The Workskin (and by extension my css code) used in the fancy message generation was created by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a><br>
-            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">github<a>, he makes some really really cool things!<br> 
+            The workskin (and by extension my css code) used in the fancy message generation was created by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a><br>
+            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!<br> 
         </p>
         <p>Now go forth and create! :D</p>
     </footer>
