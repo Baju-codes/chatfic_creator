@@ -28,7 +28,7 @@ b: typing
 
 
 
-    <!--Old stuff-->
+
     <header class="header">
         <a href="index.html" class="header-child icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -103,7 +103,7 @@ b: typing
             <p>
                 A single message is written in the format "name: message" (ie: "Steve: Hi").<br>
                 A reply is written in the format "sender,receiver: message" (ie: "Steve, Tony: Hello!").<br>
-                If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Please note that blue messages don't have a functioning typing indicator.<br>
+                If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Nlue messages can have a typing indicator as well ("me: typing").<br>
                 If you want to add a time indicator, write "time" where you would usually wite a person's name (ie: "time: Today 2:30 PM").<br>
                 Please separate individual messages by pressing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
             </p>
@@ -373,7 +373,7 @@ b: typing
                 }<br>
                 <br><br>
                 #workskin .typing-indicator {<br>
-                    background-color: #e6e7ed;<br>
+                    background-color: <span id="you_typing_color"></span>;<br>
                     width: auto;<br>
                     border-radius: 1em;<br>
                     padding: .5em 1em;<br>
@@ -394,7 +394,7 @@ b: typing
                     height: 12px;<br>
                     width: 12px;<br>
                     border-radius: 50%;<br>
-                    background-color: #e6e7ed;<br>
+                    background-color: <span id="you_typing_color_after"></span>;<br>
                 }<br>
                 <br><br>
                 #workskin .typing-indicator::after {<br>
@@ -451,6 +451,73 @@ b: typing
                     clear: both;<br>
                 }<br>
                 <br><br>
+                #workskin.me_typing-indicator {<br>
+                    background-color: <span id="me_typing_color"></span>;<br>
+                    width: auto;<br>
+                    border-radius: 1em;<br>
+                    padding: .5em 1em;<br>
+                    display: table;<br>
+                    margin: 0 0 .5em;<br>
+                    position: relative;<br>
+                    overflow: hidden;<br>
+                    text-align: left;<br>
+                    clear: both;<br>
+                    float: right;<br>
+                    max-width: 75%;<br>
+                }<br>
+                <br><br>
+                #workskin.me_typing-indicator::before,<br>
+                #workskin.me_typing-indicator::after {<br>
+                    content: '';<br>
+                    position: absolute;<br>
+                    bottom: -2px;<br>
+                    left: -2px;<br>
+                    height: 12px;<br>
+                    width: 12px;<br>
+                    border-radius: 50%;<br>
+                    background-color: <span id="me_typing_color_after"></span>;<br>
+                }<br>
+            <br><br>
+            #workskin.me_typing-indicator::after {<br>
+                height: 6px;<br>
+                width: 6px;<br>
+                left: -6px;<br>
+                bottom: -6px;<br>
+            }<br>
+            #workskin.me_typing-indicator span {<br>
+                height: 15px;<br>
+                width: 15px;<br>
+                float: left;<br>
+                margin: 0 1px;<br>
+                background-color: #9E9EA1;<br>
+                display: block;<br>
+                border-radius: 50%;<br>
+                opacity: 0.4;<br>
+            }<br>
+            <br><br>
+            #workskin.me_typing-indicator span {<br>
+                height: .65em;<br>
+                width: .65em;<br>
+                margin: .425em 0 .425em .25em;<br>
+                margin-left: 0.25em;<br>
+                background-color: #9e9ea1;<br>
+                display: inline-block;<br>
+                border-radius: 50%;<br>
+                opacity: .5;<br>
+            }<br>
+            <br><br>
+            #workskin.me_typing-indicator span:first-child {<br>
+                margin-left: 0;<br>
+            }<br>
+            <br><br>
+            #workskin.me_typing-indicator span:nth-child(1) {<br>
+                opacity: .85;<br>
+            }<br>
+            <br><br>
+            #workskin.me_typing-indicator span:nth-child(2) {<br>
+                opacity: .65;<br>
+            }<br>
+                <br><br>
 
 
 
@@ -466,8 +533,12 @@ b: typing
         <hr>
         <p>
             <b>Credits:</b><br>
+            Who am I? <a href="https://github.com/baju-codes">Here's my Github page!</a>
             The workskin (and by extension my css code) used in the fancy message generation was created by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a><br>
             I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!<br> 
+        </p>
+        <p>
+            If you use this website in the creation of your stories, please, please, please, link the website in the notes! Thank you :)
         </p>
         <p>Now go forth and create! :D</p>
     </footer>
