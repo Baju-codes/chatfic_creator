@@ -233,3 +233,8 @@ header{
     padding-left: 10px;
     margin-bottom: 5px;
 }
+
+#error_output{
+    color: red;
+    font-weight: bold;
+}
