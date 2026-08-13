@@ -217,3 +217,76 @@ display: table;
   display: table;
   clear: both;
 } */
+
+
+
+/*  me typing bubble */
+.me_typing-indicator {
+  background-color: #1289fe;
+  width: auto;
+  border-radius: 1em;
+  padding: .5em 1em;
+  display: table;
+  margin: 0 0 .5em;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  clear: both;
+  float: right;
+  max-width: 75%;
+
+}
+
+    .me_typing-indicator::before,
+    .me_typing-indicator::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: -2px;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: #1289fe;
+    }
+
+    .me_typing-indicator::after {
+    height: 6px;
+    width: 6px;
+    left: -6px;
+    bottom: -6px;
+    }
+
+    .me_typing-indicator span {
+    height: 15px;
+    width: 15px;
+    float: left;
+    margin: 0 1px;
+    background-color: #9E9EA1;
+    display: block;
+    border-radius: 50%;
+    opacity: 0.4;
+    }
+
+    .me_typing-indicator span {
+    height: .65em;
+    width: .65em;
+    /* float: left; */
+    margin: .425em 0 .425em .25em;
+    margin-left: 0.25em;
+    background-color: #9e9ea1;
+    display: inline-block;
+    border-radius: 50%;
+    opacity: .5;
+    }
+
+    .me_typing-indicator span:first-child {
+    margin-left: 0;
+    }
+
+    .me_typing-indicator span:nth-child(1) {
+    opacity: .85;
+    }
+
+    .me_typing-indicator span:nth-child(2) {
+    opacity: .65;
+    }
