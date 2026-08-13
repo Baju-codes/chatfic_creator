@@ -8,9 +8,14 @@ const me_tail_color = document.getElementById("me_tail_color")
 const you_color = document.getElementById("you_color")
 const you_tail_color = document.getElementById("you_tail_color")
 
+const you_typing_color = document.getElementById("you_typing_color")
+const you_typing_color_after = document.getElementById("you_typing_color_after")
+const me_typing_color = document.getElementById("me_typing_color")
+const me_typing_color_after = document.getElementById("me_typing_color_after")
+
 //testing purposes:
-// names_dict.set("me", "Peter")
-// names_dict.set("a", "Bar")
+names_dict.set("me", "Bar")
+names_dict.set("a", "aa")
 // names_dict.set("b", "Jim")
 
 
@@ -103,13 +108,20 @@ function submit_text(){
                     show_messages()
                     break
                     // if name is in dictionary:
+                    } 
+                    //handling of me messaging bubble
+                    else if(message === "typing" & rep_names[0] === "me"){
+                        console.log("me_typing")
+                        let type = "me_typing"
+                        let user = names_dict.get(rep_names[0])
+                        text_back.push([type, user])
                     }
-                    //handling of messaging bubble
                     else if(message === "typing"){
                         let type = "typing"
                         let user = names_dict.get(rep_names[0])
                         text_back.push([type, user])
                     }
+                    //handling of messaging bubble
                     else if(rep_names[0] === "me"){
                         //console.log("me_message")
                         let type = "me_message"
@@ -214,6 +226,13 @@ function show_messages(message_log){
         else if(message[0] == "typing"){
             preview += `<span class="typing-indicator"><span></span><span></span><span></span></span>`
             raw = `<span class="hide">${message[1]} is typing</span><span class="typing-indicator"><span></span><span></span><span></span></span>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //me typing handling
+        else if(message[0] == "me_typing"){
+            preview += `<span class="me_typing-indicator"><span></span><span></span><span></span></span>`
+            raw = `<span class="hide">${message[1]} (You) is typing</span><span class="me_typing-indicator"><span></span><span></span><span></span></span>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
@@ -395,9 +414,13 @@ function toggle_one_on_one_ex(){
 }
 
 
+
+
 function change_me_message_color(){
     me_color.replaceChildren()
     me_tail_color.replaceChildren()
+    me_typing_color.replaceChildren()
+    me_typing_color_after.replaceChildren()
     var col = document.getElementById("me_message_color").value
     console.log(col)
     // var el = document.getElementsByClassName("breply")
@@ -409,11 +432,15 @@ function change_me_message_color(){
     // el.style.background = col
     me_color.insertAdjacentText("beforeEnd", `${col}`)
     me_tail_color.insertAdjacentText("beforeEnd", `${col}`)
+    me_typing_color.insertAdjacentText("beforeEnd", `${col}`)
+    me_typing_color_after.insertAdjacentText("beforeEnd", `${col}`)
 }
 
 function change_you_message_color(){
     you_color.replaceChildren()
     you_tail_color.replaceChildren()
+    you_typing_color.replaceChildren()
+    you_typing_color_after.replaceChildren()
     var col = document.getElementById("you_message_color").value
     console.log(col)
     // var el = document.getElementsByClassName("text")
@@ -425,4 +452,6 @@ function change_you_message_color(){
     // el.style.background = col
     you_color.insertAdjacentText("beforeEnd", `${col}`)
     you_tail_color.insertAdjacentText("beforeEnd", `${col}`)
+    you_typing_color.insertAdjacentText("beforeEnd", `${col}`)
+    you_typing_color_after.insertAdjacentText("beforeEnd", `${col}`)
 }
