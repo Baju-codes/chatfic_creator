@@ -7,11 +7,13 @@ const names_dict = new Map()
 // names_dict.set("bar", "Bar")
 // names_dict.set("jim", "Jim")
 
+
 function save_name_user() {
     names_output.replaceChildren()
     let person_name = document.getElementById("add_name").value
+    let uper_name = person_name.charAt(0).toUpperCase() + person_name.slice(1).toLowerCase();
     let user = document.getElementById("add_user").value
-    names_dict.set(person_name, user)
+    names_dict.set(uper_name, user)
     console.log(names_dict)
     for(let [key, value] of names_dict){
         var del_id = toString(names_dict.get(key))
@@ -28,7 +30,8 @@ function clear_names_dict(){
 function del_one_name() {
     names_output.replaceChildren()
     let del_name = document.getElementById("del_name").value
-    names_dict.delete(del_name)
+    let uper_del_name = del_name.charAt(0).toUpperCase() + del_name.slice(1).toLowerCase();
+    names_dict.delete(uper_del_name)
     for(let [key, value] of names_dict){
         var del_id = toString(names_dict.get(key))
         names_output.insertAdjacentHTML("afterbegin", `<p> Name: ${key}, username: ${value} </p>`)
@@ -41,12 +44,20 @@ function del_all_names(){
     names_output.replaceChildren()
     names_dict.clear()
     console.log(names_dict)
+    document.getElementById("del_name").value = ""
 }
 
 function is_name_in_dict(person_name){
     //console.log(names_dict.has(person_name))
-    return names_dict.has(person_name)
+    let uper_name = person_name.charAt(0).toUpperCase() + person_name.slice(1).toLowerCase();
+    return names_dict.has(uper_name)
 }
+
+function get_user(person_name){
+    let uper_name = person_name.charAt(0).toUpperCase() + person_name.slice(1).toLowerCase();
+    return names_dict.get(uper_name)
+}
+
 
 let text_back = []
 // messagess handling
@@ -97,15 +108,15 @@ function submit_text(){
                     break
                     } 
                     //typing handling
-                    else if(message === "typing"){
+                    else if(message.toLowerCase() === "typing"){
                         let type = "typing"
-                        let user = names_dict.get(rep_names[0])
+                        let user = get_user(rep_names[0])
                         text_back.push([type, user])
                     }
                     else{
                         // if name is in dictionary: log the thing as a message and save it
                         let type = "message"
-                        let user = names_dict.get(rep_names[0])
+                        let user = get_user(rep_names[0])
                         text_back.push([type, user, message])
                     }
                 //if message has two names, it's a reply
@@ -131,8 +142,8 @@ function submit_text(){
                     // if they are, log the message as a reply and save it
                     } else{
                         let type = "reply"
-                        let author = names_dict.get(rep_names[0].trim())
-                        let receiver = names_dict.get(rep_names[1].trim())
+                        let author = get_user(rep_names[0].trim())
+                        let receiver = get_user(rep_names[1].trim())
                         text_back.push([type, author, receiver, message])
                     }
                 } else{
