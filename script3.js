@@ -72,6 +72,9 @@ function submit_text(){
         let messages = text_processed.split("\n")
         // for each message, split it itno name and text
         for(let message of messages){
+            if (message === ''){
+                continue
+            }
             let name_and_text = message.split(":")
             // if no name is provided, break
             if (name_and_text.length < 2){
