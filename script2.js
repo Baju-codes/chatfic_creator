@@ -14,9 +14,8 @@ const me_typing_color = document.getElementById("me_typing_color")
 const me_typing_color_after = document.getElementById("me_typing_color_after")
 
 //testing purposes:
-// names_dict.set("me", "Bar")
 // names_dict.set("a", "aa")
-// names_dict.set("b", "Jim")
+// names_dict.set("b", "bbb")
 
 
 
