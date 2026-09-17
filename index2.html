@@ -249,7 +249,6 @@ b: typing
             Below, you will find the code you have to paste into your AO3 workskin. To create a k, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!<br>
             When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the HTML text message text from above into the "HTML" text editor.
         </p>
-    <p> Note: please click the two "change color" buttons before downloading the worskin. there's currently a problem with the message colors not showing up properly otherwise. this will be fixed at a later date. thanks :)</p>
         <br>
         
         
@@ -295,7 +294,7 @@ b: typing
                     margin: 0 0 0.5em;<br>
                     border-radius: 1em;<br>
                     padding: 0.5em 1em;<br>
-                    background: <span id="you_color"></span>;<br>
+                    background: <span id="you_color">#e5e5ea</span>;<br>
                     <!-- background: #e5e5ea;<br> -->
                     max-width: 75%;<br>
                     clear: both;<br>
@@ -309,7 +308,7 @@ b: typing
                     bottom: 0;<br>
                     width: 0.5em;<br>
                     height: 1em;<br>
-                    border-right: 0.5em solid <span id="you_tail_color"></span>;<br>
+                    border-right: 0.5em solid <span id="you_tail_color">#e5e5ea</span>;<br>
                     <!-- border-right: 0.5em solid #e5e5ea;<br> -->
                     border-bottom-right-radius: 1em 0.5em;<br>
                 }<br>
@@ -321,7 +320,7 @@ b: typing
                     margin: 0 0 0.5em;<br>
                     border-radius: 1em;<br>
                     padding: 0.5em 1em;<br>
-                    background: <span id="me_color"></span>;<br>
+                    background: <span id="me_color">#1289fe</span>;<br>
                     <!-- background: #1289fe;<br> -->
                     max-width: 75%;<br>
                     clear: both;<br>
@@ -335,7 +334,7 @@ b: typing
                     bottom: 0;<br>
                     width: 0.5em;<br>
                     height: 1em;<br>
-                    border-left: 0.5em solid <span id="me_tail_color"></span>;<br>
+                    border-left: 0.5em solid <span id="me_tail_color">#1289fe</span>;<br>
                     <!-- border-left: 0.5em solid #1289fe;<br> -->
                     border-bottom-left-radius: 1em 0.5em;<br>
                 }<br>
@@ -377,7 +376,8 @@ b: typing
                 }<br>
                 <br><br>
                 #workskin .typing-indicator {<br>
-                    background-color: <span id="you_typing_color"></span>;<br>
+                    background-color: <span id="you_typing_color">#e6e7ed</span>;<br>
+                    <!-- background-color: #e6e7ed; -->
                     width: auto;<br>
                     border-radius: 1em;<br>
                     padding: .5em 1em;<br>
@@ -398,7 +398,8 @@ b: typing
                     height: 12px;<br>
                     width: 12px;<br>
                     border-radius: 50%;<br>
-                    background-color: <span id="you_typing_color_after"></span>;<br>
+                    background-color: <span id="you_typing_color_after">#e6e7ed</span>;<br>
+                    <!-- background-color: #e6e7ed; -->
                 }<br>
                 <br><br>
                 #workskin .typing-indicator::after {<br>
@@ -455,40 +456,43 @@ b: typing
                     clear: both;<br>
                 }<br>
                 <br><br>
-                #workskin.me_typing-indicator {<br>
-                    background-color: <span id="me_typing_color"></span>;<br>
-                    width: auto;<br>
-                    border-radius: 1em;<br>
-                    padding: .5em 1em;<br>
-                    display: table;<br>
-                    margin: 0 0 .5em;<br>
-                    position: relative;<br>
-                    overflow: hidden;<br>
-                    text-align: left;<br>
-                    clear: both;<br>
-                    float: right;<br>
-                    max-width: 75%;<br>
+                .me_typing-indicator {<br>
+                background-color: <span id="me_typing_color">#1289fe</span>;<br>
+                <!-- background-color: #1289fe;<br> -->
+                width: auto;<br>
+                border-radius: 1em;<br>
+                padding: .5em 1em;<br>
+                display: table;<br>
+                margin: 0 0 .5em;<br>
+                position: relative;<br>
+                overflow: hidden;<br>
+                text-align: left;<br>
+                clear: both;<br>
+                float: right;<br>
+                max-width: 75%;<br>
                 }<br>
                 <br><br>
-                #workskin.me_typing-indicator::before,<br>
-                #workskin.me_typing-indicator::after {<br>
-                    content: '';<br>
-                    position: absolute;<br>
-                    bottom: -2px;<br>
-                    left: -2px;<br>
-                    height: 12px;<br>
-                    width: 12px;<br>
-                    border-radius: 50%;<br>
-                    background-color: <span id="me_typing_color_after"></span>;<br>
+                .me_typing-indicator::before,<br>
+                .me_typing-indicator::after {<br>
+                content: '';<br>
+                position: absolute;<br>
+                bottom: -2px;<br>
+                left: -2px;<br>
+                height: 12px;<br>
+                width: 12px;<br>
+                border-radius: 50%;<br>
+                background-color: <span id="me_typing_color_after">#1289fe</span>;<br>
+                <!-- background-color: #1289fe;<br> -->
                 }<br>
-            <br><br>
-            #workskin.me_typing-indicator::after {<br>
+                <br><br>
+                .me_typing-indicator::after {<br>
                 height: 6px;<br>
                 width: 6px;<br>
                 left: -6px;<br>
                 bottom: -6px;<br>
-            }<br>
-            #workskin.me_typing-indicator span {<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span {<br>
                 height: 15px;<br>
                 width: 15px;<br>
                 float: left;<br>
@@ -497,9 +501,9 @@ b: typing
                 display: block;<br>
                 border-radius: 50%;<br>
                 opacity: 0.4;<br>
-            }<br>
-            <br><br>
-            #workskin.me_typing-indicator span {<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span {<br>
                 height: .65em;<br>
                 width: .65em;<br>
                 margin: .425em 0 .425em .25em;<br>
@@ -508,19 +512,19 @@ b: typing
                 display: inline-block;<br>
                 border-radius: 50%;<br>
                 opacity: .5;<br>
-            }<br>
-            <br><br>
-            #workskin.me_typing-indicator span:first-child {<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span:first-child {<br>
                 margin-left: 0;<br>
-            }<br>
-            <br><br>
-            #workskin.me_typing-indicator span:nth-child(1) {<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span:nth-child(1) {<br>
                 opacity: .85;<br>
-            }<br>
-            <br><br>
-            #workskin.me_typing-indicator span:nth-child(2) {<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span:nth-child(2) {<br>
                 opacity: .65;<br>
-            }<br>
+                }<br>
                 <br><br>
 
 
