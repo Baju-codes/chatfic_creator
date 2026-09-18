@@ -106,7 +106,8 @@ b: typing
             <p>
                 A single message is written in the format "name: message" (ie: "Steve: Hi").<br>
                 A reply is written in the format "sender,receiver: message" (ie: "Steve, Tony: Hello!").<br>
-                If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Nlue messages can have a typing indicator as well ("me: typing").<br>
+                A blue message is written in the format "me: message", where "me" is a name you inputed into the form above. (ie: "me: This message will be blue")<br> 
+                If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Blue messages can have a typing indicator as well ("me: typing").<br>
                 If you want to add a time indicator, write "time" where you would usually wite a person's name (ie: "time: Today 2:30 PM").<br>
                 Please separate individual messages by pressing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
             </p>
@@ -118,6 +119,7 @@ b: typing
                 <button class="custom-btn btn-ex"  onclick="toggle_blue_message_ex()">I want one character to be typing the messages (blue messages)</button>
                 <button class="custom-btn btn-ex"  onclick="toggle_one_on_one_ex()">One on one chats</button>
                 <button class="custom-btn btn-ex"  onclick="toggle_hide_span_ex()">Screen-reader compatibility</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_feature_list_ex()">Quick feature overview and notes</button>
             </div>
             <div id="general_ex" class="examples">
                 <p>
@@ -211,6 +213,19 @@ b: typing
                     It's incredibly neat, if I do say so myself, and all credit for this, and the entire workskin I am using must go to "CodenameCarrot" and "La_Temperanza" on AO3 who made it!
                 </p>
             </div>
+
+            <div id="feature_list_ex" class="examples">
+                <p>
+                    <b>messages</b>- name:message<br>
+                    <b>replies</b>- sender,reciever:message<br>
+                    <b>blue messages</b>- me:message<br>
+                    <b>gray replies without names</b>- you:message<br>
+                    <b>typing indicator</b>- name:typing (or you:typing)<br>
+                    <b>blue typing indicator</b>- me: typing<br>
+                    <b>time indicator</b>- time:message<br>
+                    <b>Note:</b> all "&lt;" and "&gt;" characters will be converted into a string of letters in the HTML text. This is to ensure they are displayed properly by the website/AO3 which would otherwise see them as valid HTML tags. So don't change them back.<br>
+                </p>
+            </div>
     
     </div>
     <hr>
@@ -255,12 +270,24 @@ b: typing
         <div>
             <h4>I want my messages to be a different color!</h4>
             <p> While the buttons bellow only change the contents of the worksin (but not the website (curese you pseudo-classes in css)), with the color pickers, you can change the colors of your incoming (grey) and outgoing (blue) messages.<br>
+            The example texts show how such a message would look, but the worskin itself only gets updated when you click the "Update workskin" button. <br>
             Please not that any time you change these settings, the text of the workskin below changes and needs to be updated on your AO3!</p>
-            <input type="color" id="me_message_color" value="#1289fe">
-            <button onclick="change_me_message_color()" class="custom-btn btn-save">Change color of outgoing (blue) messages</button>
-            <br>
-            <input type="color" id="you_message_color" value="#e5e5ea">
-            <button onclick="change_you_message_color()" class="custom-btn btn-save">Change color of incoming (grey) messages</button>
+            <input type="color" id="me_message_color" value="#1289fe" name="blue">
+            <label for="gray">Outgoing message color</label>
+            <!-- <button onclick="change_me_message_color()" class="custom-btn btn-save">Update outgoing (blue) messages worskin</button> -->
+            <p class="blue_color_example" id="blue_color_example"> Example Text </p>
+
+            <br><br><br>
+            <input type="color" id="you_message_color" value="#e5e5ea" name="gray">
+            <label for="gray">Incoming message color</label>
+            <!-- <button onclick="change_you_message_color()" class="custom-btn btn-save">Update incoming (grey) messages worskin</button> -->
+            
+            <p class="gray_color_example" id="gray_color_example"> Example Text </p>
+        </div>
+        <br><br><br>
+        <div>
+            <button class="custom-btn btn-save" onclick="update_worksin_colors()">Update Workskin Colors</button>
+            <button class="custom-btn btn-del" onclick="reset_worksin_colors()">Reset Workskin Colors</button>
         </div>
         
 
