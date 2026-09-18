@@ -1,4 +1,33 @@
 
+.blue_color_example {
+  float: left;
+  color: #FFFFFF;
+  margin: 0 0 0.5em;
+  margin-right: 2em;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  /* background: #000000; */
+  background: #1289fe;
+  max-width: 75%;
+  clear: both;
+  position: relative;
+}
+
+.gray_color_example{
+  float: left;
+  color: #000000;
+  margin: 0 0 0.5em;
+  margin-right: 2em;
+  border-radius: 1em;
+  padding: 0.5em 1em;
+  background: #e5e5ea;
+  max-width: 75%;
+  clear: both;
+  position: relative;
+}
+
+
+
 /* the screen wrapper */
 .phone {
   max-width: 300px;
@@ -34,7 +63,7 @@
   padding-right: .5em;
 }
 
-/* how the words themselves looks */
+/* how the gray message looks */
 .text {
   float: left;
   color: #000000;
