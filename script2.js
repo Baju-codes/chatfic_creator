@@ -374,9 +374,11 @@ function toggle_gen_ex(){
     var y = document.getElementById("blue_message_ex")
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
+    var b = document.getElementById("feature_list_ex")
     y.style.display = "none"
     z.style.display = "none"
     a.style.display = "none"
+    b.style.display = "none"
     if (x.style.display === "block") {
         x.style.display = "none"
     } else {
@@ -389,9 +391,11 @@ function toggle_blue_message_ex(){
     var y = document.getElementById("blue_message_ex")
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
+    var b = document.getElementById("feature_list_ex")
     x.style.display = "none"
     z.style.display = "none"
     a.style.display = "none"
+    b.style.display = "none"
     if (y.style.display === "block") {
         y.style.display = "none"
     } else {
@@ -404,9 +408,11 @@ function toggle_hide_span_ex(){
     var y = document.getElementById("blue_message_ex")
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
+    var b = document.getElementById("feature_list_ex")
     y.style.display = "none"
     x.style.display = "none"
     a.style.display = "none"
+    b.style.display = "none"
     if (z.style.display === "block") {
         z.style.display = "none"
     } else {
@@ -419,9 +425,11 @@ function toggle_one_on_one_ex(){
     var y = document.getElementById("blue_message_ex")
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
+    var b = document.getElementById("feature_list_ex")
     y.style.display = "none"
     z.style.display = "none"
     x.style.display = "none"
+    b.style.display = "none"
     if (a.style.display === "block") {
         a.style.display = "none"
     } else {
@@ -429,16 +437,96 @@ function toggle_one_on_one_ex(){
     }
 }
 
+function toggle_feature_list_ex(){
+    var x = document.getElementById("general_ex")
+    var y = document.getElementById("blue_message_ex")
+    var z = document.getElementById("hide_span_ex")
+    var a = document.getElementById("one_on_one_ex")
+    var b = document.getElementById("feature_list_ex")
+    y.style.display = "none"
+    z.style.display = "none"
+    x.style.display = "none"
+    a.style.display = "none"
+    if (b.style.display === "block") {
+        b.style.display = "none"
+    } else {
+        b.style.display = "block"
+    }
+}
+
+// function test_me_message_color(){
+//     var col = document.getElementById("me_message_color").value
+//     console.log(col)
+//     var el = document.getElementById("blue_color_example")
+//     el.style.background = col
+// }
+
+// function test_you_message_color(){
+//     var col = document.getElementById("you_message_color").value
+//     var el = document.getElementById("gray_color_example")
+//     el.style.background = col
+// }
 
 
+const me_defaultColor = "#1289fe";
+const colorPicker = document.getElementById("me_message_color");
+colorPicker.value = me_defaultColor;
+colorPicker.addEventListener("input", update_me_color);
+colorPicker.select();
+function update_me_color(event) {
+    const el = document.getElementById("blue_color_example");
+    el.style.background = event.target.value;
+}
 
-function change_me_message_color(){
+const you_defaultColor = "#e5e5ea";
+const colorPicker2 = document.getElementById("you_message_color");
+colorPicker2.value = you_defaultColor;
+colorPicker2.addEventListener("input", update_you_color);
+colorPicker2.select();
+function update_you_color(event) {
+    const el = document.getElementById("gray_color_example");
+    el.style.background = event.target.value;
+}
+
+function reset_worksin_colors(){
+    //worksin me color replacement
     me_color.replaceChildren()
     me_tail_color.replaceChildren()
     me_typing_color.replaceChildren()
     me_typing_color_after.replaceChildren()
-    var col = document.getElementById("me_message_color").value
-    console.log(col)
+    var me_col = "#1289fe"
+    me_color.insertAdjacentText("beforeEnd", `${me_col}`)
+    me_tail_color.insertAdjacentText("beforeEnd", `${me_col}`)
+    me_typing_color.insertAdjacentText("beforeEnd", `${me_col}`)
+    me_typing_color_after.insertAdjacentText("beforeEnd", `${me_col}`)
+    //example me color replacement
+    const me_el = document.getElementById("blue_color_example");
+    me_el.style.background = me_col;
+
+    //worksin you color replacement
+    you_color.replaceChildren()
+    you_tail_color.replaceChildren()
+    you_typing_color.replaceChildren()
+    you_typing_color_after.replaceChildren()
+    var you_col = "#e5e5ea"
+    you_color.insertAdjacentText("beforeEnd", `${you_col}`)
+    you_tail_color.insertAdjacentText("beforeEnd", `${you_col}`)
+    you_typing_color.insertAdjacentText("beforeEnd", `${you_col}`)
+    you_typing_color_after.insertAdjacentText("beforeEnd", `${you_col}`)
+    //example you color replacement
+    const you_el = document.getElementById("gray_color_example");
+    you_el.style.background = you_col;
+}
+
+function update_worksin_colors(){
+    me_color.replaceChildren()
+    me_tail_color.replaceChildren()
+    me_typing_color.replaceChildren()
+    me_typing_color_after.replaceChildren()
+    var me_col = document.getElementById("me_message_color").value
+    console.log(me_col)
+    // var el = document.getElementById("blue_color_example")
+    // el.style.background = col
     // var el = document.getElementsByClassName("breply")
     // var el_aft = window.getComputedStyle(el, '::after');
     // console.log(content)
@@ -446,28 +534,27 @@ function change_me_message_color(){
     // e.style.background = col
     // }
     // el.style.background = col
-    me_color.insertAdjacentText("beforeEnd", `${col}`)
-    me_tail_color.insertAdjacentText("beforeEnd", `${col}`)
-    me_typing_color.insertAdjacentText("beforeEnd", `${col}`)
-    me_typing_color_after.insertAdjacentText("beforeEnd", `${col}`)
-}
+    me_color.insertAdjacentText("beforeEnd", `${me_col}`)
+    me_tail_color.insertAdjacentText("beforeEnd", `${me_col}`)
+    me_typing_color.insertAdjacentText("beforeEnd", `${me_col}`)
+    me_typing_color_after.insertAdjacentText("beforeEnd", `${me_col}`)
 
-function change_you_message_color(){
     you_color.replaceChildren()
     you_tail_color.replaceChildren()
     you_typing_color.replaceChildren()
     you_typing_color_after.replaceChildren()
-    var col = document.getElementById("you_message_color").value
-    console.log(col)
-    // var el = document.getElementsByClassName("text")
+    var you_col = document.getElementById("you_message_color").value
+    console.log(you_col)
+    // var el = document.getElementById("gray_color_example")
+    // el.style.background = col
     // var el_aft = window.getComputedStyle(el, '::after');
     // console.log(content)
     // for(let e of el){
     // e.style.background = col
     // }
     // el.style.background = col
-    you_color.insertAdjacentText("beforeEnd", `${col}`)
-    you_tail_color.insertAdjacentText("beforeEnd", `${col}`)
-    you_typing_color.insertAdjacentText("beforeEnd", `${col}`)
-    you_typing_color_after.insertAdjacentText("beforeEnd", `${col}`)
+    you_color.insertAdjacentText("beforeEnd", `${you_col}`)
+    you_tail_color.insertAdjacentText("beforeEnd", `${you_col}`)
+    you_typing_color.insertAdjacentText("beforeEnd", `${you_col}`)
+    you_typing_color_after.insertAdjacentText("beforeEnd", `${you_col}`)
 }
