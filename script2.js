@@ -16,6 +16,7 @@ const me_typing_color_after = document.getElementById("me_typing_color_after")
 //testing purposes:
 // names_dict.set("a", "aa")
 // names_dict.set("b", "bbb")
+//names_dict.set("Me", "me!")
 
 
 
@@ -98,7 +99,9 @@ function submit_text(){
             } else{
                 let n = name_and_text[0]
                 // console.log(n)
-                let message = name_and_text.slice(1).join(":").trim()
+                let raw_message = name_and_text.slice(1).join(":").trim()
+                let semi_message = raw_message.replace("<", "&lt;")
+                let message = semi_message.replace(">", "&gt;")
                 // console.log(message)
                 // find out if message is a normal message or a reply
                 let rep_names = n.split(",")
