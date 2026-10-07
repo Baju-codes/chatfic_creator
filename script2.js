@@ -14,8 +14,8 @@ const me_typing_color = document.getElementById("me_typing_color")
 const me_typing_color_after = document.getElementById("me_typing_color_after")
 
 //testing purposes:
-// names_dict.set("a", "aa")
-// names_dict.set("b", "bbb")
+// names_dict.set("A", "aa")
+// names_dict.set("B", "bbb")
 //names_dict.set("Me", "me!")
 
 
@@ -104,22 +104,36 @@ function submit_text(){
                 let message = semi_message.replace(">", "&gt;")
                 // console.log(message)
                 // find out if message is a normal message or a reply
-                let rep_names = n.split(",")
+                 let raw_rep_names = n.split(",")
+                let rep_names = []
+                for(let name of raw_rep_names){
+                    rep_names.push(name.trim())
+                }
                 //if normal message:
                 if(rep_names.length === 1){
                     //see if name exists in dictionary
-                    let temp = is_name_in_dict(rep_names[0].trim())
+                    let temp = is_name_in_dict(rep_names[0])
 
                     //handling of time
                     if(rep_names == "time" | rep_names == "Time"){
                         let type = "time"
                         text_back.push([type, message])
                     }
+                    //handling of you read indicator
+                    else if(rep_names == "read" | rep_names == "Read"){
+                        let type = "you_read"
+                        text_back.push([type, message])
+                    }
+                    //handling of you delivered indicator
+                    else if(rep_names == "delivered" | rep_names== "Delivered"){
+                        let type = "you_delivered"
+                        text_back.push([type, message])
+                    }
                     // if name not in dictionary break
                     else if (temp === false){
-                    console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
+                    console.log(`Name "${rep_names[0]}" does not exist in your current list of names`)
                     let type = "error"
-                    let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
+                    let message = `Name "${rep_names[0]}" does not exist in your current list of names`
                     text_back.push([type, message])
                     show_messages()
                     break
@@ -158,49 +172,62 @@ function submit_text(){
                 //if message has two names, it's a reply
                 }else if(rep_names.length === 2){
                     // see if the two names are in a dictionary
-                    let temp1 = is_name_in_dict(rep_names[0].trim())
-                    let temp2 = is_name_in_dict(rep_names[1].trim())
-                    //if they aren't break
-                    if (temp1 === false){
-                        console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
+                    let temp1 = is_name_in_dict(rep_names[0])
+                    let temp2 = is_name_in_dict(rep_names[1])
+                    //handling of me read reciept
+                    if(rep_names[1].toLowerCase() === "read" & rep_names[0].toLowerCase() === "me"){
+                        //console.log("me_message")
+                        let type = "me_read"
+                        //let user = get_user(rep_names[0])
+                        text_back.push([type, message])
+                    }
+                    //handling of me delivered reciept
+                    else if(rep_names[1].toLowerCase() === "delivered" & rep_names[0].toLowerCase() === "me"){
+                        //console.log("me_message")
+                        let type = "me_delivered"
+                        //let user = get_user(rep_names[0])
+                        text_back.push([type, message])
+                    }
+                    //if names aren't in a dictionary, break
+                    else if (temp1 === false){
+                        console.log(`Name "${rep_names[0]}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
+                        let message = `Name "${rep_names[0]}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
                     } else if(temp2 === false){
-                        console.log(`Name "${rep_names[1].trim()}" does not exist in your current list of names`)
+                        console.log(`Name "${rep_names[1]}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[1].trim()}" does not exist in your current list of names`
+                        let message = `Name "${rep_names[1]}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
                     
                     } else if(rep_names[0].toLowerCase() === "me"){
                         let type = "me_reply"
-                        let author = get_user(rep_names[0].trim())
-                        let receiver = get_user(rep_names[1].trim())
+                        let author = get_user(rep_names[0])
+                        let receiver = get_user(rep_names[1])
                         text_back.push([type, author, receiver, message])
                     }
                     else if(rep_names[1].toLowerCase() === "me"){
                         let type = "reply_to_me"
-                        let author = get_user(rep_names[0].trim())
-                        let receiver = get_user(rep_names[1].trim())
+                        let author = get_user(rep_names[0])
+                        let receiver = get_user(rep_names[1])
                         text_back.push([type, author, receiver, message])
                     }
                     //in a one on one conversation, you reply to me
                     else if(rep_names[0].toLowerCase() === "you" & rep_names[1].toLowerCase() === "me"){
                         let type = "you_to_me"
-                        let author = get_user(rep_names[0].trim())
-                        let receiver = get_user(rep_names[1].trim())
+                        let author = get_user(rep_names[0])
+                        let receiver = get_user(rep_names[1])
                         text_back.push([type, author, receiver, message])
                     }
-
                     // if message is a reply, log the message as a reply and save it
                     else {
                         let type = "reply"
-                        let author = get_user(rep_names[0].trim())
-                        let receiver = get_user(rep_names[1].trim())
+                        let author = get_user(rep_names[0])
+                        let receiver = get_user(rep_names[1])
                         text_back.push([type, author, receiver, message])
                     }
                 } else{
@@ -259,6 +286,38 @@ function show_messages(message_log){
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }
+
+
+
+        //you red reciept handling
+        else if(message[0] == "you_read"){
+            preview += `<span class="you_readreceipt"><b>Read</b> ${message[1]}</span><br>`
+            raw = `<span class="you_readreceipt"><b>Read</b><span class="hide">:</span> ${message[1]}<span class="hide"><br/></span></span><br/>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //me red reciept handling
+        else if(message[0] == "me_read"){
+            preview += `<span class="me_readreceipt"><b>Read</b> ${message[1]}</span><br>`
+            raw = `<span class="me_readreceipt"><b>Read</b><span class="hide">:</span> ${message[1]}<span class="hide"><br/></span></span><br/>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //you delivered reciept handling
+        else if(message[0] == "you_delivered"){
+            preview += `<span class="you_readreceipt"><b>Delivered</b> ${message[1]}</span><br>`
+            raw = `<span class="you_readreceipt"><b>Delivered</b><span class="hide">:</span> ${message[1]}<span class="hide"><br/></span></span><br/>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //me delivered reciept handling
+        else if(message[0] == "me_delivered"){
+            preview += `<span class="me_readreceipt"><b>Delivered</b> ${message[1]}</span><br>`
+            raw = `<span class="me_readreceipt"><b>Delivered</b><span class="hide">:</span> ${message[1]}<span class="hide"><br/></span></span><br/>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+
         //regular message
         else if(message[0] === "message"){
             //  message is coming from someone else and will be displayed on the left and in gray
@@ -375,10 +434,12 @@ function toggle_gen_ex(){
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
     var b = document.getElementById("feature_list_ex")
+    var c = document.getElementById("indicator_ex")
     y.style.display = "none"
     z.style.display = "none"
     a.style.display = "none"
     b.style.display = "none"
+    c.style.display = "none"
     if (x.style.display === "block") {
         x.style.display = "none"
     } else {
@@ -392,10 +453,12 @@ function toggle_blue_message_ex(){
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
     var b = document.getElementById("feature_list_ex")
+    var c = document.getElementById("indicator_ex")
     x.style.display = "none"
     z.style.display = "none"
     a.style.display = "none"
     b.style.display = "none"
+    c.style.display = "none"
     if (y.style.display === "block") {
         y.style.display = "none"
     } else {
@@ -409,10 +472,12 @@ function toggle_hide_span_ex(){
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
     var b = document.getElementById("feature_list_ex")
+    var c = document.getElementById("indicator_ex")
     y.style.display = "none"
     x.style.display = "none"
     a.style.display = "none"
     b.style.display = "none"
+    c.style.display = "none"
     if (z.style.display === "block") {
         z.style.display = "none"
     } else {
@@ -426,10 +491,12 @@ function toggle_one_on_one_ex(){
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
     var b = document.getElementById("feature_list_ex")
+    var c = document.getElementById("indicator_ex")
     y.style.display = "none"
     z.style.display = "none"
     x.style.display = "none"
     b.style.display = "none"
+    c.style.display = "none"
     if (a.style.display === "block") {
         a.style.display = "none"
     } else {
@@ -443,14 +510,35 @@ function toggle_feature_list_ex(){
     var z = document.getElementById("hide_span_ex")
     var a = document.getElementById("one_on_one_ex")
     var b = document.getElementById("feature_list_ex")
+    var c = document.getElementById("indicator_ex")
     y.style.display = "none"
     z.style.display = "none"
     x.style.display = "none"
     a.style.display = "none"
+    c.style.display = "none"
     if (b.style.display === "block") {
         b.style.display = "none"
     } else {
         b.style.display = "block"
+    }
+}
+
+function toggle_indicator_list_ex(){
+    var x = document.getElementById("general_ex")
+    var y = document.getElementById("blue_message_ex")
+    var z = document.getElementById("hide_span_ex")
+    var a = document.getElementById("one_on_one_ex")
+    var b = document.getElementById("feature_list_ex")
+    var c = document.getElementById("indicator_ex")
+    y.style.display = "none"
+    z.style.display = "none"
+    x.style.display = "none"
+    a.style.display = "none"
+    b.style.display = "none"
+    if (c.style.display === "block") {
+        c.style.display = "none"
+    } else {
+        c.style.display = "block"
     }
 }
 

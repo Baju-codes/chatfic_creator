@@ -3,9 +3,8 @@ const text_output = document.getElementById("text_output")
 const raw_text_output = document.getElementById("raw_text_output")
 const error_output = document.getElementById("error_output")
 const names_dict = new Map()
-//testing purposes:
-// names_dict.set("bar", "Bar")
-// names_dict.set("jim", "Jim")
+
+
 
 
 function save_name_user() {
@@ -88,24 +87,41 @@ function submit_text(){
                 let n = name_and_text[0]
                 let message = name_and_text.slice(1).join(":").trim()
                 // find out if message is a normal message or a reply
-                let rep_names = n.split(",")
+                let raw_rep_names = n.split(",")
+                let rep_names = []
+                for(let name of raw_rep_names){
+                    rep_names.push(name.trim())
+                }
+                console.log(raw_rep_names)
+                console.log(rep_names)
                 //if normal message:
                 if(rep_names.length === 1){
                     
                     //see if name exists in dictionary
-                    let temp = is_name_in_dict(rep_names[0].trim())
+                    let temp = is_name_in_dict(rep_names[0])
 
                     //handling of time
                     if(rep_names == "time" | rep_names == "Time"){
                         let type = "time"
                         text_back.push([type, message])
                     }
+                    //handling of read indicator
+                    else if(rep_names == "read" | rep_names == "Read"){
+                        let type = "read"
+                        text_back.push([type, message])
+                    }
+                    //handling of delivered indicator
+                    else if(rep_names == "delivered" | rep_names == "Delivered"){
+                        let type = "delivered"
+                        text_back.push([type, message])
+                    }
+
                     
                     // if name not in dictionary break
                     else if (temp === false){
-                    console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
+                    console.log(`Name "${rep_names[0]}" does not exist in your current list of names`)
                     let type = "error"
-                    let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
+                    let message = `Name "${rep_names[0]}" does not exist in your current list of names`
                     text_back.push([type, message])
                     show_messages()
                     break
@@ -125,28 +141,28 @@ function submit_text(){
                 //if message has two names, it's a reply
                 }else if(rep_names.length === 2){
                     // see if the two names are in a dictionary
-                    let temp1 = is_name_in_dict(rep_names[0].trim())
-                    let temp2 = is_name_in_dict(rep_names[1].trim())
+                    let temp1 = is_name_in_dict(rep_names[0])
+                    let temp2 = is_name_in_dict(rep_names[1])
                     //if they aren't break
                     if (temp1 === false){
-                        console.log(`Name "${rep_names[0].trim()}" does not exist in your current list of names`)
+                        console.log(`Name "${rep_names[0]}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[0].trim()}" does not exist in your current list of names`
+                        let message = `Name "${rep_names[0]}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
                     } else if(temp2 === false){
-                        console.log(`Name "${rep_names[1].trim()}" does not exist in your current list of names`)
+                        console.log(`Name "${rep_names[1]}" does not exist in your current list of names`)
                         let type = "error"
-                        let message = `Name "${rep_names[1].trim()}" does not exist in your current list of names`
+                        let message = `Name "${rep_names[1]}" does not exist in your current list of names`
                         text_back.push([type, message])
                         show_messages()
                         break
                     // if they are, log the message as a reply and save it
                     } else{
                         let type = "reply"
-                        let author = get_user(rep_names[0].trim())
-                        let receiver = get_user(rep_names[1].trim())
+                        let author = get_user(rep_names[0])
+                        let receiver = get_user(rep_names[1])
                         text_back.push([type, author, receiver, message])
                     }
                 } else{
@@ -186,6 +202,22 @@ function show_messages(message_log){
             preview += `<b>${message[1]}</b> is typing...`
             preview += "<br>"
             raw = `<p><b>${message[1]}</b> is typing</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //redreciept handling
+        else if(message[0] == "read"){
+            preview += `<b>Read at:</b> ${message[1]}`
+            preview += "<br>"
+            raw = `<p><b>Read at:</b> ${message[1]}</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //deliveredreciept handling
+        else if(message[0] == "delivered"){
+            preview += `<b>Delivered at:</b> ${message[1]}`
+            preview += "<br>"
+            raw = `<p><b>Delivered at:</b> ${message[1]}</p>`
             raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
             raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
         }

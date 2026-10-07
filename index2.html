@@ -41,8 +41,16 @@ b: typing
         <div class="spacer"></div>
         <hr>
     </header>
+<main>
 
-
+<!-- 
+<div class="phone"> <p class="messagebody"> <br><span class="names">username</span><br><span class="text">message</span><br></br>
+    <span class="you_readreceipt"><b>Read</b> 8:48 PM</span>
+<span class="breply">blue message</span><br></br>
+    <span class="me_readreceipt"><b>Read</b> 8:48 PM</span>
+<span class="names">username replied to me</span><br> <span class="text">repy</span><br></br>
+</p></div>
+ -->
 
     <p><b>Input the names and corresponding usernames into the form below</b></p>
     <p>
@@ -108,17 +116,18 @@ b: typing
                 A reply is written in the format "sender,receiver: message" (ie: "Steve, Tony: Hello!").<br>
                 A blue message is written in the format "me: message", where "me" is a name you inputed into the form above. (ie: "me: This message will be blue")<br> 
                 If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Blue messages can have a typing indicator as well ("me: typing").<br>
-                If you want to add a time indicator, write "time" where you would usually wite a person's name (ie: "time: Today 2:30 PM").<br>
+                For time, read and delivered indicators, reffer to the explanations and examples below <br>
                 Please separate individual messages by pressing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
             </p>
 
         
             <div>
                 <h4>More Explanations/Examples:</h4>
+                <button class="custom-btn btn-ex"  onclick="toggle_hide_span_ex()">Screen-reader compatibility</button>
                 <button class="custom-btn btn-ex" onclick="toggle_gen_ex()">Generally, what do I do?</button>
                 <button class="custom-btn btn-ex"  onclick="toggle_blue_message_ex()">I want one character to be typing the messages (blue messages)</button>
                 <button class="custom-btn btn-ex"  onclick="toggle_one_on_one_ex()">One on one chats</button>
-                <button class="custom-btn btn-ex"  onclick="toggle_hide_span_ex()">Screen-reader compatibility</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_indicator_list_ex()">Time and Read Indicators</button>
                 <button class="custom-btn btn-ex"  onclick="toggle_feature_list_ex()">Quick feature overview and notes</button>
             </div>
             <div id="general_ex" class="examples">
@@ -127,7 +136,7 @@ b: typing
                     time: Today 14:30<br>
                     Steve: hey there, I'm captain america <br>
                     Tony: Yeah, we know Steve, you set it as your username.<br>
-                    Steve,Tony: Oh I see!
+                    Steve,Tony: Oh I see!<br>
                     Tony: typing
                     <div class="display_side_by_side">
                         <div class="display_side_by_side_child">
@@ -160,7 +169,7 @@ b: typing
             <div id="blue_message_ex" class="examples">
                 <p>
                     If you want blue messages, you will have to create a name-username pair, where the name is "me" and the username is whatever you want that character's username to be. <br>
-                    Even though the username of the pov charcater is not displayed, you should still give them a representative username. The username is visible when AO3 workskins are hidden for a reader. (see: "Why is there a "hide" span in the raw HTML?")<br>
+                    Even though the username of the pov charcater is not displayed, you should still give them a representative username. The username is visible when AO3 workskins are hidden for a reader. (see: "Screen-reader compatibility")<br>
                     For example, if we wanted to write messages from the point of view of Peter Parker, we would make a character with the name "me" and the username "Peter". Then we would write all of Peter's messages as "me:message" <br>
                 </p>
                 So "me:Hey guys, I'm here too"<br>
@@ -208,21 +217,80 @@ b: typing
 
             <div id="hide_span_ex" class="examples">
                 <p>
-                    Hide spans are a way to make chat-messages acessible for people with screen-readers, for people downloading your work to read offline and for anyone who has workskins disabled on their AO3 profile.<br>
+                    You might notice that in the code you copy over to your AO3, there are spans with the "hide" class. These hide spans are a way to make chat-messages acessible for people with screen-readers, for people downloading your work to read offline and for anyone who has workskins disabled on their AO3 profile.<br>
                     The workskin provided below automatically hides anything in the "hide" span when the workskin is working as intended. But if the worskin is not working, all text (even the one in hide spans) will be visible.<br>
-                    It's incredibly neat, if I do say so myself, and all credit for this, and the entire workskin I am using must go to "CodenameCarrot" and "La_Temperanza" on AO3 who made it!
+                    These hide spans contain clarifying information, such as usernames of the authors of blue messages, so that it is obvious who is typing.<br>
+                    It's incredibly neat, if I do say so myself, and all credit for this, and the  workskin I am using must go to "CodenameCarrot" and "La_Temperanza" on AO3 who made it!
                 </p>
+            </div>
+
+            <div id="indicator_ex" class="examples">
+                <p>
+                    The skin provides three types of indicators. Time, Read and Delivered. The read and delivered will display on the right or left side depending on which side of the conversation performed that action.<br>
+                </p>
+                <p>
+                    <b>Time: </b><br>
+                    Time indicators are written in the form "Time: text". These indicatros appear in the middle of the display, instead of on the left or right.<br>
+                    So "Time: 10:30" followed by "MJ: Hey Peter, are you on your way?"
+                </p>
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>
+                            <div class="phone"> <p class="messagebody"> <br><span class="time">10:30</span><br></br><span class="names">MJ</span><br><span class="text">Hey Peter, are you on your way?</span><br></br></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            10:30<br></br> MJ: <br>Hey Peter, are you on your way?<br></br>
+                    </div>
+                </div>
+
+                <p>
+                    <b>Gray Read/Delivered: </b><br>
+                    Read and Delivered indicators show if a message has been read or delivered. If you want the indicator to be under a grey message, you write them in the form "read: text" or "delievered: text"
+                </p>
+                So "MJ: Hey Peter, are you on your way?" followed by "Read:Now",
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>              
+                            <div class="phone"> <p class="messagebody"> <br><span class="names">MJ</span><br><span class="text">Hey Peter, are you on your way?</span><br></br><span class="you_readreceipt"><b>Read</b> Now</span></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                           MJ: <br>Hey Peter, are you on your way?<br></br><b>Read</b>: Now<span class="hide"><br/>
+                    </div>
+                </div>
+                <p>
+                    <b>Blue Read/Delivered: </b><br>
+                    If you want the indicator to be under a blue message, you write them in the form "me, read: text" or "me, delievered: text"
+                </p>
+                So "me: yeah sorry, I lost track of time" followed by "me, Read:1 minute ago",
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>              
+                            <div class="phone"> <p class="messagebody"> <br><span class="breply">yeah sorry, I lost track of time</span><br></br><span class="me_readreceipt"><b>Read</b> 1 minute ago</span><br/></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            Peter (You): <br>yeah sorry, I lost track of time<br></br><b>Read</b>: 1 minute ago<br/></span></span><br/>
+                    </div>
+                
+                </div>
+
             </div>
 
             <div id="feature_list_ex" class="examples">
                 <p>
-                    <b>messages</b>- name:message<br>
-                    <b>replies</b>- sender,reciever:message<br>
-                    <b>blue messages</b>- me:message<br>
-                    <b>gray replies without names</b>- you:message<br>
-                    <b>typing indicator</b>- name:typing (or you:typing)<br>
+                    <b>messages</b>- [name]:[message]<br>
+                    <b>replies</b>- [sender],[reciever]:[message]<br>
+                    <b>blue messages</b>- me:[message]<br>
+                    <b>gray replies without names</b>- you:[message]<br>
+                    <b>typing indicator</b>- [name]:typing (or you:typing)<br>
                     <b>blue typing indicator</b>- me: typing<br>
-                    <b>time indicator</b>- time:message<br>
+                    <b>time indicator</b>- time:[message]<br>
+                    <b>gray read indicator</b>- read:[message]<br>
+                    <b>gray delivered indicator</b>- delivered:[message]<br>
+                    <b>blue read indicator</b>- me,read:[message]<br>
+                    <b>blue delivered indicator</b>- me,delivered:[message]<br>
                     <b>Note:</b> all "&lt;" and "&gt;" characters will be converted into a string of letters in the HTML text. This is to ensure they are displayed properly by the website/AO3 which would otherwise see them as valid HTML tags. So don't change them back.<br>
                 </p>
             </div>
@@ -261,7 +329,7 @@ b: typing
         <h4 class="subtitle">Workskin Information:</h4>
         <h4>What's a workskin?</h4>
         <p>A workskin is AO3's way of implementing styles. It can be used to show text in different fonts, to change how your fic looks, and, in our case, it is used to make the messages we created earlier look like messages instead of raw code.<br>
-            Below, you will find the code you have to paste into your AO3 workskin. To create a k, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!<br>
+            Below, you will find the code you have to paste into your AO3 workskin. To create a skin, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!<br>
             When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the HTML text message text from above into the "HTML" text editor.
         </p>
         <br>
@@ -564,12 +632,12 @@ b: typing
     </div>
 
     <br>
+</main>
     <footer>
-        <hr>
         <p>
             <b>Credits:</b><br>
-            Who am I? <a href="https://github.com/baju-codes">Here's my Github page!</a>
-            The workskin (and by extension my css code) used in the fancy message generation was created by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a><br>
+            Who am I? <a href="https://github.com/baju-codes">Here's my Github page!</a><br>
+           The original workskin (and by extension some of my css code blocks) adapted for the fancy text messages was created by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a><br>
             I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!<br> 
         </p>
         <p>
