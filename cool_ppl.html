@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Make nice looking chat conversations from plain text to be interted into your AO3 fanfiction or other creative works. Website provides both HTML and associated workskin necesary.">
+    <title>Chat Message Creator for Fanfiction</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="index-styles.css">
+    <link rel="stylesheet" type="text/css" href="overall.css">
+    <link rel="stylesheet" type="text/css" href="index2-styles.css">
+    <link rel="stylesheet" type="text/css" href="search-styles.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="header-child icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+            </svg>
+        </a>
+        <div class="spacer"></div> <!--This is the ugliest way to center this, but it works, so fuck you-->
+        <h3 class="header-child">Welcome to the Chat Message Creator </h3>
+        <div class="spacer"></div>
+        <hr>
+    </header>
+    <main>
+        <h4>People whose workskins I adapted for use on this website:</h4>
+        <p>
+            Fancy text messages: by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a><br><br>
+            Search Engine: by gadaursan on <a href="https://archiveofourown.org/works/8631214">AO3!</a><br> (Check out the entire work that's linked here. There's more cool stuff there!)
+        </p>
+        <br>
+        <h4>More workskins you should be made aware of:</h4>
+        <p>
+            Notebook lined paper: by La_Temperanza on <a href="https://archiveofourown.org/works/4414436">AO3</a>
+            <br><br>
+            Email: by La_Temperanza on <a href="https://archiveofourown.org/works/7953412">AO3</a>
+            <br><br>
+            Really just so much cool stuff! Check out chapter 19 for actual magic being some with drop-down menus: By PoppyChild on <a href="https://archiveofourown.org/works/15685086/chapters/201529076#workskin">AO3</a>
+            <br><br>
+            Custom and moving background images(?!) : by The_Winged_Warrior on <a href="https://archiveofourown.org/works/84808721/chapters/239588866#main">AO3</a>
+            <br><br>
+            Tumblr post simulator: by tsukinousagi on <a href="https://archiveofourown.org/works/61487233#main">AO3</a>
+            <br><br>
+        </p>
+
+        <h4>Neat:</h4>
+        <p>
+            <b>Opacity:</b><br>
+            you can change the opacity of text by adding this line to any workskin:<br>
+            #workskin.opacity{<br>
+                opacity: [number]%;<br>
+            }<br><br>
+            If in your work, you then write text in the form "&lt;p class="opacity"&gt;TEXT HERE&lt;p&gt;" it will lower the opacity of the text to the percentage set in the workskin.<br><br>
+            Like this: <br>
+            #workskin.opacity{<br>
+                opacity: 40%;<br>
+            }
+            <p class="opacity40">TEXT HERE</p>
+        </p>
+
+        <div>
+            <p>
+                <b>Rotation:</b><br>
+            Text can be rotated by adding this line to any workskin:<br>
+                #workskin .tilt {<br>
+                transform: rotate([degrees]);<br>
+                position: absolute;<br>
+                }<br><br>
+                If in your work, you then write text in the form "&lt;p class="tilt"&gt;TEXT HERE&lt;p&gt;" it will lower the opacity of the text to the percentage set in the workskin.<br><br>
+                Like this: <br>
+                #workskin .tilt {<br>
+                transform: rotate(-30deg);<br>
+                position: absolute;<br>
+                }<br>
+                <p class="tilt-l">TEXT HERE</p>
+                <br><br><br>
+            </p>
+        </div>
+
+    </main>
+    <footer>
+        <p>
+            <b>Credits:</b><br>
+            Who am I? <a href="https://github.com/baju-codes">Here's my Github page!</a><br>
+            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!<br> 
+        </p>
+        <p>
+            If you use this website in the creation of your stories, please, please, please, link the website in the notes! Thank you :)
+        </p>
+        <p>Now go forth and create! :D</p>
+    </footer>
+
+</body>
+</html>

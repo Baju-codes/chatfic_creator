@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Make nice looking chat conversations from plain text to be interted into your AO3 fanfiction or other creative works. Website provides both HTML and associated workskin necesary.">
+    <title>Chat Message Creator for Fanfiction</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- <link rel="stylesheet" href="index2-styles.css">-->
+    <link rel="stylesheet" href="search-styles.css">
+    <link rel="stylesheet" href="overall.css">
+    <link rel="stylesheet" href="style3.css">
+
+    <title>Document</title>
+</head>
+<body>
+
+        <header class="header">
+        <a href="index.html" class="header-child icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+            </svg>
+        </a>
+        <div class="spacer"></div>
+        <h3 class="header-child">Welcome to the Chat Message Creator </h3>
+        <div class="spacer"></div>
+        <hr>
+    </header>
+<main>
+
+    <div>
+        <p>What is this? A fake search engine generator!<br>
+        How do I use this? Fill in the form below! Or just click the "Submit Form" button for an empty search engine window.<br>
+        I'm still confused! Click the funky help buttons bellow.</p>
+        <p>
+            The workskin (and by extension a portion of my css code) used in the Search Engine generation was created by gadaursan on <a href="https://archiveofourown.org/works/8631214">AO3!</a> I made multiple adjustments to it, but the brunt of the work is gadaursan's.<br>
+        </p>
+            <button class="custom-btn btn-ex" onclick="toggle_general_ex()">Example </button>
+            <button class="custom-btn btn-ex" onclick="toggle_custom_search_ex()">Search Engines </button>
+            <button class="custom-btn btn-ex" onclick="toggle_dym_ex()">Adding a "Did You Mean"</button>
+            <button class="custom-btn btn-ex" onclick="toggle_search_stats_ex()">Adding Search Statistics</button>
+            <button class="custom-btn btn-ex" onclick="toggle_workskin_ex()">What's a workskin? </button>
+            <div id="general_search_ex" class="examples">
+                <p>Let's say we keep search engine at default. In the search box, we want to have the query "Who" and we want the search's autocomplete sugestions to give the following two options: "Who is the Doctor?" and "Who is the man in the blue police box?"</p>
+                <p>So we will write "Who" into the text field labled 'search box'. We will keep the 'did you mean' text field empty, and into the 'Autocomplete answers' text box, we will write just the text we want to go after the search query. We will also separate each autocomplete sugestion with an enter. (ie: we will type "is the Doctor?", we will hit enter and then type "is the man in the blue police box?")</p>
+                <p>Submitting the form</p>
+
+
+                <div class="display_side_by_side">
+                        <div class="display_side_by_side_child">
+                            <b>will result in a preview:</b><br><br>
+                            <p><span class="hide">Start of search engine</span></p><div class="browser"><p> <p class="search_logo default_logo">Search &#128270;<span class="hide"> Engine <br /><br />Search Term:</span> </p> </p><p class="search_bar"> <span class="search_term"> Who </span></p><div><p class="search_autocomplete"> <span class="hide">Search Autocomplete Sugestion:</span> <span>Who <b>is the Doctor?</b></span><br/> </p> </div><div><p class="search_autocomplete"> <span class="hide">Search Autocomplete Sugestion:</span> <span>Who <b>is the man in the blue police box?</b></span><br/> </p> </div><p><span class="hide">End of search engine</span></p></div>
+                        </div>
+                        <div class="display_side_by_side_child">
+                            <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            
+                             <p>Start of search engine<br><br><br>Search &#128270; Engine<br><br>Search Term:<br><br>Who<br><br>Search Autocomplete Sugestion: Who is the Doctor?<br><br>Search Autocomplete Sugestion: Who is the man in the blue police box?<br><br>End of search engine</p> 
+
+
+                        </div>
+                </div> 
+
+            </div>
+            <div id="dym_ex" class="examples">
+                You can add a <span class="search_dym1">Did you mean: </span><span class="search_dym2">Corrections of spelling</span>. These show up underneath the search query and the autocomplete sugestions if there are any. You do this by typing the correction into the "Did you mean" text box.<br>
+                For example, the query "Melody Pond" and the Did You Mean "River Song" <br>
+
+
+                <div class="display_side_by_side">
+                        <div class="display_side_by_side_child">
+                            <b>will result in a preview:</b><br><br>
+                            <p><span class="hide">Start of search engine</span></p><div class="browser"><p> <p class="search_logo default_logo">Search &#128270;<span class="hide"> Engine <br /><br />Search Term:</span> </p> </p><p class="search_bar"> <span class="search_term"> Melody Pond </span></p><p class="search_dym"> <span class="search_dym1">Did you mean: </span><span class="search_dym2">River Song</span> </p><p><span class="hide">End of search engine</span></p></div>
+                        </div>
+                        <div class="display_side_by_side_child">
+                            <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            <p><span>Start of search engine</span></p><div><p> <p>Search &#128270;<span> Engine <br /><br />Search Term:</span> </p> </p><p> <span> Melody Pond </span></p><p> <span>Did you mean: </span><span>River Song</span> </p><p><span>End of search engine</span></p></div>
+                        </div>
+                </div>
+
+            </div>
+            <div id="search_stats_ex" class="examples">
+                You can add <span class="search_stats">Search Statitistics</span>. These show up underneath the search query and the dydy you mean and autocomplete sugestions if there are any. You do this by typing the text of the search statistics into the "Search Statistics" text box.<br>
+                For example, the query "Melody Pond", the Did You Mean "River Song" and the search statitic "About 2000 results (in 0.2 seconds)"<br>
+
+                <div class="display_side_by_side">
+                        <div class="display_side_by_side_child">
+                            <b>will result in a preview:</b><br><br>
+                            
+                            <p><span class="hide">Start of search engine</span></p><div class="browser"><p> <p class="search_logo default_logo">Search &#128270;<span class="hide"> Engine <br /><br />Search Term:</span> </p> </p><p class="search_bar"> <span class="search_term"> Melody Pond </span></p><p class="search_dym"> <span class="search_dym1">Did you mean: </span><span class="search_dym2">River Song</span> </p><p class="search_stats"> <span class="hide">Search resulted in:</span> About 2000 results (in 0.2 seconds)</p><p><span class="hide">End of search engine</span></p></div>
+                        </div>
+                        <div class="display_side_by_side_child">
+                            <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            
+                            <p><span>Start of search engine</span></p><div><p> <p>Search &#128270;<span> Engine <br /><br />Search Term:</span> </p> </p><p> <span> Melody Pond </span></p><p> <span>Did you mean: </span><span>River Song</span> </p><p> <span>Search resulted in:</span> About 2000 results (in 0.2 seconds)</p><p><span>End of search engine</span></p></div>
+                        </div>
+                </div>
+
+            </div>
+            <div id="custom_search_ex" class="examples">
+                The generator supports three preset search engines and a custom one. The presets have their look already defined. For the custom search, you can specify the name (what text will apear on top of the search bar) using the "Custom Search Engine name" textbox and the color with the color picker. (These two inputs apear only when you select a custom search engine)<br>
+                Please note that the color of the custom search engine is coded into the workskin. This means two things: 1) You can't have multiple custom search engines within one work unless they all have the same color (or unless you change the workskin and the html a bit). 2) Any time you change the color of the custom search engine, you will have to update the workskin on AO3.<br>
+                This also means that if you keep the same color, or you are not using the custom search engine, you do not need to update your workskin on AO3 and can use it for multiple works. (ie: the workskin provided when you submit the form already has the code for the three default search engines).
+            </div>
+            <div id="workskin_ex" class="examples">
+            A workskin is AO3's way of implementing styles. It can be used to show text in different fonts, to change how your fic looks, and, in our case, it is used to make the search engine look like the preview instead of raw code.<br>
+            Wen you submit the form, you will see the code you have to paste into your AO3 workskin. To create a skin, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!<br>
+            When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the HTML text from above into the "HTML" text editor.
+            </div>
+
+    </div>
+
+
+    <br><hr><br>
+    <form id="search_form_input">
+        <label for="engine_type">Search engine:</label>
+        <select id="engine_type" form="search_form_input" onchange="checkIfCustom(this)">
+            <option value="Default">Default</option>
+            <option value="Google">Google</option>
+            <option value="Old Google">Old Google</option>
+            <option value="Custom" id="custom">Custom</option>
+        </select>
+        <br><br>
+        <div id="custom_engine_inputs" style="display: none;">
+            <label for="custom_engine">Custom Search Engine name:</label>
+            <input type="text" id="custom_engine" name="custom_engine">
+            <label for="custom_engine_color">Custom Search Engine color:</label>
+            <input type="color" id="custom_engine_color" name="custom_engine_color">
+            <br><br>
+        </div>
+
+        <label for="query">Search Box:</label>
+        <input type="text" id="query" name="query", placeholder='WHat'>
+        <br><br>
+        <label for="dym">Did you mean:</label>
+        <input type="text" id="dym" name="dym", placeholder='What'>
+        <br><br>
+        <label for="dym">Search Statistics:</label>
+        <input type="text" id="dym" name="dym", placeholder='About 20000 results'>
+        <br><br>
+        <label for="answers">Autocomplete answers:</label>
+        <textarea name="answers" rows="5" cols="30" placeholder='is a sonic screwdriver?'></textarea>
+        <br><span>Separate each autocomplete with an enter</span>
+        <br><br>
+        <input type="button" class="submitButton custom-btn btn-save" id="submitButton" value="Submit Form" onclick="SubmitSearchForm()">
+        <input type="reset" class="resetButton custom-btn btn-del" id="resetButton" value="Reset Form">
+    </form>
+
+
+    <button class="custom-btn btn-del" type = "button" onclick = "Del_search()">Delete Search</button>
+
+    <br><br>
+    <hr>
+    <h4>Preview:</h4>
+    <div id="search_result_view" style="display: none;">
+        
+        <div class="browser">
+            <p id="insert_logo_here">
+                
+            </p>
+            <p class="search_bar">
+                <span class="search_term" id="search_term"> </span>
+            </p>
+            <div id="search_autocomplete">
+                
+            </div>
+            <p class="search_dym" id="dym_here"></p>
+            <p class="search_stats" id="search_stats_here"></p> <!-- About 24,040,000,000 results (0.56 seconds) -->
+
+        </div>
+
+        <div class="text_containor">
+            <!-- Outputs-->
+            <div class="text_item"><div>
+                <h4>This is what you copy over to story:</h4>
+                <button class="custom-btn btn-save"  onclick="copy_raw_text_output('search_html_output')">Copy your HTML text</button>
+                <p class="text_outputs workskin_scrollable" id="search_html_output">   
+                </p>
+            </div></div>
+            <div class="text_item">
+                <h4>This is what you copy over to your workskin:</h4>
+                <button class="custom-btn btn-save" onclick="copy_raw_text_output('search_workskin')">Copy your workskin</button>
+                <p id="search_workskin" class="text_outputs workskin_scrollable">
+                    .browser {<br>
+                        min-width: 200px;<br>
+                        max-width: 80%;<br>
+                        margin: auto;<br>
+                        background-color: #fbf7f7;<br>
+                    }<br><br>
+                    
+                    .search_logo {<br>
+                        text-align: center;<br>
+                        margin: 0px 0px 0px 0px;<br>
+                    }<br><br>
+                    /* default logo */
+                    .default_logo {<br>
+                        font-weight: bold;<br>
+                        font-size: x-large;<br>
+                        font-family: "Lucida Console", "Courier New", monospace;<br>
+                        color: #4285F4;<br>
+                    }<br><br>
+
+                    .custom_logo {<br>
+                        font-weight: bold;<br>
+                        font-size: x-large;<br>
+                        font-family: "Lucida Console", "Courier New", monospace;<br>
+                        color: <span id="custom_color">#000000</span><br>
+                    }<br><br>
+
+                    /*google logos */
+                    .google_logo {<br>
+                        font-weight: bold;<br>
+                        font-size: x-large;<br>
+                        font-family: "Lato", "Verdana", sans-serif;<br>
+                    }<br><br>
+                    .googleold_logo {<br>
+                        font-weight: bold;<br>
+                        font-size: x-large;<br>
+                        font-family: "Cardo", "Garamond", serif;<br>
+                    }<br><br>
+                    .google_blue {<br>
+                        color: #4285F4;<br>
+                    }<br><br>
+                    .google_red {<br>
+                        color: #DB4437;<br>
+                    }<br><br>
+                    .google_yellow {<br>
+                        color: #F4B400;<br>
+                    }<br><br>
+                    .google_green {<br>
+                        color: #0F9D58;<br>
+                    }<br><br>
+
+                    /* search bar */
+                    .search_bar {<br>
+                        margin-top: 5px;<br>
+                        margin-bottom: 0px;<br>
+                    }<br><br>
+
+                    .search_bar span {<br>
+                        position: relative;<br>
+                        display: block;<br>
+                        margin: 0 0 0 0;<br>
+                        padding: 5px;<br>
+                    }<br><br>
+                    .search_term {<br>
+                        border: 1px solid #aaa;<br>
+                    }<br><br>
+
+                    /* did you mean and search stats */
+                    .search_stats {<br>
+                        margin: 0 0 0 0;<br>
+                        color: #999;<br>
+                        font-size: smaller;<br>
+                        padding-top: 5px;<br>
+                    }<br><br>
+
+                    /*dym stands for did you mean */
+                    .search_dym { <br>
+                        margin: 0 0 0 0;<br>
+                        font-size: smaller;<br>
+                        padding-top: 5px;<br>
+                    }<br><br>
+
+                    .search_dym1 {<br>
+                        color: #de5246;<br>
+                    }<br><br>
+
+                    .search_dym2 {<br>
+                        color: #0645AD;<br>
+                        font-weight: bold;<br>
+                        font-style: italic;<br>
+                    }<br><br>
+
+                    /* autcomoplete options */
+                    .search_autocomplete {<br>
+                    border: 1px solid #aaa;<br>
+                    padding: 0px 5px 5px 5px;<br>
+                    margin-top: 0px;<br>
+                    margin-bottom: 0px;<br>
+                    }<br><br>
+                    
+                    .hide{<br>
+                    display: none;<br>
+                    }<br>
+
+                </p>
+            </div>
+    </div>
+    </div>
+
+    <div>
+</main>
+    <footer>
+        <p>
+            <b>Credits:</b><br>
+            Who am I? <a href="https://github.com/baju-codes">Here's my Github page!</a>
+            The original workskin (and by extension my css code) adapted for the Search Engine was created by gadaursan on <a href="https://archiveofourown.org/works/8631214">AO3!</a><br>
+            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!<br> 
+        </p>
+        <p>
+            If you use this website in the creation of your stories, please, please, please, link the website in the notes! Thank you :)
+        </p>
+        <p>Now go forth and create! :D</p>
+    </footer>
+    </div>
+
+<script src="search_stript.js"></script>
+</body>
+</html>

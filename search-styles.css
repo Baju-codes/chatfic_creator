@@ -1,0 +1,105 @@
+.browser {
+    min-width: 200px;
+    max-width: 80%;
+    margin: auto;
+    background-color: #fbf7f7;
+}
+  
+.search_logo {
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+}
+/* default logo */
+.default_logo {
+    font-weight: bold;
+    font-size: x-large;
+    /* font-weight: bold; */
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: #4285F4;
+  }
+
+.custom_logo {
+    font-weight: bold;
+    font-size: x-large;
+    /* font-weight: bold; */
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: #0d7232;
+  }
+
+/*google logos */
+.google_logo {
+    font-weight: bold;
+    font-size: x-large;
+    font-family: "Lato", "Verdana", sans-serif;
+  }
+  .googleold_logo {
+    font-weight: bold;
+    font-size: x-large;
+    font-family: "Cardo", "Garamond", serif;
+  }
+  .google_blue {
+    color: #4285F4;
+  }
+  .google_red {
+    color: #DB4437;
+  }
+  .google_yellow {
+    color: #F4B400;
+  }
+  .google_green {
+    color: #0F9D58;
+
+  }
+
+  /* search bar */
+  .search_bar {
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+
+  .search_bar span {
+    position: relative;
+    display: block;
+    margin: 0 0 0 0;
+    padding: 5px;
+  }
+  .search_term {
+    border: 1px solid #aaa;
+  }
+
+/* did you mean and search stats */
+.search_stats {
+    margin: 0 0 0 0;
+    color: #999;
+    font-size: smaller;
+    padding-top: 5px;
+}
+
+/*dym stands for did you mean */
+.search_dym { 
+    margin: 0 0 0 0;
+    font-size: smaller;
+    padding-top: 5px;
+  }
+
+  .search_dym1 {
+    color: #de5246;
+  }
+
+  .search_dym2 {
+    color: #0645AD;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+/* autcomoplete options */
+.search_autocomplete {
+  border: 1px solid #aaa;
+  padding: 0px 5px 5px 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+  
+.hide{
+  display: none;
+}
