@@ -37,8 +37,10 @@
 }
 
 /* if i wanted the message headder */
-/* .header {
+.message_header {
   min-width: 300px;
+  padding-left: .5em;
+  padding-right: .5em;
   background-color: #f6f6f6;
   border-bottom: 1px solid #b2b2b2;
   color: #000000;
@@ -47,11 +49,10 @@
   padding-top: .5em;
   margin-left: -.5em;
   margin-right: -.5em;
-  margin-bottom: -2em;
   text-align: center;
   text-transform: capitalize;
   display: table;
-} */
+}
 
 
 /* the way the of the screen background looks */

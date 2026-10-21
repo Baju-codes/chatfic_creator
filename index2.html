@@ -20,11 +20,11 @@ a: hi
 b, a: hello there
 me: hey3
 a,me: you're being replied to
+read: 5min ago
 me,b: and now b is being replied to by me
-b: typing 
+me, read: Now
+b: typing
 -->
-
-
 
 
 
@@ -43,14 +43,25 @@ b: typing
     </header>
 <main>
 
-<!-- 
-<div class="phone"> <p class="messagebody"> <br><span class="names">username</span><br><span class="text">message</span><br></br>
+<!-- <br><br>
+<div class="phone"> <p class="messagebody"> <br>
+    <span class="message_header">contact</span><br><br>
+    <span class="names">username</span><br><span class="text">message</span><br></br>
     <span class="you_readreceipt"><b>Read</b> 8:48 PM</span>
 <span class="breply">blue message</span><br></br>
     <span class="me_readreceipt"><b>Read</b> 8:48 PM</span>
 <span class="names">username replied to me</span><br> <span class="text">repy</span><br></br>
-</p></div>
- -->
+</p></div> -->
+
+
+
+
+
+
+
+
+
+
 
     <p><b>Input the names and corresponding usernames into the form below</b></p>
     <p>
@@ -286,11 +297,11 @@ b: typing
                     <b>gray replies without names</b>- you:[message]<br>
                     <b>typing indicator</b>- [name]:typing (or you:typing)<br>
                     <b>blue typing indicator</b>- me: typing<br>
-                    <b>time indicator</b>- time:[message]<br>
+                    <b>time indicator</b>- time:[time]<br>
                     <b>gray read indicator</b>- read:[message]<br>
                     <b>gray delivered indicator</b>- delivered:[message]<br>
-                    <b>blue read indicator</b>- me,read:[message]<br>
-                    <b>blue delivered indicator</b>- me,delivered:[message]<br>
+                    <b>blue read indicator</b>- me,read:[time]<br>
+                    <b>blue delivered indicator</b>- me,delivered:[time]<br>
                     <b>Note:</b> all "&lt;" and "&gt;" characters will be converted into a string of letters in the HTML text. This is to ensure they are displayed properly by the website/AO3 which would otherwise see them as valid HTML tags. So don't change them back.<br>
                 </p>
             </div>
@@ -301,6 +312,12 @@ b: typing
 
     <h4  class="subtitle">Message Creator</h4>
     <div id="css_text_area">
+            <input type="checkbox" id="check_header" name="check_header" value="Add Contact Name"><label for="check_header"> Add a contact name to the top of the message window</label><br>
+            <div id="header_input_container">
+                <label for="header_input">Contact/Grouchat name:</label>
+                <input type="text" id="header_input" name="header_input">
+                <br><br>
+            </div>
             <label for="text_area" id="text_area_label"><b>Type your messages here:</b></label>
             <br>
             <textarea id="text_area" name="text_area" rows="4", cols="50", placeholder='Messages in the form of "name: text", separated by enter'></textarea>
@@ -366,6 +383,22 @@ b: typing
             <p id="workskin_copy" class="workskin_scrollable">
                 #workskin .hide {<br>
                     display: none;<br>
+                }<br><br>
+                #workskin .header {<br>
+                    min-width: 300px;<br>
+                    padding-left: .5em;<br>
+                    padding-right: .5em;<br>
+                    background-color: #f6f6f6;<br>
+                    border-bottom: 1px solid #b2b2b2;<br>
+                    color: #000000;<br>
+                    font-weight: bold;<br>
+                    padding-bottom: .5em;<br>
+                    padding-top: .5em;<br>
+                    margin-left: -.5em;<br>
+                    margin-right: -.5em;<br>
+                    text-align: center;<br>
+                    text-transform: capitalize;<br>
+                    display: table;<br>
                 }<br>
                 <br><br>
                 #workskin .phone {<br>
@@ -621,6 +654,26 @@ b: typing
                 opacity: .65;<br>
                 }<br>
                 <br><br>
+                
+                .me_readreceipt {<br>
+                color: #7B7C80;<br>
+                font-size: .75em;<br>
+                float: right;<br>
+                position: relative;<br>
+                clear: both;<br>
+                margin: -.75em -1.25em 0.5em 0;<br>
+                padding: 0 1em 0.5em;<br>
+                }<br><br>
+
+                .you_readreceipt {<br>
+                color: #7B7C80;<br>
+                font-size: .75em;<br>
+                float: left;<br>
+                position: relative;<br>
+                clear: both;<br>
+                margin: -.75em -1.25em 0.5em 0;<br>
+                padding: 0 1em 0.5em;<br>
+                }<br><br>
 
 
 

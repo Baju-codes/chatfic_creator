@@ -16,7 +16,7 @@ const me_typing_color_after = document.getElementById("me_typing_color_after")
 //testing purposes:
 // names_dict.set("A", "aa")
 // names_dict.set("B", "bbb")
-//names_dict.set("Me", "me!")
+// names_dict.set("Me", "me!")
 
 
 
@@ -70,14 +70,42 @@ function get_user(person_name){
     return names_dict.get(uper_name)
 }
 
+const HeaderisChecked = document.querySelector("#check_header")
+const headerContainor = document.querySelector("#header_input_container")
+headerContainor.style.visibility = "hidden"
+HeaderisChecked.addEventListener("change", () => {
+    if (HeaderisChecked.checked) {
+        headerContainor.style.visibility = "visible"
+        headerContainor.value = ""
+    } else {
+        headerContainor.style.visibility = "hidden"
+    }
+})
+
+const headerText = document.getElementById("header_input")
+function CheckIfHeadrer(){
+    if (HeaderisChecked.checked){
+        return headerText.value 
+    }
+    else{
+        return "none"
+    }
+} 
 // 
 let text_back = []
 // messagess handling
 function submit_text(){
     text_back = []
+    IsHeader = []
     let text_body = document.getElementById("text_area").value
+    let contactName = CheckIfHeadrer()
     let text_processed = ""
     text_processed = text_body
+    //if there is a headder
+    if(contactName !== "none"){
+        //make the hader witht he name provided
+        IsHeader.push(["header", contactName])
+    }
     //if something's in the textbox:
     if (text_processed !== ''){
         //split it by new line characters into indivisual messages
@@ -245,6 +273,9 @@ function submit_text(){
 function clear_text(){
     //var text_body = document.getElementById("text_area").value == ""
     document.getElementById("text_area").value = ''
+    document.getElementById("check_header").checked = false
+    document.getElementById("header_input").value = ''
+    headerContainor.style.visibility = "hidden"
     text_back = []
     text_output.replaceChildren()
     raw_text_output.replaceChildren()
@@ -256,10 +287,19 @@ function show_messages(message_log){
     error_output.replaceChildren()
     let preview = ""
     let raw = ""
-    let start_stuff = `<div class="phone"> <p class="messagebody"> <br>`
+    let start_stuff = `<div class="phone"> <p class="messagebody">`
     let end_stuff = `</p></div>`
     preview += `${start_stuff}`
     raw_text_output.insertAdjacentText("beforeEnd", `${start_stuff}`)
+    for(let message of IsHeader){
+        if(message[0] == "header"){
+                preview += `<span class="message_header">${message[1]}</span>`
+                raw = `<span class="header"><span class="hide">Message to: </span>${message[1]}</span>`
+                raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+        }
+    }
+    preview += `<br>`
+    raw_text_output.insertAdjacentText("beforeEnd", `<br>`)
     for(let message of text_back){
         //error handling
         if(message[0] == "error"){
