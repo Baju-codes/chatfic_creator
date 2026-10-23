@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Make nice looking chat conversations from plain text to be interted into your AO3 fanfiction or other creative works. Website provides both HTML and associated workskin necesary.">
+    <title>The PrettyFICator</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <link rel="stylesheet" href="style_fancy.css">
+    <link rel="stylesheet" href="style_simple.css">
+    <link rel="stylesheet" href="overall.css">
+
+    <title>Document</title>
+</head>
+<body>
+
+<!--
+a: hi
+b, a: hello there
+me: hey3
+a,me: you're being replied to
+read: 5min ago
+me,b: and now b is being replied to by me
+me, read: Now
+b: typing
+-->
+
+
+
+
+    <header class="header">
+        <a href="index.html" class="header-child icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+            </svg>
+        </a>
+        <div class="spacer"></div>s
+        <h3 class="header-child">Welcome to the PrettyFICator! </h3>
+        <div class="spacer"></div>
+        <hr>
+    </header>
+<main>
+
+<!-- <br><br>
+<div class="phone"> <p class="messagebody"> <br>
+    <span class="message_header">contact</span><br><br>
+    <span class="names">username</span><br><span class="text">message</span><br></br>
+    <span class="you_readreceipt"><b>Read</b> 8:48 PM</span>
+<span class="breply">blue message</span><br></br>
+    <span class="me_readreceipt"><b>Read</b> 8:48 PM</span>
+<span class="names">username replied to me</span><br> <span class="text">repy</span><br></br>
+</p></div> -->
+
+
+
+
+
+
+
+
+
+
+
+    <p><b>Input the names and corresponding usernames into the form below</b></p>
+    <p>
+         Names are replaced by usernames in the final text!<br>
+    </p>
+    <p>
+         Names are case in-sensitive ("steve", "Steve" and "StEvE" are all seen as the same character)!<br>
+    </p>
+    <button class="custom-btn btn-ex" onclick="toggle_name_ex()">More Thorough Explanation </button>
+    <p id="name_ex" class="examples">A name of "Tony" and username of "TheRealTonyStark" will let you write Tony's messages as "Tony: message" instead of having to type "TheRealTonyStark: message" over and over and over again. The final text will still display all messages by Tony as being written by "TheRealTonyStark".</p>
+
+    <div>
+        <div>
+            <form id = "name_and_user_form">
+                <div>
+                    <div>
+                        <p><label for = "add_name">Name (or abbreviation):</label>
+                        <input id = "add_name" class="custom-input" type = "text" name = "add_name" placeholder = "Steve"></p>
+                    </div>
+                    <div>
+                        <label for="add_user">Username:</label>
+                        <input id = "add_user" class="custom-input" type = "text" name = "add_user", placeholder = "CaptainAmerica">
+                    </div>
+                    <button class="custom-btn btn-save" type = "button" onclick = "save_name_user()">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <br>
+        <div>
+                <label for = "del_name">Delete a name:</label>
+                <input id = "del_name" class="custom-input" type = "text" name = "del_name", placeholder = "Steve">
+                <button class="custom-btn btn-del" type = "button" onclick = "del_one_name()">Delete</button>
+        </div>
+        <div>
+            <button class="custom-btn btn-del" type = "button" onclick = "del_all_names()">Delete all names</button>
+        </div>
+    </div>
+    <br>
+    
+    
+    <div>
+        <p id="current_usernames">
+            <b>Current (user)names:</b> <br>
+        </p>
+        <p id="names_output">   
+        </p>
+    </div>
+ 
+    <br>
+
+
+    <!--Let me explain-->
+    <hr>
+     <div class="center_container">
+        <h4>How to format messages</h4>
+         <button class="custom-btn btn-ex" onclick="toggle_explain()">Show/Hide Explanation</button>
+
+    </div>
+    <div id="explain"> 
+            <p>
+                A single message is written in the format "name: message" (ie: "Steve: Hi").<br>
+                A reply is written in the format "sender,receiver: message" (ie: "Steve, Tony: Hello!").<br>
+                A blue message is written in the format "me: message", where "me" is a name you inputed into the form above. (ie: "me: This message will be blue")<br> 
+                If you want a typing indicator write "typing" into the message (ie: "Steve: typing"). Blue messages can have a typing indicator as well ("me: typing").<br>
+                For time, read and delivered indicators, reffer to the explanations and examples below <br>
+                Please separate individual messages by pressing enter (ie: one message on each line). If you don't do this, the output will be wrong.<br>
+            </p>
+
+        
+            <div>
+                <h4>More Explanations/Examples:</h4>
+                <button class="custom-btn btn-ex"  onclick="toggle_hide_span_ex()">Screen-reader compatibility</button>
+                <button class="custom-btn btn-ex" onclick="toggle_gen_ex()">Generally, what do I do?</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_blue_message_ex()">I want one character to be typing the messages (blue messages)</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_one_on_one_ex()">One on one chats</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_indicator_list_ex()">Time and Read Indicators</button>
+                <button class="custom-btn btn-ex"  onclick="toggle_feature_list_ex()">Quick feature overview and notes</button>
+            </div>
+            <div id="general_ex" class="examples">
+                <p>
+                    Let's say we have the name "Steve" with the username "CaptainAmerica" and the name "Tony" with the username "TheRealTonyStark". <br> The following text: <br>
+                    time: Today 14:30<br>
+                    Steve: hey there, I'm captain america <br>
+                    Tony: Yeah, we know Steve, you set it as your username.<br>
+                    Steve,Tony: Oh I see!<br>
+                    Tony: typing
+                    <div class="display_side_by_side">
+                        <div class="display_side_by_side_child">
+                            <b>will result in a preview:</b><br><br>
+                            
+                            <div class="phone"> <p class="messagebody"> <br><span class="time">Today 14:30</span><br>
+                            <span class="names">CaptainAmerica</span><br><span class="text">hey there, I'm captain america</span><br></br>
+                            <span class="names">TheRealTonyStark</span><br><span class="text">Yeah, we know Steve, you set it as your username.</span><br></br>
+                            <span class="names">CaptainAmerica replied to TheRealTonyStark</span><br> <span class="text">Oh I see!</span><br></br>
+                            <span class="typing-indicator"><span></span><span></span><span></span></span>
+                            </p></div>
+
+                        </div>
+                        <div class="display_side_by_side_child">
+                            <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            
+                                Today 14:30<br></br>
+                                CaptainAmerica: <br>hey there, I'm captain america<br></br>
+                                TheRealTonyStark: <br>Yeah, we know Steve, you set it as your username.<br></br>
+                                CaptainAmerica replied to TheRealTonyStark: <br> Oh I see! <br><br/>
+                                Tony: typing<br></br>
+
+
+                        </div>
+                    </div>  
+                    You can then copy the HTML and paste it directly into your AO3 story (into the raw HTML tab)
+                </p>
+            </div>
+
+            <div id="blue_message_ex" class="examples">
+                <p>
+                    <p>
+                        If you want blue messages, you will have to create a name-username pair, where the name is "me" and the username is whatever you want that character's username to be.
+                    </p>
+                    <p>
+                        Even though the username of the pov charcater is not displayed, you should still give them a representative username. The username is visible when AO3 workskins are hidden for a reader. (see: "Screen-reader compatibility")
+                    </p>
+                    <p>
+                        For example, if we wanted to write messages from the point of view of Peter Parker, we would make a character with the name "me" and the username "Peter". Then we would write all of Peter's messages as "me:message"
+                    </p>
+                </p>
+                So "me:Hey guys, I'm here too"<br>
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>
+                        <div class="phone"> <p class="messagebody"> <br><span class="breply">Hey guys, I'm here too</span><br></br></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br>
+                            
+                           <br> Peter (You):<br>Hey guys, I'm here too<br></br>
+                    </div>
+                </div>
+            </div>
+
+            <div id="one_on_one_ex" class="examples">
+                <p>
+                    If you want to have one on one conversations, you don't want to see the other person's name after every message they type, of course. Similarly to the "me" message, you can therefore set up a character with the name "you" and the username of whatever you want the character to be named. This way, the name of any "you" message will not be visible with the workskins enabled, but will still be visible for anyone not using the worskins, so they know which character is typing!
+                </p>
+                <p>
+                    While messages in the format "me,you:message" will look like regular messages with the workskin, without it, the text will still say that the "me" character replied to the "you" character!
+                </p>
+                <p>
+                    So if I have a character with the name "me" and username "Peter" and another character with the name "you" and username "MJ", a one-on-one conversation between them
+                </p>
+
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>will result in a preview:</b><br><br>
+                        <div class="phone"> <p class="messagebody"> <br>
+                        <span class="breply">so when should I pick you up?</span><br></br>
+                        <span class="text">around 10?</span><br></br>
+                        <span class="breply">Great, I'll swing by</span><br></br>
+                        <span class="names">MJ replied to you:</span><br><span class="text">I thought we were going by car?</span><br></br>
+                        </p></div>
+
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br>
+                            <br>
+                            Peter (You): <br>so when should I pick you up?<br></br>
+                            MJ: <br>around 10?<br></br>
+                            You replied to MJ: <br>Great, I'll swing by<br></br>
+                            MJ replied to you:<br>I thought we were going by car?<br></br>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="hide_span_ex" class="examples">
+                <p>
+                    <p>
+                        You might notice that in the code you copy over to your AO3, there are spans with the "hide" class. These hide spans are a way to make chat-messages acessible for people with screen-readers, for people downloading your work to read offline and for anyone who has workskins disabled on their AO3 profile.
+                    </p>
+                    <p>
+                        The workskin provided below automatically hides anything in the "hide" span when the workskin is working as intended. But if the worskin is not working, all text (even the one in hide spans) will be visible.
+                    </p>
+                    <p>
+                        These hide spans contain clarifying information, such as usernames of the authors of blue messages, so that it is obvious who is typing.
+                    </p>
+                    <p>
+                        It's incredibly neat, if I do say so myself, and all credit for this, and the  workskin I am using must go to "CodenameCarrot" and "La_Temperanza" on AO3 who made it!
+                    </p>
+                </p>
+            </div>
+
+            <div id="indicator_ex" class="examples">
+                <p>
+                    The skin provides three types of indicators. Time, Read and Delivered. The read and delivered will display on the right or left side depending on which side of the conversation performed that action.<br>
+                </p>
+                <p>
+                    <b>Time: </b><br>
+                    Time indicators are written in the form "Time: text". These indicatros appear in the middle of the display, instead of on the left or right.<br>
+                    So "Time: 10:30" followed by "MJ: Hey Peter, are you on your way?"
+                </p>
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>
+                            <div class="phone"> <p class="messagebody"> <br><span class="time">10:30</span><br></br><span class="names">MJ</span><br><span class="text">Hey Peter, are you on your way?</span><br></br></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            10:30<br></br> MJ: <br>Hey Peter, are you on your way?<br></br>
+                    </div>
+                </div>
+
+                <p>
+                    <b>Gray Read/Delivered: </b><br>
+                    Read and Delivered indicators show if a message has been read or delivered. If you want the indicator to be under a grey message, you write them in the form "read: text" or "delievered: text"
+                </p>
+                So "MJ: Hey Peter, are you on your way?" followed by "Read:Now",
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>              
+                            <div class="phone"> <p class="messagebody"> <br><span class="names">MJ</span><br><span class="text">Hey Peter, are you on your way?</span><br></br><span class="you_readreceipt"><b>Read</b> Now</span></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                           MJ: <br>Hey Peter, are you on your way?<br></br><b>Read</b>: Now<span class="hide"><br/>
+                    </div>
+                </div>
+                <p>
+                    <b>Blue Read/Delivered: </b><br>
+                    If you want the indicator to be under a blue message, you write them in the form "me, read: text" or "me, delievered: text"
+                </p>
+                So "me: yeah sorry, I lost track of time" followed by "me, Read:1 minute ago",
+                <div class="display_side_by_side">
+                    <div class="display_side_by_side_child">
+                        <b>Will result in a preview: </b><br>              
+                            <div class="phone"> <p class="messagebody"> <br><span class="breply">yeah sorry, I lost track of time</span><br></br><span class="me_readreceipt"><b>Read</b> 1 minute ago</span><br/></p></div>
+                    </div>
+                    <div class="display_side_by_side_child">
+                        <b>With workskins turned off on AO3, the text will look like this:</b><br><br>
+                            Peter (You): <br>yeah sorry, I lost track of time<br></br><b>Read</b>: 1 minute ago<br/></span></span><br/>
+                    </div>
+                
+                </div>
+
+            </div>
+
+            <div id="feature_list_ex" class="examples">
+                <p>
+                    <b>messages</b>- [name]:[message]<br>
+                    <b>replies</b>- [sender],[reciever]:[message]<br>
+                    <b>blue messages</b>- me:[message]<br>
+                    <b>gray replies without names</b>- you:[message]<br>
+                    <b>typing indicator</b>- [name]:typing (or you:typing)<br>
+                    <b>blue typing indicator</b>- me: typing<br>
+                    <b>time indicator</b>- time:[time]<br>
+                    <b>gray read indicator</b>- read:[message]<br>
+                    <b>gray delivered indicator</b>- delivered:[message]<br>
+                    <b>blue read indicator</b>- me,read:[time]<br>
+                    <b>blue delivered indicator</b>- me,delivered:[time]<br>
+                    <b>Note:</b> all "&lt;" and "&gt;" characters will be converted into a string of letters in the HTML text. This is to ensure they are displayed properly by the website/AO3 which would otherwise see them as valid HTML tags. So don't change them back.<br>
+                </p>
+            </div>
+    
+    </div>
+    <hr>
+
+
+    <h4  class="subtitle">Message Creator</h4>
+    <div id="css_text_area">
+            <input type="checkbox" id="check_header" name="check_header" value="Add Contact Name"><label for="check_header"> Add a contact name to the top of the message window</label><br>
+            <div id="header_input_container">
+                <label for="header_input">Contact/Grouchat name:</label>
+                <input type="text" id="header_input" name="header_input">
+                <br><br>
+            </div>
+            <label for="text_area" id="text_area_label"><b>Type your messages here:</b></label>
+            <br>
+            <textarea id="text_area" name="text_area" rows="4", cols="50", placeholder='Messages in the form of "name: text", separated by enter'></textarea>
+            <br>
+            <button class="custom-btn btn-save" type = "button" onclick = "submit_text()">Submit text</button>
+            <button class="custom-btn btn-del" type = "button" onclick = "clear_text()">Clear Text</button>
+        </div>
+        <br>
+    <p id="error_output"></p>
+    <div class="text_containor">
+        <!-- Outputs-->
+        <div class="text_item">
+            <h4>Preview of your chat conversation:</h4>
+            <p id="text_output" class="text_outputs">   
+            </p>
+        </div>
+        <div class="text_item">
+            <h4>This is what you copy over to AO3:</h4>
+            <button class="custom-btn btn-save" id="copy_raw_text_output", onclick="copy_raw_text_output('raw_text_output')">Copy your HTML text</button>
+            <p id="raw_text_output" class="text_outputs">   
+            </p>
+        </div>
+    </div>
+
+    <hr>
+        <h4 class="subtitle">Workskin Information:</h4>
+        <h4>What's a workskin?</h4>
+        <p>
+            A workskin is AO3's way of implementing styles. It can be used to show text in different fonts, to change how your fic looks, and, in our case, it is used to make the messages we created earlier look like messages instead of raw code.
+        </p>
+        <p>
+            Below, you will find the code you have to paste into your AO3 workskin. To create a skin, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!
+        </p>
+        <p>
+            When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the HTML text message text from above into the "HTML" text editor.
+        </p>
+        <br>
+
+        <div>
+            <h4>I want my messages to be a different color!</h4>
+            <p> 
+                While the buttons bellow only change the contents of the worksin (but not the website (curese you pseudo-classes in css)), with the color pickers, you can change the colors of your incoming (grey) and outgoing (blue) messages.
+            </p>
+            <p>
+                The example texts show how such a message would look, but the worskin itself only gets updated when you click the "Update workskin" button. <br>
+                Please not that any time you change these settings, the text of the workskin below changes and needs to be updated on your AO3!
+            </p>
+            <input type="color" id="me_message_color" value="#1289fe" name="blue">
+            <label for="gray">Outgoing message color</label>
+            <!-- <button onclick="change_me_message_color()" class="custom-btn btn-save">Update outgoing (blue) messages worskin</button> -->
+            <p class="blue_color_example" id="blue_color_example"> Example Text </p>
+
+            <br><br><br>
+            <input type="color" id="you_message_color" value="#e5e5ea" name="gray">
+            <label for="gray">Incoming message color</label>
+            <!-- <button onclick="change_you_message_color()" class="custom-btn btn-save">Update incoming (grey) messages worskin</button> -->
+            
+            <p class="gray_color_example" id="gray_color_example"> Example Text </p>
+        </div>
+        <br><br><br>
+        <div>
+            <button class="custom-btn btn-save" onclick="update_worksin_colors()">Update Workskin Colors</button>
+            <button class="custom-btn btn-del" onclick="reset_worksin_colors()">Reset Workskin Colors</button>
+        </div>
+        
+
+        <br>
+        <h4>Contents of your chat workskin</h4>
+        <button class="custom-btn btn-save" onclick="copy_raw_text_output('workskin_copy')"> Copy Workskin </button>
+        <div class="workskin_border">
+            <p id="workskin_copy" class="workskin_scrollable">
+                #workskin .hide {<br>
+                    display: none;<br>
+                }<br><br>
+                #workskin .header {<br>
+                    min-width: 300px;<br>
+                    padding-left: .5em;<br>
+                    padding-right: .5em;<br>
+                    background-color: #f6f6f6;<br>
+                    border-bottom: 1px solid #b2b2b2;<br>
+                    color: #000000;<br>
+                    font-weight: bold;<br>
+                    padding-bottom: .5em;<br>
+                    padding-top: .5em;<br>
+                    margin-left: -.5em;<br>
+                    margin-right: -.5em;<br>
+                    text-align: center;<br>
+                    text-transform: capitalize;<br>
+                    display: table;<br>
+                }<br>
+                <br><br>
+                #workskin .phone {<br>
+                    max-width: 300px;<br>
+                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;<br>
+                    display: table;<br>
+                }<br>
+                <br><br>
+                #workskin .messagebody {<br>
+                    width: 300px;<br>
+                    background-color: #FFFFFF;<br>
+                    display: table;<br>
+                    padding-left: .5em;<br>
+                    padding-right: .5em;<br>
+                }<br>
+                <br><br>
+                
+                #workskin .text {<br>
+                    float: left;<br>
+                    color: #000000;<br>
+                    margin: 0 0 0.5em;<br>
+                    border-radius: 1em;<br>
+                    padding: 0.5em 1em;<br>
+                    background: <span id="you_color">#e5e5ea</span>;<br>
+                    <!-- background: #e5e5ea;<br> -->
+                    max-width: 75%;<br>
+                    clear: both;<br>
+                    position: relative;<br>
+                }<br>
+                <br><br>
+                #workskin .text::after {<br>
+                    content: "";<br>
+                    position: absolute;<br>
+                    left: -.5em;<br>
+                    bottom: 0;<br>
+                    width: 0.5em;<br>
+                    height: 1em;<br>
+                    border-right: 0.5em solid <span id="you_tail_color">#e5e5ea</span>;<br>
+                    <!-- border-right: 0.5em solid #e5e5ea;<br> -->
+                    border-bottom-right-radius: 1em 0.5em;<br>
+                }<br>
+                <br><br>
+
+                #workskin .breply {<br>
+                    float: right;<br>
+                    color: #FFFFFF;<br>
+                    margin: 0 0 0.5em;<br>
+                    border-radius: 1em;<br>
+                    padding: 0.5em 1em;<br>
+                    background: <span id="me_color">#1289fe</span>;<br>
+                    <!-- background: #1289fe;<br> -->
+                    max-width: 75%;<br>
+                    clear: both;<br>
+                    position: relative;<br>
+                }<br>
+                <br><br>
+                #workskin .breply::after {<br>
+                    content: "";<br>
+                    position: absolute;<br>
+                    right: -0.5em;<br>
+                    bottom: 0;<br>
+                    width: 0.5em;<br>
+                    height: 1em;<br>
+                    border-left: 0.5em solid <span id="me_tail_color">#1289fe</span>;<br>
+                    <!-- border-left: 0.5em solid #1289fe;<br> -->
+                    border-bottom-left-radius: 1em 0.5em;<br>
+                }<br>
+                <br><br>
+                #workskin .greply {<br>
+                    float: right;<br>
+                    color: #FFFFFF;<br>
+                    margin: 0 0 0.5em;<br>
+                    border-radius: 1em;<br>
+                    padding: 0.5em 1em;<br>
+                    background: #35cb24;<br>
+                    max-width: 75%;<br>
+                    clear: both;<br>
+                    position: relative;<br>
+                }<br>
+                <br><br>
+                #workskin .greply::after {<br>
+                    content: "";<br>
+                    position: absolute;<br>
+                    right: -0.5em;<br>
+                    bottom: 0;<br>
+                    width: 0.5em;<br>
+                    height: 1em;<br>
+                    border-left: 0.5em solid #35cb24;<br>
+                    border-bottom-left-radius: 1em 0.5em;<br>
+                }<br>
+                <br><br>
+                #workskin .time {<br>
+                    min-width: 295px;<br>
+                    color: #7B7C80;<br>
+                    font-size: .75em;<br>
+                    padding-bottom: .5em;<br>
+                    padding-top: .5em;<br>
+                    margin-left: -.5em;<br>
+                    margin-right: -.5em;<br>
+                    margin-bottom: -.5em;<br>
+                    text-align: center;<br>
+                    display: table;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator {<br>
+                    background-color: <span id="you_typing_color">#e6e7ed</span>;<br>
+                    <!-- background-color: #e6e7ed; -->
+                    width: auto;<br>
+                    border-radius: 1em;<br>
+                    padding: .5em 1em;<br>
+                    display: table;<br>
+                    margin: 0 0 .5em;<br>
+                    position: relative;<br>
+                    overflow: hidden;<br>
+                    text-align: left;<br>
+                    clear: both;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator::before,<br>
+                #workskin .typing-indicator::after {<br>
+                    content: '';<br>
+                    position: absolute;<br>
+                    bottom: -2px;<br>
+                    left: -2px;<br>
+                    height: 12px;<br>
+                    width: 12px;<br>
+                    border-radius: 50%;<br>
+                    background-color: <span id="you_typing_color_after">#e6e7ed</span>;<br>
+                    <!-- background-color: #e6e7ed; -->
+                }<br>
+                <br><br>
+                #workskin .typing-indicator::after {<br>
+                    height: 6px;<br>
+                    width: 6px;<br>
+                    left: -6px;<br>
+                    bottom: -6px;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span {<br>
+                    height: 15px;<br>
+                    width: 15px;<br>
+                    float: left;<br>
+                    margin: 0 1px;<br>
+                    background-color: #9E9EA1;<br>
+                    display: block;<br>
+                    border-radius: 50%;<br>
+                    opacity: 0.4;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span {<br>
+                    height: .65em;<br>
+                    width: .65em;<br>
+                    float: left;<br>
+                    margin: .425em 0 .425em .25em;<br>
+                    margin-left: 0.25em;<br>
+                    background-color: #9e9ea1;<br>
+                    display: inline-block;<br>
+                    border-radius: 50%;<br>
+                    opacity: .5;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span:first-child {<br>
+                    margin-left: 0;<br>
+                }<br>
+
+                #workskin .typing-indicator span:nth-child(1) {<br>
+                    opacity: .85;<br>
+                }<br>
+                <br><br>
+                #workskin .typing-indicator span:nth-child(2) {<br>
+                    opacity: .65;<br>
+                }<br>
+                <br><br>
+                #workskin.names {<br>
+                    color: #7B7C80;<br>
+                    font-size: .75em;<br>
+                    padding-bottom: .5em;<br>
+                    padding-top: 0;<br>
+                    margin-left: .5em;<br>
+                    margin-bottom: -2.5em;<br>
+                    text-align: left;<br>
+                    display: table;<br>
+                    clear: both;<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator {<br>
+                background-color: <span id="me_typing_color">#1289fe</span>;<br>
+                <!-- background-color: #1289fe;<br> -->
+                width: auto;<br>
+                border-radius: 1em;<br>
+                padding: .5em 1em;<br>
+                display: table;<br>
+                margin: 0 0 .5em;<br>
+                position: relative;<br>
+                overflow: hidden;<br>
+                text-align: left;<br>
+                clear: both;<br>
+                float: right;<br>
+                max-width: 75%;<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator::before,<br>
+                .me_typing-indicator::after {<br>
+                content: '';<br>
+                position: absolute;<br>
+                bottom: -2px;<br>
+                left: -2px;<br>
+                height: 12px;<br>
+                width: 12px;<br>
+                border-radius: 50%;<br>
+                background-color: <span id="me_typing_color_after">#1289fe</span>;<br>
+                <!-- background-color: #1289fe;<br> -->
+                }<br>
+                <br><br>
+                .me_typing-indicator::after {<br>
+                height: 6px;<br>
+                width: 6px;<br>
+                left: -6px;<br>
+                bottom: -6px;<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span {<br>
+                height: 15px;<br>
+                width: 15px;<br>
+                float: left;<br>
+                margin: 0 1px;<br>
+                background-color: #9E9EA1;<br>
+                display: block;<br>
+                border-radius: 50%;<br>
+                opacity: 0.4;<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span {<br>
+                height: .65em;<br>
+                width: .65em;<br>
+                margin: .425em 0 .425em .25em;<br>
+                margin-left: 0.25em;<br>
+                background-color: #9e9ea1;<br>
+                display: inline-block;<br>
+                border-radius: 50%;<br>
+                opacity: .5;<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span:first-child {<br>
+                margin-left: 0;<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span:nth-child(1) {<br>
+                opacity: .85;<br>
+                }<br>
+                <br><br>
+                .me_typing-indicator span:nth-child(2) {<br>
+                opacity: .65;<br>
+                }<br>
+                <br><br>
+                
+                .me_readreceipt {<br>
+                color: #7B7C80;<br>
+                font-size: .75em;<br>
+                float: right;<br>
+                position: relative;<br>
+                clear: both;<br>
+                margin: -.75em -1.25em 0.5em 0;<br>
+                padding: 0 1em 0.5em;<br>
+                }<br><br>
+
+                .you_readreceipt {<br>
+                color: #7B7C80;<br>
+                font-size: .75em;<br>
+                float: left;<br>
+                position: relative;<br>
+                clear: both;<br>
+                margin: -.75em -1.25em 0.5em 0;<br>
+                padding: 0 1em 0.5em;<br>
+                }<br><br>
+
+
+
+
+            </p>
+        </div>
+    <div>
+
+    </div>
+
+    <br>
+</main>
+    <footer>
+        <b>Credits:</b><br>
+        <p>
+            Who am I? Here's my <a href="https://github.com/baju-codes">Github page</a> and a <a href="https://www.tumblr.com/prettyficator">Tumblr page</a> for this website!<br>
+            Come say hi!
+        </p>
+        <p>
+           The original workskin (and by extension some of my css code blocks) adapted for the fancy text messages was created by CodenameCarrot and La_Temperanza on <a href="https://archiveofourown.org/works/6434845/chapters/14729722">AO3!</a>
+        </p>    
+        <p>
+            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!
+        </p>
+        <p>
+            If you use this website in the creation of your stories, please, please, please, link the website in the notes! Thank you :)
+        </p>
+        <p>Now go forth and create! :D</p>
+    </footer>
+
+
+
+
+<script src="script_fancy.js"></script>
+
+</body>
+</html>

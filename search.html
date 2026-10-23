@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Make nice looking chat conversations from plain text to be interted into your AO3 fanfiction or other creative works. Website provides both HTML and associated workskin necesary.">
-    <title>Chat Message Creator for Fanfiction</title>
+    <title>The PrettyFICator</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
-    <!-- <link rel="stylesheet" href="index2-styles.css">-->
+    <!-- <link rel="stylesheet" href="style_fancy.css">-->
     <link rel="stylesheet" href="search-styles.css">
     <link rel="stylesheet" href="overall.css">
-    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="style_simple.css">
 
     <title>Document</title>
 </head>
@@ -23,8 +23,8 @@
                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
             </svg>
         </a>
-        <div class="spacer"></div>
-        <h3 class="header-child">Welcome to the Chat Message Creator </h3>
+        <div class="spacer"></div> 
+        <h3 class="header-child">Welcome to the PrettyFICator! </h3>
         <div class="spacer"></div>
         <hr>
     </header>
@@ -43,8 +43,12 @@
             <button class="custom-btn btn-ex" onclick="toggle_search_stats_ex()">Adding Search Statistics</button>
             <button class="custom-btn btn-ex" onclick="toggle_workskin_ex()">What's a workskin? </button>
             <div id="general_search_ex" class="examples">
-                <p>Let's say we keep search engine at default. In the search box, we want to have the query "Who" and we want the search's autocomplete sugestions to give the following two options: "Who is the Doctor?" and "Who is the man in the blue police box?"</p>
-                <p>So we will write "Who" into the text field labled 'search box'. We will keep the 'did you mean' text field empty, and into the 'Autocomplete answers' text box, we will write just the text we want to go after the search query. We will also separate each autocomplete sugestion with an enter. (ie: we will type "is the Doctor?", we will hit enter and then type "is the man in the blue police box?")</p>
+                <p>
+                    Let's say we keep search engine at default. In the search box, we want to have the query "Who" and we want the search's autocomplete sugestions to give the following two options: "Who is the Doctor?" and "Who is the man in the blue police box?"
+                </p>
+                <p>
+                    So we will write "Who" into the text field labled 'search box'. We will keep the 'did you mean' text field empty, and into the 'Autocomplete answers' text box, we will write just the text we want to go after the search query. We will also separate each autocomplete sugestion with an enter. (ie: we will type "is the Doctor?", we will hit enter and then type "is the man in the blue police box?")
+                </p>
                 <p>Submitting the form</p>
 
 
@@ -64,8 +68,10 @@
 
             </div>
             <div id="dym_ex" class="examples">
-                You can add a <span class="search_dym1">Did you mean: </span><span class="search_dym2">Corrections of spelling</span>. These show up underneath the search query and the autocomplete sugestions if there are any. You do this by typing the correction into the "Did you mean" text box.<br>
-                For example, the query "Melody Pond" and the Did You Mean "River Song" <br>
+                <p>
+                    You can add a <span class="search_dym1">Did you mean: </span><span class="search_dym2">Corrections of spelling</span>. These show up underneath the search query and the autocomplete sugestions if there are any. You do this by typing the correction into the "Did you mean" text box.
+                </p>
+                <p>For example, the query "Melody Pond" and the Did You Mean "River Song" </p>
 
 
                 <div class="display_side_by_side">
@@ -81,8 +87,12 @@
 
             </div>
             <div id="search_stats_ex" class="examples">
-                You can add <span class="search_stats">Search Statitistics</span>. These show up underneath the search query and the dydy you mean and autocomplete sugestions if there are any. You do this by typing the text of the search statistics into the "Search Statistics" text box.<br>
-                For example, the query "Melody Pond", the Did You Mean "River Song" and the search statitic "About 2000 results (in 0.2 seconds)"<br>
+                <p>
+                    You can add <span class="search_stats">Search Statitistics</span>. These show up underneath the search query and the dydy you mean and autocomplete sugestions if there are any. You do this by typing the text of the search statistics into the "Search Statistics" text box.
+                </p>
+                <p>
+                    For example, the query "Melody Pond", the Did You Mean "River Song" and the search statitic "About 2000 results (in 0.2 seconds)"
+                </p>
 
                 <div class="display_side_by_side">
                         <div class="display_side_by_side_child">
@@ -99,14 +109,28 @@
 
             </div>
             <div id="custom_search_ex" class="examples">
-                The generator supports three preset search engines and a custom one. The presets have their look already defined. For the custom search, you can specify the name (what text will apear on top of the search bar) using the "Custom Search Engine name" textbox and the color with the color picker. (These two inputs apear only when you select a custom search engine)<br>
-                Please note that the color of the custom search engine is coded into the workskin. This means two things: 1) You can't have multiple custom search engines within one work unless they all have the same color (or unless you change the workskin and the html a bit). 2) Any time you change the color of the custom search engine, you will have to update the workskin on AO3.<br>
-                This also means that if you keep the same color, or you are not using the custom search engine, you do not need to update your workskin on AO3 and can use it for multiple works. (ie: the workskin provided when you submit the form already has the code for the three default search engines).
+                <p>
+                    The creator supports three preset search engines and a custom one. The presets have their look already defined. For the custom search, you can specify the name (what text will apear on top of the search bar) using the "Custom Search Engine name" textbox and the color with the color picker. (These two inputs apear only when you select a custom search engine)
+                </p>
+                <p>
+                    Please note that the color of the custom search engine is coded into the workskin. This means two things: <br>
+                    1) You can't have multiple custom search engines within one work unless they all have the same color (or unless you change the workskin and the html a bit).<br>
+                    2) Any time you change the color of the custom search engine, you will have to update the workskin on AO3.
+                </p>
+                <p>
+                    This also means that if you keep the same color, or you are not using the custom search engine, you do not need to update your workskin on AO3 and can use it for multiple works. (ie: the workskin provided when you submit the form already has the code for the three default search engines).
+                </p>
             </div>
             <div id="workskin_ex" class="examples">
-            A workskin is AO3's way of implementing styles. It can be used to show text in different fonts, to change how your fic looks, and, in our case, it is used to make the search engine look like the preview instead of raw code.<br>
-            Wen you submit the form, you will see the code you have to paste into your AO3 workskin. To create a skin, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!<br>
-            When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the HTML text from above into the "HTML" text editor.
+            <p>
+                A workskin is AO3's way of implementing styles. It can be used to show text in different fonts, to change how your fic looks, and, in our case, it is used to make the search engine look like the preview instead of raw code.
+            </p> 
+            <p>
+                Wen you submit the form, you will see the code you have to paste into your AO3 workskin. To create a skin, you will go to your AO3 dashboard, click on the button "skins", then "my work skins" and "create work skin". There, you will copy all the code below. You can also add this code to an existing workskin by editing it!
+            </p>
+            <p>
+                When you want to apply the workskin to a particular work, you will select the workskin (the last field in the "Associations" part of the work creation) and then copy the HTML text from above into the "HTML" text editor.
+            </p>
             </div>
 
     </div>
@@ -292,18 +316,26 @@
 
     <div>
 </main>
+    
     <footer>
+        <b>Credits:</b><br>
         <p>
-            <b>Credits:</b><br>
-            Who am I? <a href="https://github.com/baju-codes">Here's my Github page!</a>
-            The original workskin (and by extension my css code) adapted for the Search Engine was created by gadaursan on <a href="https://archiveofourown.org/works/8631214">AO3!</a><br>
-            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!<br> 
+            Who am I? Here's my <a href="https://github.com/baju-codes">Github page</a> and a <a href="https://www.tumblr.com/prettyficator">Tumblr page</a> for this website!<br>
+            Come say hi!
+        </p>
+        <p>
+           The original workskin (and by extension my css code) adapted for the Search Engine was created by gadaursan on <a href="https://archiveofourown.org/works/8631214">AO3!</a>
+        </p>    
+        <p>
+            I would like to thank SinglePaper for all of his help. Please go check out his <a href="https://github.com/SinglePaper">Github<a>, he makes some really really cool things!
         </p>
         <p>
             If you use this website in the creation of your stories, please, please, please, link the website in the notes! Thank you :)
         </p>
         <p>Now go forth and create! :D</p>
     </footer>
+
+
     </div>
 
 <script src="search_stript.js"></script>

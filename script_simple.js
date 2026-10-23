@@ -1,0 +1,302 @@
+const names_output = document.getElementById("names_output")
+const text_output = document.getElementById("text_output")
+const raw_text_output = document.getElementById("raw_text_output")
+const error_output = document.getElementById("error_output")
+const names_dict = new Map()
+
+
+
+
+function save_name_user() {
+    names_output.replaceChildren()
+    let person_name = document.getElementById("add_name").value
+    let uper_name = person_name.charAt(0).toUpperCase() + person_name.slice(1).toLowerCase();
+    let user = document.getElementById("add_user").value
+    names_dict.set(uper_name, user)
+    console.log(names_dict)
+    for(let [key, value] of names_dict){
+        var del_id = toString(names_dict.get(key))
+        names_output.insertAdjacentHTML("afterbegin", `<p> Name: ${key}, username: ${value} </p>`)
+    }
+    clear_names_dict()
+}
+
+function clear_names_dict(){
+    document.getElementById("add_name").value = ""
+    document.getElementById("add_user").value = ""
+}
+
+function del_one_name() {
+    names_output.replaceChildren()
+    let del_name = document.getElementById("del_name").value
+    let uper_del_name = del_name.charAt(0).toUpperCase() + del_name.slice(1).toLowerCase();
+    names_dict.delete(uper_del_name)
+    for(let [key, value] of names_dict){
+        var del_id = toString(names_dict.get(key))
+        names_output.insertAdjacentHTML("afterbegin", `<p> Name: ${key}, username: ${value} </p>`)
+        document.getElementById("del_name").value = ""
+    }
+    document.getElementById("del_name").value = ""
+}
+
+function del_all_names(){
+    names_output.replaceChildren()
+    names_dict.clear()
+    console.log(names_dict)
+    document.getElementById("del_name").value = ""
+}
+
+function is_name_in_dict(person_name){
+    //console.log(names_dict.has(person_name))
+    let uper_name = person_name.charAt(0).toUpperCase() + person_name.slice(1).toLowerCase();
+    return names_dict.has(uper_name)
+}
+
+function get_user(person_name){
+    let uper_name = person_name.charAt(0).toUpperCase() + person_name.slice(1).toLowerCase();
+    return names_dict.get(uper_name)
+}
+
+
+let text_back = []
+// messagess handling
+function submit_text(){
+    text_back = []
+    let text_body = document.getElementById("text_area").value
+    let text_processed = ""
+    text_processed = text_body
+    //if something's in the textbox:
+    if (text_processed !== ''){
+        //split it by new line characters into indivisual messages
+        let messages = text_processed.split("\n")
+        // for each message, split it itno name and text
+        for(let message of messages){
+            if (message === ''){
+                continue
+            }
+            let name_and_text = message.split(":")
+            // if no name is provided, break
+            if (name_and_text.length < 2){
+                console.log("Proved valid message in the form of 'name:text'")
+                let type = "error"
+                let message = "Proved valid message in the form of 'name:text'"
+                text_back.push([type, message])
+                show_messages()
+                break
+            } else{
+                let n = name_and_text[0]
+                let message = name_and_text.slice(1).join(":").trim()
+                // find out if message is a normal message or a reply
+                let raw_rep_names = n.split(",")
+                let rep_names = []
+                for(let name of raw_rep_names){
+                    rep_names.push(name.trim())
+                }
+                console.log(raw_rep_names)
+                console.log(rep_names)
+                //if normal message:
+                if(rep_names.length === 1){
+                    
+                    //see if name exists in dictionary
+                    let temp = is_name_in_dict(rep_names[0])
+
+                    //handling of time
+                    if(rep_names == "time" | rep_names == "Time"){
+                        let type = "time"
+                        text_back.push([type, message])
+                    }
+                    //handling of read indicator
+                    else if(rep_names == "read" | rep_names == "Read"){
+                        let type = "read"
+                        text_back.push([type, message])
+                    }
+                    //handling of delivered indicator
+                    else if(rep_names == "delivered" | rep_names == "Delivered"){
+                        let type = "delivered"
+                        text_back.push([type, message])
+                    }
+
+                    
+                    // if name not in dictionary break
+                    else if (temp === false){
+                    console.log(`Name "${rep_names[0]}" does not exist in your current list of names`)
+                    let type = "error"
+                    let message = `Name "${rep_names[0]}" does not exist in your current list of names`
+                    text_back.push([type, message])
+                    show_messages()
+                    break
+                    } 
+                    //typing handling
+                    else if(message.toLowerCase() === "typing"){
+                        let type = "typing"
+                        let user = get_user(rep_names[0])
+                        text_back.push([type, user])
+                    }
+                    else{
+                        // if name is in dictionary: log the thing as a message and save it
+                        let type = "message"
+                        let user = get_user(rep_names[0])
+                        text_back.push([type, user, message])
+                    }
+                //if message has two names, it's a reply
+                }else if(rep_names.length === 2){
+                    // see if the two names are in a dictionary
+                    let temp1 = is_name_in_dict(rep_names[0])
+                    let temp2 = is_name_in_dict(rep_names[1])
+                    //if they aren't break
+                    if (temp1 === false){
+                        console.log(`Name "${rep_names[0]}" does not exist in your current list of names`)
+                        let type = "error"
+                        let message = `Name "${rep_names[0]}" does not exist in your current list of names`
+                        text_back.push([type, message])
+                        show_messages()
+                        break
+                    } else if(temp2 === false){
+                        console.log(`Name "${rep_names[1]}" does not exist in your current list of names`)
+                        let type = "error"
+                        let message = `Name "${rep_names[1]}" does not exist in your current list of names`
+                        text_back.push([type, message])
+                        show_messages()
+                        break
+                    // if they are, log the message as a reply and save it
+                    } else{
+                        let type = "reply"
+                        let author = get_user(rep_names[0])
+                        let receiver = get_user(rep_names[1])
+                        text_back.push([type, author, receiver, message])
+                    }
+                } else{
+                    console.log("Text has too many specified names")
+                    let type = "error"
+                    let message = "Text has too many specified names"
+                    text_back.push([type, message])
+                }
+            }
+        }
+    } 
+    console.log(text_back)
+    show_messages(text_back)
+}
+function clear_text(){
+    //var text_body = document.getElementById("text_area").value == ""
+    document.getElementById("text_area").value = ''
+    text_back = []
+    text_output.replaceChildren()
+    raw_text_output.replaceChildren()
+    error_output.replaceChildren()
+}
+function show_messages(message_log){
+    text_output.replaceChildren()
+    raw_text_output.replaceChildren()
+    error_output.replaceChildren()
+    let preview = ""
+    let raw = ""
+    for(let message of text_back){
+        if(message[0] == "error"){
+            error_output.insertAdjacentHTML("afterBegin", `<b>Warning, text is incomplete due to an error! ${message[1]}</b>`)
+            // preview += `<b>${message[1]}</b>`
+            // preview += "<br>"
+        }
+        //typing handling
+        else if(message[0] == "typing"){
+            preview += `<b>${message[1]}</b> is typing...`
+            preview += "<br>"
+            raw = `<p><b>${message[1]}</b> is typing</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //redreciept handling
+        else if(message[0] == "read"){
+            preview += `<b>Read at:</b> ${message[1]}`
+            preview += "<br>"
+            raw = `<p><b>Read at:</b> ${message[1]}</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //deliveredreciept handling
+        else if(message[0] == "delivered"){
+            preview += `<b>Delivered at:</b> ${message[1]}`
+            preview += "<br>"
+            raw = `<p><b>Delivered at:</b> ${message[1]}</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //time handling
+        else if(message[0] == "time"){
+            preview += `${message[1]}`
+            preview += "<br>"
+            raw = `<p>${message[1]}</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //regular message handling
+        else if(message[0] === "message"){
+            preview += `<b>${message[1]}</b>: ${message[2]}`
+            preview += "<br>"
+            raw = `<p><b>${message[1]}</b>: ${message[2]}</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+        //reply handling
+        else if((message[0] === "reply")){
+            preview += `<b>${message[1]}</b> replied to <b>${message[2]}</b>: ${message[3]}`
+            preview += "<br>"
+            raw = `<p><b>${message[1]}</b> replied to <b>${message[2]}</b>: ${message[3]}</p>`
+            raw_text_output.insertAdjacentText("beforeEnd", `${raw}`)
+            raw_text_output.insertAdjacentHTML("beforeEnd", "<br>")
+        }
+    }
+    text_output.insertAdjacentHTML("afterbegin", `<p> ${preview}</p>`)
+}
+
+function copy_raw_text_output(id){
+    var r = document.createRange()
+    r.selectNode(document.getElementById(id))
+    window.getSelection().removeAllRanges()
+    window.getSelection().addRange(r)
+    document.execCommand('copy')
+    window.getSelection().removeAllRanges()
+}
+
+
+function toggle_explain(){
+    var x = document.getElementById("explain")
+    if (x.style.display === "none") {
+        x.style.display = "block"
+    } else {
+        x.style.display = "none"
+    }
+}
+
+
+function toggle_ex(){
+    var x = document.getElementById("ex")
+    var y = document.getElementById("more_ex")
+    y.style.display = "none"
+    if (x.style.display === "block") {
+        x.style.display = "none"
+    } else {
+        x.style.display = "block"
+    }
+}
+
+function toggle_more_ex(){
+    var x = document.getElementById("ex")
+    var y = document.getElementById("more_ex")
+    x.style.display = "none"
+    if (y.style.display === "block") {
+        y.style.display = "none"
+    } else {
+        y.style.display = "block"
+    }
+}
+
+function toggle_name_ex(){
+    var x = document.getElementById("name_ex")
+    if (x.style.display === "block") {
+        x.style.display = "none"
+    } else {
+        x.style.display = "block"
+    }
+}
+
